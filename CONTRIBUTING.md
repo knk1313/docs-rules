@@ -29,12 +29,14 @@ Issueを立てる前に、以下を確認してください。
 
 | ラベル | 意味 |
 | --- | --- |
-| `claude: design` | 設計案をIssueにコメントする。完了後 `claude: done` に変更する |
+| `claude: design` | 設計案をIssueにコメントする。完了後 `claude: design` を外して `claude: review` を付ける |
+| `claude: review` | 設計案が付き、人間の確認待ち。確認したら `claude: review` を外して `claude: implement` を付ける |
 | `claude: implement` | 実装してPRを作成する。完了後 `claude: done` に変更する |
-| `claude: needs-info` | 要件不明・失敗などで追加情報が必要。人間が補足してから再度ラベルを付け直す |
+| `claude: needs-info` | 要件があいまいで進められないとき、または処理に失敗したとき。人間が補足してから再度ラベルを付け直す |
 | `claude: done` | 処理完了済み |
 
 - `design` と `implement` の両方が付いている場合は `design` として処理する
+- 流れ: `design` → `review` → `implement` → `done`
 
 ## ブランチ運用
 
