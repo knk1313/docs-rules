@@ -14,7 +14,7 @@
 | rules | 自分の文章でルールに書き直して `rules/` に置く。原文は置かない |
 | prompts | AI 評価・書き直し用のプロンプトの観点として使う |
 | evaluators | コードで判定する。既存実装があれば参考にする |
-| 参照のみ | リポジトリには何も置かず、出典として名前と URL だけを挙げる |
+| 参照のみ | リポジトリに原文は置かず、出典として名前と URL だけを挙げる。「採用」かつ「参照のみ」は、根拠として使うが文章は置かないことを表す |
 
 ### 担当する層
 
@@ -37,7 +37,7 @@
 | --- | --- | --- | --- | --- |
 | 公用文作成の考え方（文化審議会建議） | 採用 | rules / prompts | 文部科学省ウェブサイト利用規約（CC BY 4.0 互換） | 表記・文体・構成 |
 | 常用漢字表・送り仮名の付け方・外来語の表記（内閣告示） | 採用 | rules / evaluators | 告示のため著作権の目的とならない（著作権法第13条） | 表記 |
-| JTF 日本語標準スタイルガイド（日本翻訳連盟） | 採用 | rules / evaluators | CC BY 4.0（第3.0版から） | 表記 |
+| JTF 日本語標準スタイルガイド（日本翻訳連盟） | 採用 | rules / evaluators | CC BY 4.0（第3.0版から。基準は第4.0版） | 表記 |
 | 日本語スタイルガイド（テクニカルコミュニケーター協会） | 参照のみ | 参照のみ | 市販書籍のため転載不可 | 文体・構成 |
 | Microsoft 日本語スタイルガイド | 参照のみ | 参照のみ | 利用・転載条件を確認できず | 表記・文体 |
 | textlint preset-ja-technical-writing | 採用 | evaluators | MIT | 表記・文体 |
@@ -46,7 +46,7 @@
 | markdownlint | 採用 | evaluators | MIT | 構成（Markdown 記法） |
 | CommonMark Spec | 採用 | 参照のみ | CC BY-SA 4.0 | 構成（Markdown 記法） |
 | Google Developer Documentation Style Guide | 採用 | prompts / 参照のみ | CC BY 4.0（サンプルコードは Apache 2.0） | 構成・内容 |
-| Diátaxis | 採用 | prompts / 参照のみ | サイト上にライセンス表記なし（著作権表示のみ） | 構成 |
+| Diátaxis | 採用 | prompts / 参照のみ | CC BY-SA 4.0（GitHub リポジトリの README に記載） | 構成 |
 | 記者ハンドブック（共同通信社）、NHK 漢字表記辞典など | 参照のみ | 参照のみ | 市販書籍のため転載不可 | 表記 |
 
 ## 候補ごとの判断
@@ -70,6 +70,7 @@
 - 判断: 採用。表記ルールが項目化されており、機械判定に向く
 - 取り込み方: 項目を `rules/` に書き直す。textlint preset-jtf-style が同ガイドをコード化しているため、`evaluators/` はそれを参考にする
 - ライセンス: 公式ページによると、第3.0版から CC BY 4.0。原文の抜粋を置く場合は出典と改変の有無を示す
+- 版: 最新は第4.0版（2026年7月25日）。ルールの出典には第4.0版を使い、版数を併記する
 - 注意: 翻訳者向けのガイドのため、翻訳に固有の項目は取り込まない
 
 ### 日本語スタイルガイド（テクニカルコミュニケーター協会）
@@ -99,7 +100,7 @@
 
 - 判断: 採用。英語の資料だが、文書の型と構成の考え方を `schemas/` と `prompts/` の参考にする
 - 取り込み方: 文書種別ごとの構成の考え方（Diátaxis のチュートリアル・ハウツー・リファレンス・解説の4分類など）を、日本語の文書種別に合わせて書き直す。英語の文体ルールは取り込まない
-- ライセンス: Google のガイドは CC BY 4.0（サンプルコードは Apache 2.0）。Diátaxis はサイト上に著作権表示のみでライセンスの記載がないため、考え方の参照に留め、文章は置かない
+- ライセンス: Google のガイドは CC BY 4.0（サンプルコードは Apache 2.0）。Diátaxis はサイト上にライセンスの記載がないが、GitHub リポジトリの README に CC BY-SA 4.0 と明記されている。原文を置くと同じライセンスでの公開が必要になるため、CommonMark と同様に考え方の参照に留め、文章は置かない
 
 ### 書籍ベースの規約
 
@@ -142,3 +143,4 @@
 - [CommonMark Spec](https://spec.commonmark.org/)
 - [Google Developers「Site Policies」](https://developers.google.com/site-policies)
 - [Diátaxis](https://diataxis.fr/)
+- [evildmp/diataxis-documentation-framework（ライセンス記載）](https://github.com/evildmp/diataxis-documentation-framework)
