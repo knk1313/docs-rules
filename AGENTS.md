@@ -22,6 +22,6 @@
 ## 規約
 
 - **コミットメッセージ**: 日本語。機能追加は `feat:` などの prefix を付ける。
-- **Issue**: `.github/ISSUE_TEMPLATE/` のテンプレート (`機能追加.md` / `バグ修正.md`) のいずれかを選び、その見出し構成のまま全項目を埋める。調査タスクは `機能追加.md` を使う。
+- **Issue**: タイトルに PR と同じ種別 prefix (`feat` / `fix` / `refactor` / `perf` / `chore` / `docs` / `test`) を付ける。本文は `.github/ISSUE_TEMPLATE/` のテンプレート (`機能追加.md` / `バグ修正.md`) のいずれかを選び、その見出し構成のまま全項目を埋める。調査タスクは `機能追加.md` を使う。
 - **PR**: `.github/pull_request_template.md` の見出し構成のまま全項目を埋める。
 - **Pythonコードのコメント・ドキュメント文字列**: 日本語で記述する。
