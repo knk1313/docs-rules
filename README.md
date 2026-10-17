@@ -3,7 +3,7 @@
 ## ディレクトリ構成
 
 ```
-.
+docs-rules/
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md
