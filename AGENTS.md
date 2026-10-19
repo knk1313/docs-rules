@@ -25,3 +25,4 @@
 - **Issue**: タイトルに PR と同じ種別 prefix (`feat` / `fix` / `refactor` / `perf` / `chore` / `docs` / `test`) を付ける。本文は `.github/ISSUE_TEMPLATE/` のテンプレート (`機能追加.md` / `バグ修正.md`) のいずれかを選び、その見出し構成のまま全項目を埋める。調査タスクは `機能追加.md` を使う。`claude:` ラベルによる処理依頼の運用は [CONTRIBUTING.md](CONTRIBUTING.md) の「Issueラベル」に従う。
 - **PR**: `.github/pull_request_template.md` の見出し構成のまま全項目を埋める。
 - **Pythonコードのコメント・ドキュメント文字列**: 日本語で記述する。
+- **日本語の文章**: このリポジトリで書く Markdown、Issue、PR、コミットメッセージの日本語は、`skills/docs-rules/rules/` のルール（禁止語・文法・表記）に従う。ルール集自身がルールに反していないかも同じ基準で見る。
