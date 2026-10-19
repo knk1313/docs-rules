@@ -1,6 +1,6 @@
 # 日本語文書規約の一次資料調査
 
-`skills/docs-rules/` の rules / schemas / prompts / evaluators に書くルールの根拠とする一次資料を決めるための調査結果。対応 Issue は #1。
+`skills/docs-rules/` の rules / schemas / prompts / evaluators に書くルールの根拠とする一次資料を決めるための調査結果。対応 Issue は #1。 スキル単体で配布しても出典を辿れるよう、`skills/docs-rules/references/` に置く。
 
 調査日は 2026-10-17。ライセンスと版は調査時点の公式ページの記載に基づく。取り込む前に、各資料の本体に書かれた著作権表示を改めて確認する。
 
