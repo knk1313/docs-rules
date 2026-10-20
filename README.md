@@ -2,18 +2,27 @@
 
 ## ディレクトリ構成
 
-```
+現状のリポジトリに実在するファイルとディレクトリです。これから作るものは、[ロードマップ](#ロードマップ)の「目指す構成」に載せています。
+
+```text
 docs-rules/
+├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
+├── docs/                   # 価値仮説と価値提案キャンバス
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md
-│       ├── rules/          # Markdown記法、文体、表記などの共通ルール
+│       ├── references/     # ルールの出典となる資料の一覧
+│       ├── rules/          # 文体、表記などの共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
-│       ├── templates/      # 用途別の文書テンプレート
-│       ├── prompts/        # 生成・評価・修正に使用するプロンプト
-│       └── evaluators/     # コードおよびAIによる評価処理
-└── tests/                  # 期待する生成例と回帰テスト
+│       └── templates/      # 用途別の文書テンプレート
+├── AGENTS.md               # AI エージェント向けの禁止事項と規約
+├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
+├── CONTRIBUTING.md         # Issue と PR の出し方
+├── LICENSE
+└── README.md
 ```
+
+Issue を完了してファイルやディレクトリが増減したときは、その PR でこのツリーも更新します。
 
 ## インストール
 
@@ -58,6 +67,24 @@ flowchart TD
 
     S1 --> S2 --> S3 --> S4
     S4 -->|"基準を満たすまで繰り返す"| S2
+```
+
+### 目指す構成
+
+Step 4 まで揃ったときのディレクトリ構成です。現状の構成は[ディレクトリ構成](#ディレクトリ構成)を参照してください。
+
+```text
+docs-rules/
+├── skills/
+│   └── docs-rules/
+│       ├── SKILL.md
+│       ├── references/     # ルールの出典となる資料の一覧
+│       ├── rules/          # Markdown記法、文体、表記などの共通ルール
+│       ├── schemas/        # 必須セクションや文書構造の定義
+│       ├── templates/      # 用途別の文書テンプレート
+│       ├── prompts/        # 生成・評価・修正に使用するプロンプト
+│       └── evaluators/     # コードおよびAIによる評価処理
+└── tests/                  # 期待する生成例と回帰テスト
 ```
 
 ## 利用条件
