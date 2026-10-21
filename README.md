@@ -23,7 +23,7 @@ docs-rules/
 └── README.md
 ```
 
-Issue を完了してファイルやディレクトリが増減したときは、その PR でこのツリーも更新します。
+Issueを完了してファイルやディレクトリが増減したときは、そのPRでこのツリーも更新します。
 
 ## インストール
 
@@ -38,19 +38,19 @@ git clone https://github.com/knk1313/docs-rules.git
 cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
 ```
 
-Claude Code を再起動すると読み込まれます。
+Claude Codeを再起動すると読み込まれます。
 
 ### 2. `npx skills add`
 
-GitHub から直接入れます。
+GitHubから直接入れます。
 
 ```bash
 npx skills add knk1313/docs-rules
 ```
 
-### 3. Claude Code プラグイン
+### 3. Claude Codeプラグイン
 
-Claude Code のセッション内で実行します。
+Claude Codeのセッション内で実行します。
 
 ```
 /plugin marketplace add knk1313/docs-rules
@@ -72,7 +72,7 @@ flowchart TD
 
 ### 目指す構成
 
-Step 4 までそろったときのディレクトリ構成です。現状の構成は[ディレクトリ構成](#ディレクトリ構成)を参照してください。
+Step 4までそろったときのディレクトリ構成です。現状の構成は[ディレクトリ構成](#ディレクトリ構成)を参照してください。
 
 ```text
 docs-rules/
@@ -90,16 +90,16 @@ docs-rules/
 
 ## 利用条件
 
-本リポジトリは MIT ライセンスで公開しています。全文は [LICENSE](LICENSE) を参照してください。文書とコードでライセンスを分けていません。
+本リポジトリはMITライセンスで公開しています。全文は[LICENSE](LICENSE)を参照してください。文書とコードでライセンスを分けていません。
 
-ただし、`skills/docs-rules/rules/` の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
+ただし、`skills/docs-rules/rules/`の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
 
 | 資料 | 資料の利用条件 | 本リポジトリでの扱い |
 | --- | --- | --- |
-| [公用文作成の考え方](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)（文化審議会建議、令和4年1月7日） | [文部科学省ウェブサイト利用規約](https://www.mext.go.jp/b_menu/1351168.htm)（CC BY 4.0 互換） | 文化庁の資料を基に、自分の文章で書き直して編集・加工しています |
-| [JTF 日本語標準スタイルガイド](https://www.jtf.jp/tips/styleguide) 第4.0版（日本翻訳連盟） | CC BY 4.0 | 自分の文章で書き直して編集・加工しています |
+| [公用文作成の考え方](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)（文化審議会建議、令和4年1月7日） | [文部科学省ウェブサイト利用規約](https://www.mext.go.jp/b_menu/1351168.htm)（CC BY 4.0互換） | 文化庁の資料を基に、自分の文章で書き直して編集・加工しています |
+| [JTF日本語標準スタイルガイド](https://www.jtf.jp/tips/styleguide)第4.0版（日本翻訳連盟） | CC BY 4.0 | 自分の文章で書き直して編集・加工しています |
 | 常用漢字表・送り仮名の付け方・外来語の表記（内閣告示） | 著作権法第13条により、権利の目的となりません | 告示の内容を、表記ルールの根拠と判定データに使います |
 
 - 上の資料の作成元は、本リポジトリの作成や内容に関わっていません。本リポジトリのルールは、作成元の見解を示すものではありません
-- 今後 `rules/` に取り込む資料は、[references/reference-sources.md](skills/docs-rules/references/reference-sources.md) のライセンス欄に従い、出典の表示を保ちます
-- CC BY-SA 4.0 の資料（CommonMark Spec、Diátaxis）は、考え方の参照にとどめ、文章をリポジトリに置きません
+- 今後`rules/`に取り込む資料は、[references/reference-sources.md](skills/docs-rules/references/reference-sources.md)のライセンス欄に従い、出典の表示を保ちます
+- CC BY-SA 4.0の資料（CommonMark Spec、Diátaxis）は、考え方の参照にとどめ、文章をリポジトリに置きません

@@ -1,9 +1,9 @@
-## 👏 解決する issue / Resolved Issues
+## 👏 解決するissue / Resolved Issues
 
 - close #0
 - close #0
 
-## 📝 関連する issue / Related Issues
+## 📝 関連するissue / Related Issues
 
 - #0
 - #0
