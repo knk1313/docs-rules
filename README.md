@@ -6,6 +6,7 @@
 
 ```text
 docs-rules/
+├── .claude-plugin/         # Claude Code プラグインとマーケットプレイスのマニフェスト
 ├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
 ├── docs/                   # 価値仮説と価値提案キャンバス
 ├── skills/

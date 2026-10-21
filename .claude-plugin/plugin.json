@@ -1,0 +1,9 @@
+{
+  "name": "docs-rules",
+  "description": "日本語の文書を、共通の表記・文体ルールと文書種別ごとの構成に沿って書くためのスキル",
+  "author": {
+    "name": "Yuta Kondo"
+  },
+  "repository": "https://github.com/knk1313/docs-rules",
+  "license": "MIT"
+}

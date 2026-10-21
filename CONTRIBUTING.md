@@ -43,6 +43,40 @@ Issueを立てる前に、以下を確認する。
 - **`main`**: 常に動作する状態を保つ。リリース相当のブランチ
 - 作業ブランチは `feat/xxx`, `fix/xxx`, `chore/xxx` のように種別をprefixする
 
+## プラグイン配布の検証
+
+`.claude-plugin/` やスキルの置き場所を変えたときは、PR を出す前に次の手順で、プラグインとして読み込めるかを確かめる。リポジトリのルートで実行する。
+
+1. マニフェストを検証する
+
+   ```bash
+   claude plugin validate .
+   ```
+
+   - `Validation passed` が出て、終了コードが 0 であることを確かめる
+   - 警告は次の3種類だけであることを確かめる
+     - `version` がない（`plugin.json` に `version` を書かない運用のため）
+     - ルートの `CLAUDE.md` はプロジェクトの文脈として読み込まれない（リポジトリの開発用のファイルのため）
+     - アイコンがない（プラグインディレクトリへの掲載を目的としていないため）
+   - 上の警告がエラー扱いになるため、`--strict` は付けない
+
+2. 手元でインストールし、スキルが読み込まれるかを確かめる
+
+   ```bash
+   claude plugin marketplace add ./
+   claude plugin install docs-rules@docs-rules
+   claude plugin details docs-rules
+   ```
+
+   - `Component inventory` の `Skills (1)` に `docs-rules` が出ることを確かめる
+
+3. 元に戻す
+
+   ```bash
+   claude plugin uninstall docs-rules@docs-rules
+   claude plugin marketplace remove docs-rules
+   ```
+
 ## PRの作り方
 
 PRを作成する前に、以下を確認する。
