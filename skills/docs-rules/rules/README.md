@@ -60,8 +60,10 @@
 | 略称 | 資料 | 箇所の書き方 |
 | --- | --- | --- |
 | 公用文作成の考え方 | 文化審議会建議「公用文作成の考え方」（令和4年1月7日） | 建議本文の項目番号（例: `Ⅱ5ウ(イ)`） |
-| JTFスタイルガイド | 日本翻訳連盟「JTF日本語標準スタイルガイド」第4.0版 | 項目番号 |
+| JTFスタイルガイド | 日本翻訳連盟「JTF日本語標準スタイルガイド」第4.0版 | 第4.0版の本文の項目番号（例: `2.3.1`） |
 | 内閣告示 | 常用漢字表・送り仮名の付け方・外来語の表記 | 告示名と項目 |
-| textlint | textlint-rule-preset-ja-technical-writing内の各ルール | ルール名（例: `textlint: ja-no-weak-phrase`） |
+| textlint | textlint-rule-preset-ja-technical-writing、textlint-rule-preset-jtf-style、textlint-rule-preset-ja-spacing内の各ルール | ルール名（例: `textlint: ja-no-weak-phrase`）。preset-jtf-styleのルールは`jtf-style/`を前に付ける（例: `textlint: jtf-style/4.3.1.丸かっこ（）`） |
+
+- preset-jtf-styleのルール名の番号は、JTFスタイルガイド第2.2版の項目番号である。第4.0版では項目番号が変わったため、「出典」には第4.0版の番号を、「判定」にはpreset-jtf-styleのルール名をそのまま書く。両者の対応は[notation.md](notation.md)の冒頭を参照
 
 「公用文作成の考え方」から書き直したルールは、文化庁の資料を基に編集・加工したものである。同資料は文部科学省ウェブサイト利用規約に従う。
