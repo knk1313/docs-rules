@@ -1,0 +1,14 @@
+{
+  "name": "docs-rules",
+  "owner": {
+    "name": "Yuta Kondo"
+  },
+  "description": "docs-rules スキルを Claude Code プラグインとして配布するマーケットプレイス",
+  "plugins": [
+    {
+      "name": "docs-rules",
+      "source": "./",
+      "description": "日本語の文書を、共通の表記・文体ルールと文書種別ごとの構成に沿って書くためのスキル"
+    }
+  ]
+}
