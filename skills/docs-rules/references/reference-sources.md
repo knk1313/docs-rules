@@ -2,7 +2,7 @@
 
 `skills/docs-rules/`のrules、schemas、prompts、evaluatorsに書くルールの根拠とする一次資料を決めるための調査結果。対応Issueは #1。 スキル単体で配布しても出典をたどれるよう、`skills/docs-rules/references/`に置く。
 
-調査日は2026-10-17。ライセンスと版は調査時点の公式ページの記載に基づく。取り込む前に、各資料の本体に書かれた著作権表示を改めて確認する。
+調査日は2026-10-17。日付と時刻の資料は2026-10-23に調べた（#50）。ライセンスと版は調査時点の公式ページの記載に基づく。取り込む前に、各資料の本体に書かれた著作権表示を改めて確認する。
 
 ## 判断の軸
 
@@ -54,6 +54,9 @@
 | Google Developer Documentation Style Guide | 採用 | rules / prompts / 参照のみ | CC BY 4.0（サンプルコードはApache 2.0） | 構成・内容・表現（アクセシビリティ） |
 | Diátaxis | 採用 | prompts / 参照のみ | CC BY-SA 4.0（GitHubリポジトリのREADMEに記載） | 構成 |
 | 記者ハンドブック（共同通信社）、NHK漢字表記辞典など | 参照のみ | 参照のみ | 市販書籍のため転載不可 | 表記 |
+| 政府相互運用性フレームワーク（GIF）DS-441「コアデータパーツ 日付及び時刻」（デジタル庁） | 採用 | rules | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | 表記 |
+| 在留支援のためのやさしい日本語ガイドライン（出入国在留管理庁・文化庁） | 採用 | rules | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | 表記・文体 |
+| JIS X 0301、ISO 8601 | 参照のみ | 参照のみ | 規格の本文は有償で、転載できない | 表記 |
 
 ## 候補ごとの判断
 
@@ -115,6 +118,24 @@
 - 対象：記者ハンドブック、NHK漢字表記辞典など
 - 判断：参照のみ。原文を転載できないため、出典として名前を挙げるに留める
 
+### 日付と時刻の資料
+
+JTFスタイルガイドに日付の項目がなく、公用文作成の考え方にも日付だけを扱う項目がないため、#50で次の資料を調べた。取り込み先は[rules/notation.md](../rules/notation.md)の「日付と時刻」である。
+
+- 政府相互運用性フレームワーク（GIF）DS-441「コアデータパーツ 日付及び時刻」（デジタル庁、2026年3月17日版）
+  - 判断：採用。データとして扱う日付と時刻（「2026-10-23」「14:30」、時差の付け方、期間）の書き方を、JIS X 0301とISO 8601に準拠して定めている
+  - ライセンス：GIFの配布ファイル（GIF v2.4）に含まれるLICENSE.mdはCC0 1.0。ウェブページとしてはデジタル庁のコピーライトポリシー（公共データ利用規約第1.0版）に従う。どちらでも書き直して使える。出典の記載と、編集・加工した旨の記載をする
+- 在留支援のためのやさしい日本語ガイドライン（出入国在留管理庁・文化庁、2020年8月）
+  - 判断：採用。第2章のステップ2で、年月日の表記の原則を示している。年月日に「／」を使わない。元号ではなく西暦を使う。午前と午後を明記する。期間は「から」「まで」で書く
+  - ライセンス：出入国在留管理庁のサイトのコンテンツは公共データ利用規約第1.0版に従う。出典の記載と、編集・加工した旨の記載をする。挿絵は第三者の権利を含む可能性があるため使わない
+- Google Developer Documentation Style Guide「Dates and times」
+  - 判断：採用。次の原則を取り込む。年を4桁で書く。数字だけの日付を避け、数字だけで書くならYYYY-MM-DDにする。時差を略称だけで示さない。英語に固有の書き方（カンマの位置、AMとPM）は取り込まない
+- JIS X 0301、ISO 8601
+  - 判断：参照のみ。規格の本文は有償で転載できない。ルールの出典には、両規格に準拠したGIF DS-441を挙げる
+- デジタル庁デザインシステム（日付ピッカー）、Microsoft日本語スタイルガイド
+  - 判断：参照のみ。前者は入力画面の部品の仕様で、文書の書き方の出典には向かない。後者は利用条件を確認できていない
+- 曜日の書き方（「10月23日（金）」など）を定めた公開の資料は見つからなかった。出典を付けられないため、ルールにしていない
+
 ## 層ごとのカバー状況
 
 層ごとの主な根拠と、コードで判定する手段は次のとおり。
@@ -152,5 +173,8 @@
 - [markdownlint](https://github.com/DavidAnson/markdownlint)
 - [CommonMark Spec](https://spec.commonmark.org/)
 - [Google Developers「Site Policies」](https://developers.google.com/site-policies)
+- [Google Developer Documentation Style Guide「Dates and times」](https://developers.google.com/style/dates-times)
+- [デジタル庁「政府相互運用性フレームワーク（GIF）」](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)
+- [出入国在留管理庁・文化庁「在留支援のためのやさしい日本語ガイドライン」](https://www.moj.go.jp/isa/content/930006072.pdf)
 - [Diátaxis](https://diataxis.fr/)
 - [evildmp/diataxis-documentation-framework（ライセンス記載）](https://github.com/evildmp/diataxis-documentation-framework)
