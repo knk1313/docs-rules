@@ -9,6 +9,7 @@
 | [.textlintrc.json](.textlintrc.json) | textlintの設定 | 置いた（#21） |
 | [prh/](prh/) | textlint-rule-prhの辞書 | 置いた（#21） |
 | [custom-rules/](custom-rules/) | 自前のtextlintルール。`lib/`はその共通部分 | 置いた（#21） |
+| [allowed-terms.json](allowed-terms.json) | 採点で指摘しない語（ルールIDごと）。`--rulesdir`のルールには`.textlintrc.json`の設定値が渡らないため、ルールがこのファイルを直接読む | 置いた |
 | [data/](data/README.md) | 内閣告示の判定データ（JSON） | 置いた（#11） |
 | [.markdownlint-cli2.jsonc](.markdownlint-cli2.jsonc) | markdownlintの設定 | 置いた（#14） |
 
@@ -72,7 +73,7 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
 | `violations[].checker` | 判定手段。`rules/`の`判定`欄と同じ書き方（`textlint：<ルール名>`、`markdownlint：MD0xx`）。必須セクションの照合は`docs-rules/schema` |
 
 - 判定手段とルールIDの対応は、実行のたびに`rules/*.md`の`判定`欄から作る。ルールを足すときに`score.mjs`を直す必要はない
-- 1つの判定手段が複数のルールの`判定`欄に書いてあるときは、先に書いてあるルールのIDを返す。ja-no-redundant-expressionはFW-001とFW-002の両方に当たるが、`rule_id`は常にFW-001になる
+- 1つの判定手段が複数のルールの`判定`欄に書いてあるときは、先に書いてあるルールのIDを返す。ja-no-redundant-expressionはFW-001とFW-002の両方に当たるが、`rule_id`は常にFW-001になる。FW-002の「〜を行う」はprh辞書が`FW-002`で返す
 - prh辞書の指摘は、辞書の項目の`prh`に書いたルールIDを返す
 
 ## textlint
@@ -95,7 +96,7 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
 
 | ファイル | ルール | 作り方 |
 | --- | --- | --- |
-| [prh/manual.yml](prh/manual.yml) | NOT-004、NOT-008、NOT-016、NOT-025 | 手で書く |
+| [prh/manual.yml](prh/manual.yml) | FW-002、NOT-004、NOT-008、NOT-016、NOT-025 | 手で書く |
 | [prh/okurigana.yml](prh/okurigana.yml) | NOT-010 | `data/okurigana.json`の許容の形から生成する |
 | [prh/gairaigo.yml](prh/gairaigo.yml) | NOT-011 | `data/gairaigo.json`の用例集から生成する |
 
@@ -117,7 +118,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 | ルール | docs-rules | 判定すること |
 | --- | --- | --- |
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
-| [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う |
+| [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う。[allowed-terms.json](allowed-terms.json)の`NOT-006`に書いた専門用語（「脆弱性」）は指摘しない |
 | [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁で「,」のない算用数字（1万以上はNOT-013で見る）と、「千」「百」を含む漢数字の数量（「千二百人」） |
 | [docs-rules/not-013](custom-rules/not-013.js) | NOT-013 | 1万以上で「万」「億」「兆」を交ぜない数と、「千」「百」を単位にした数（「3千人」） |
 | [docs-rules/mkd-010](custom-rules/mkd-010.js) | MKD-010 | リンクの文言の「こちら」「ここ」「リンク」など。prh辞書では本文のすべての語に当たるため、リンクの文言だけを見るルールにした |
