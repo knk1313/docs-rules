@@ -24,6 +24,11 @@ jobs:
           python-version: "3.x"
       - name: SKILL.mdの大きさ
         run: python3 tests/test_skill_size.py
+      # テストは採点を並行して実行する。npx のキャッシュが空のまま並行して取得すると、
+      # 同じ場所への取得が競合してパッケージが欠けるため、先に一度だけ取得しておく。
+      # score.mjs の終了コードは、違反なしが0、違反ありが1。取得に失敗した3はこのステップを失敗にする
+      - name: 採点で使うパッケージを先に取得する
+        run: node skills/docs-rules/evaluators/score.mjs README.md > /dev/null || [ $? -eq 1 ]
       # repo-lint.test.mjs は npx で textlint と markdownlint-cli2 を取得し、evaluators/ で採点する
       - name: rules・schemas・templatesの整合と、Markdownの採点
         run: node --test tests/*.test.mjs
