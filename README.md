@@ -174,7 +174,7 @@ docs-rules/
 | [JTF日本語標準スタイルガイド](https://www.jtf.jp/tips/styleguide)第4.0版（日本翻訳連盟） | CC BY 4.0 | 自分の文章で書き直して編集・加工しています |
 | 常用漢字表・送り仮名の付け方・外来語の表記（内閣告示） | 著作権法第13条により、権利の目的となりません | 告示の内容を、表記ルールの根拠と判定データに使います |
 | [Google Developer Documentation Style Guide](https://developers.google.com/style)（AccessibilityとDates and timesの章） | CC BY 4.0 | 自分の文章で日本語に書き直して編集・加工しています |
-| [政府相互運用性フレームワーク（GIF）](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)DS-441「コアデータパーツ 日付及び時刻」（デジタル庁） | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | デジタル庁の資料を基に、自分の文章で書き直して編集・加工しています |
+| [政府相互運用性フレームワーク（GIF）](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)DS-441『コアデータパーツ 日付及び時刻』（デジタル庁） | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | デジタル庁の資料を基に、自分の文章で書き直して編集・加工しています |
 | [在留支援のためのやさしい日本語ガイドライン](https://www.moj.go.jp/isa/content/930006072.pdf)（出入国在留管理庁・文化庁） | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | 出入国在留管理庁と文化庁の資料を基に、自分の文章で書き直して編集・加工しています |
 
 - 上の資料の作成元は、本リポジトリの作成や内容に関わっていません。本リポジトリのルールは、作成元の見解を示すものではありません

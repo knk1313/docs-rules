@@ -1,6 +1,6 @@
 # 公用文作成の考え方の取り込み先
 
-文化審議会建議「公用文作成の考え方」（令和4年1月7日）の各項目を、`rules/`のどのルールに取り込んだかを示す対応表。取り込まなかった項目には理由を書く。対応Issueは #10。取り込み方の判断は[reference-sources.md](reference-sources.md)に従う。
+文化審議会建議『公用文作成の考え方』（令和4年1月7日）の各項目を、`rules/`のどのルールに取り込んだかを示す対応表。取り込まなかった項目には理由を書く。対応Issueは #10。取り込み方の判断は[reference-sources.md](reference-sources.md)に従う。
 
 ## 表の見方
 
@@ -13,7 +13,7 @@
 | 対象外 | 理由欄の理由で取り込まない |
 | 保留 | 取り込むかどうかを決めていない。理由欄に決めるための論点を書く |
 
-- 送り仮名は、建議が認める公用文の書き方（送り仮名を省く語）を採らず、「送り仮名の付け方」の本則に従う
+- 送り仮名は、建議が認める公用文の書き方（送り仮名を省く語）を採らず、『送り仮名の付け方』の本則に従う
 - JTFスタイルガイドと基準が食い違うときは、この表で取り込んだ建議の基準を優先する。JTFスタイルガイドにだけある項目は #12で取り込む
 - 構成と内容の層の項目（以前の「prompts/候補」）は、#23で`rules/composition.md`のルール（`CMP-`、`判定：AI`）に書き直すか、`schemas/`か対象外に振り分けた。`CMP-`のルールは`prompts/evaluate.md`の手順で評価する
 
@@ -125,7 +125,7 @@
 
 ## 出典
 
-- [文化庁「文化審議会建議「公用文作成の考え方」について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
-- [文化審議会「公用文作成の考え方（建議）」（PDF）](https://www.bunka.go.jp/seisaku/bunkashingikai/kokugo/hokoku/pdf/93731901_01.pdf)
+- [文化庁『文化審議会建議「公用文作成の考え方」について』](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
+- [文化審議会『公用文作成の考え方（建議）』（PDF）](https://www.bunka.go.jp/seisaku/bunkashingikai/kokugo/hokoku/pdf/93731901_01.pdf)
 
 この表の内容（要旨）の列は、文化庁の資料を基に編集・加工したものである。同資料は文部科学省ウェブサイト利用規約に従う。

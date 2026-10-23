@@ -54,7 +54,7 @@
 | Google Developer Documentation Style Guide | 採用 | rules / prompts / 参照のみ | CC BY 4.0（サンプルコードはApache 2.0） | 構成・内容・表現（アクセシビリティ） |
 | Diátaxis | 採用 | prompts / 参照のみ | CC BY-SA 4.0（GitHubリポジトリのREADMEに記載） | 構成 |
 | 記者ハンドブック（共同通信社）、NHK漢字表記辞典など | 参照のみ | 参照のみ | 市販書籍のため転載不可 | 表記 |
-| 政府相互運用性フレームワーク（GIF）DS-441「コアデータパーツ 日付及び時刻」（デジタル庁） | 採用 | rules | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | 表記 |
+| 政府相互運用性フレームワーク（GIF）DS-441『コアデータパーツ 日付及び時刻』（デジタル庁） | 採用 | rules | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | 表記 |
 | 在留支援のためのやさしい日本語ガイドライン（出入国在留管理庁・文化庁） | 採用 | rules | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | 表記・文体 |
 | JIS X 0301、ISO 8601 | 参照のみ | 参照のみ | 規格の本文は有償で、転載できない | 表記 |
 
@@ -62,7 +62,7 @@
 
 ### 公用文作成の考え方
 
-- 発行：文化審議会が令和4年1月7日に文部科学大臣へ建議。昭和26年の「公用文作成の要領」に代わる手引
+- 発行：文化審議会が令和4年1月7日に文部科学大臣へ建議。昭和26年の『公用文作成の要領』に代わる手引
 - 判断：採用。表記・文体・構成の3層にまたがる公的基準で、ルールの根拠として最も説明しやすい
 - 取り込み方：表記と文体の項目は`rules/`に書き直す。「読み手に伝わる文書」を扱う構成の項目は、`rules/composition.md`に書き、`prompts/`で評価する
 - ライセンス：文化庁サイトのコンテンツは文部科学省ウェブサイト利用規約に従う。同規約はCC BY 4.0と互換で、出典の記載と、編集・加工した旨の記載が必要。国が作成したかのような形で公表することは禁止されている
@@ -122,13 +122,13 @@
 
 JTFスタイルガイドに日付の項目がなく、公用文作成の考え方にも日付だけを扱う項目がないため、#50で次の資料を調べた。取り込み先は[rules/notation.md](../rules/notation.md)の「日付と時刻」である。
 
-- 政府相互運用性フレームワーク（GIF）DS-441「コアデータパーツ 日付及び時刻」（デジタル庁、2026年3月17日版）
+- 政府相互運用性フレームワーク（GIF）DS-441『コアデータパーツ 日付及び時刻』（デジタル庁、2026年3月17日版）
   - 判断：採用。データとして扱う日付と時刻（「2026-10-23」「14:30」、時差の付け方、期間）の書き方を、JIS X 0301とISO 8601に準拠して定めている
   - ライセンス：GIFの配布ファイル（GIF v2.4）に含まれるLICENSE.mdはCC0 1.0。ウェブページとしてはデジタル庁のコピーライトポリシー（公共データ利用規約第1.0版）に従う。どちらでも書き直して使える。出典の記載と、編集・加工した旨の記載をする
 - 在留支援のためのやさしい日本語ガイドライン（出入国在留管理庁・文化庁、2020年8月）
   - 判断：採用。第2章のステップ2で、年月日の表記の原則を示している。年月日に「／」を使わない。元号ではなく西暦を使う。午前と午後を明記する。期間は「から」「まで」で書く
   - ライセンス：出入国在留管理庁のサイトのコンテンツは公共データ利用規約第1.0版に従う。出典の記載と、編集・加工した旨の記載をする。挿絵は第三者の権利を含む可能性があるため使わない
-- Google Developer Documentation Style Guide「Dates and times」
+- Google Developer Documentation Style Guide『Dates and times』
   - 判断：採用。次の原則を取り込む。年を4桁で書く。数字だけの日付を避け、数字だけで書くならYYYY-MM-DDにする。時差を略称だけで示さない。英語に固有の書き方（カンマの位置、AMとPM）は取り込まない
 - JIS X 0301、ISO 8601
   - 判断：参照のみ。規格の本文は有償で転載できない。ルールの出典には、両規格に準拠したGIF DS-441を挙げる
@@ -162,19 +162,19 @@ JTFスタイルガイドに日付の項目がなく、公用文作成の考え�
 
 ## 出典
 
-- [文化庁「文化審議会建議「公用文作成の考え方」について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
-- [文化庁「文化庁ホームページについて」](https://www.bunka.go.jp/bunkacho_homepage/index.html)
-- [文部科学省「文部科学省ウェブサイト利用規約」](https://www.mext.go.jp/b_menu/1351168.htm)
-- [日本翻訳連盟「JTF日本語標準スタイルガイド」](https://www.jtf.jp/tips/styleguide)
-- [Microsoft「日本語スタイルガイド」](https://download.microsoft.com/download/a/8/2/a822a118-18d4-4429-b857-1b65ab388315/jpn-jpn-StyleGuide.pdf)
+- [文化庁『文化審議会建議「公用文作成の考え方」について』](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
+- [文化庁『文化庁ホームページについて』](https://www.bunka.go.jp/bunkacho_homepage/index.html)
+- [文部科学省『文部科学省ウェブサイト利用規約』](https://www.mext.go.jp/b_menu/1351168.htm)
+- [日本翻訳連盟『JTF日本語標準スタイルガイド』](https://www.jtf.jp/tips/styleguide)
+- [Microsoft『日本語スタイルガイド』](https://download.microsoft.com/download/a/8/2/a822a118-18d4-4429-b857-1b65ab388315/jpn-jpn-StyleGuide.pdf)
 - [textlint-rule-preset-ja-technical-writing](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing)
 - [textlint-rule-preset-jtf-style](https://github.com/textlint-ja/textlint-rule-preset-jtf-style)
 - [textlint-rule-preset-ja-spacing](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing)
 - [markdownlint](https://github.com/DavidAnson/markdownlint)
 - [CommonMark Spec](https://spec.commonmark.org/)
-- [Google Developers「Site Policies」](https://developers.google.com/site-policies)
-- [Google Developer Documentation Style Guide「Dates and times」](https://developers.google.com/style/dates-times)
-- [デジタル庁「政府相互運用性フレームワーク（GIF）」](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)
-- [出入国在留管理庁・文化庁「在留支援のためのやさしい日本語ガイドライン」](https://www.moj.go.jp/isa/content/930006072.pdf)
+- [Google Developers『Site Policies』](https://developers.google.com/site-policies)
+- [Google Developer Documentation Style Guide『Dates and times』](https://developers.google.com/style/dates-times)
+- [デジタル庁『政府相互運用性フレームワーク（GIF）』](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)
+- [出入国在留管理庁・文化庁『在留支援のためのやさしい日本語ガイドライン』](https://www.moj.go.jp/isa/content/930006072.pdf)
 - [Diátaxis](https://diataxis.fr/)
 - [evildmp/diataxis-documentation-framework（ライセンス記載）](https://github.com/evildmp/diataxis-documentation-framework)
