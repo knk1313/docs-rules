@@ -262,7 +262,10 @@ function runMarkdownlint(file, lines, versions, ruleIndex) {
   return violations;
 }
 
-/** schemas/<識別名>.md の必須セクション表と、文書の「##」見出しを順序込みで突き合わせる。 */
+/**
+ * schemas/<識別名>.md の必須セクション表と、文書の「##」見出しを順序込みで突き合わせる。
+ * テンプレートの案内のコメント（<!-- -->）が出力に残っていないかも見る（SKILL.md の「3. 書く」）。
+ */
 function checkSchema(type, source) {
   const schemaPath = join(SCHEMAS_DIR, `${type}.md`);
   if (!existsSync(schemaPath)) return null;
@@ -306,6 +309,20 @@ function checkSchema(type, source) {
     } else {
       maxIndex = index;
     }
+  }
+  for (const { line, number } of linesOutsideCode(source)) {
+    const at = line.indexOf("<!--");
+    // インラインコードの中の「<!--」（`<!-- -->` のような記法の説明）は除く
+    if (at < 0 || line[at - 1] === "`") continue;
+    violations.push({
+      rule_id: "SCHEMA",
+      line: number,
+      column: at + 1,
+      excerpt: line.slice(at).trim(),
+      fix: "テンプレートの案内のコメントを消す",
+      judge: "機械",
+      checker: "docs-rules/schema",
+    });
   }
   return violations;
 }
