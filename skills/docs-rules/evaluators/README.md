@@ -29,6 +29,8 @@ node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名
 
 ### 終了コード
 
+終了コードごとの意味と、利用者への扱いは次のとおり。
+
 | 終了コード | 意味 | 利用者への扱い |
 | --- | --- | --- |
 | 0 | 違反なし | そのまま出力してよい |
@@ -113,6 +115,8 @@ node skills/docs-rules/evaluators/compare.mjs <最初の採点結果> … <前�
 
 ### 無効にしたルール
 
+無効にしたルールと、対応するdocs-rulesのルール、無効にした理由は次のとおり。
+
 | ルール | docs-rules | 無効にした理由 |
 | --- | --- | --- |
 | arabic-kanji-numbers | NOT-014 | 「一つ」を「1つ」に直すよう指摘する。NOT-014は和語の数え方を漢数字で書く |
@@ -132,6 +136,8 @@ node skills/docs-rules/evaluators/compare.mjs <最初の採点結果> … <前�
 
 ### #21で決めたこと
 
+採点の入口を実装したとき（#21）に確かめ、決めたことは次のとおり。
+
 | 項目 | 決めたこと |
 | --- | --- |
 | sentence-lengthの上限 | 出典に数値がないため、既定値の100字を暫定にする（GRM-002の注記） |
@@ -145,6 +151,8 @@ node skills/docs-rules/evaluators/compare.mjs <最初の採点結果> … <前�
 | preset-jtf-styleの設定キー | パッケージの`rulesConfig`から確かめ、`.textlintrc.json`に書いた |
 
 ## prh辞書
+
+prh辞書のファイルと、扱うルール、作り方は次のとおり。
 
 | ファイル | ルール | 作り方 |
 | --- | --- | --- |

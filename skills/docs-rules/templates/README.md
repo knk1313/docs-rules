@@ -4,6 +4,8 @@
 
 ## ファイルの分け方
 
+テンプレートのファイルと、対応する種別とスキーマは次のとおり。
+
 | ファイル | 種別 | 識別名 | 対応するスキーマ |
 | --- | --- | --- | --- |
 | [session-log.md](session-log.md) | セッションログ | `session-log` | [schemas/session-log.md](../schemas/session-log.md) |
