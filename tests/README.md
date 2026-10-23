@@ -8,6 +8,7 @@
 | [rules.test.mjs](rules.test.mjs) | `rules/`の各ルールの型（項目の順序、IDの形と重複、`判定`の書式、出典の略称）と、一覧表と本文の一致 | `node --test tests/*.test.mjs` |
 | [schemas.test.mjs](schemas.test.mjs) | `schemas/`の型と必須セクション表、`templates/`の見出しとの一致、各READMEの一覧と実ファイルの一致 | 同上 |
 | [repo-lint.test.mjs](repo-lint.test.mjs) | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること | 同上 |
+| [compare.test.mjs](compare.test.mjs) | `evaluators/compare.mjs`が、書き直しの前後の採点結果を、直った違反、残った違反、新しく出た違反、2回続けて残った違反に分けること | 同上 |
 
 - `test_skill_size.py`はPython 3の標準ライブラリだけで動く
 - `*.test.mjs`はNode.js 18以上の組み込みのテストランナーで動く。`repo-lint.test.mjs`は`npx`でtextlintとmarkdownlint-cli2を取得するため、初回はネットワークが要る。`npx`が使えないときは、テストを飛ばしたことを出力する
