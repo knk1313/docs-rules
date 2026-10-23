@@ -40,7 +40,7 @@ git clone https://github.com/knk1313/docs-rules.git
 cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
 ```
 
-Claude Codeを再起動すると読み込まれます。
+Claude Codeは、再起動時にこのスキルを読み込みます。
 
 ### 2. `npx skills add`
 
@@ -54,7 +54,7 @@ npx skills add knk1313/docs-rules
 
 Claude Codeのセッション内で実行します。
 
-```
+```text
 /plugin marketplace add knk1313/docs-rules
 /plugin install docs-rules@docs-rules
 ```
@@ -65,8 +65,8 @@ Claude Codeのセッション内で実行します。
 
 | 上げる桁 | 変更の内容 |
 | --- | --- |
-| X（メジャー） | 既存のルールIDの削除や意味の変更、`schemas/`の必須セクションの削除、インストール方法の変更。利用者が書いた文書や設定を見直す必要がある変更 |
-| Y（マイナー） | ルール、文書種別、スキーマ、テンプレートの追加。既存の利用者はそのまま使える変更 |
+| X（メジャー） | 既存のルールIDの削除や意味の変更、`schemas/`の必須セクションの削除、インストール方法の変更など、利用者が書いた文書や設定を見直す必要がある変更 |
+| Y（マイナー） | ルール、文書種別、スキーマ、テンプレートの追加など、既存の利用者がそのまま使える変更 |
 | Z（パッチ） | 誤字や説明の修正、ルールの意味を変えない例の追加 |
 
 - `1.0.0`は、ロードマップのStep 4までそろった時点で付けます。それまでは`0.Y.Z`で、マイナーの変更でもルールIDの削除や意味の変更が入ることがあります
