@@ -65,7 +65,8 @@ docs-rules/
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
 ├── CONTRIBUTING.md         # Issue と PR の出し方
 ├── LICENSE
-└── README.md
+├── README.md
+└── SECURITY.md             # 脆弱性の報告先と対応の方針
 ```
 
 Issueを完了してファイルやディレクトリが増減したときは、そのPRでこのツリーも更新します。
