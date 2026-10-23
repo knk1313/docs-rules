@@ -1,5 +1,10 @@
 # docs-rules
 
+[![CI](https://github.com/knk1313/docs-rules/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/knk1313/docs-rules/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/knk1313/docs-rules)](https://github.com/knk1313/docs-rules/releases)
+[![License: MIT](https://img.shields.io/github/license/knk1313/docs-rules)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/knk1313/docs-rules)](https://github.com/knk1313/docs-rules/stargazers)
+
 日本語の文書を、共通の表記・文体ルールと文書種別ごとの構成に沿って書くためのClaude Codeスキルです。
 
 ## 何をするか
