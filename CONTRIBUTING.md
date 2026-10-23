@@ -96,6 +96,26 @@ Issueを立てる前に、以下を確認する。
    claude plugin marketplace remove docs-rules
    ```
 
+## テスト
+
+`rules/`・`schemas/`・`templates/`を直したときは、PRを出す前にリポジトリの直下で次のコマンドを実行し、すべて通ることを確かめる。
+
+```bash
+node --test tests/*.test.mjs
+```
+
+- 前提：Node.js 18以上。依存パッケージは要らない。`tests/repo-lint.test.mjs`は`npx`でtextlintとmarkdownlint-cli2を取得するため、初回はネットワークが要る
+- `npx`が使えないとき、パッケージを取得できないときは、採点のテストを飛ばし、飛ばしたことを出力する
+- Node.js 22では`node --test tests/`のようにディレクトリを渡すと動かないため、ファイルを`tests/*.test.mjs`で指定する
+
+| ファイル | 確かめること |
+| --- | --- |
+| `tests/rules.test.mjs` | `rules/`の各ルールの型（項目の順序、IDの形と重複、`判定`の書式、出典の略称）と、一覧表と本文の一致 |
+| `tests/schemas.test.mjs` | `schemas/`の型と必須セクション表、`templates/`の見出しとの一致、各READMEの一覧と実ファイルの一致 |
+| `tests/repo-lint.test.mjs` | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること |
+
+`tests/repo-lint.test.mjs`は、ルールの型に由来する誤検出を、採点対象を書き換えずにテストの除外条件で外している。対象は、見出しのルールIDの後のスペース、出典欄、判定欄、「」の中の例示、`examples.md`の失敗例である。除外条件はファイルの`EXCLUSIONS`に理由と合わせて書く。
+
 ## PRの作り方
 
 PRを作成する前に、以下を確認する。

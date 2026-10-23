@@ -17,6 +17,7 @@ docs-rules/
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
 │       └── evaluators/     # 採点の入口（score.mjs）、textlint と markdownlint の設定、prh 辞書、判定データ（内閣告示の JSON）
+├── tests/                  # rules・schemas・templates の整合と、リポジトリの Markdown の採点の回帰テスト
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
@@ -69,7 +70,7 @@ Claude Codeのセッション内で実行します。
 | Y（マイナー） | ルール、文書種別、スキーマ、テンプレートの追加など、既存の利用者がそのまま使える変更 |
 | Z（パッチ） | 誤字や説明の修正、ルールの意味を変えない例の追加 |
 
-- `1.0.0`は、ロードマップのStep 4までそろった時点で付けます。それまでは`0.Y.Z`で、マイナーの変更でもルールIDの削除や意味の変更が入ることがあります
+- `1.0.0`は、ロードマップのStep 4までそろった時点で付けます。それまでは`0.Y.Z`で、マイナーの変更にもルールIDの削除や意味の変更を含めることがあります
 - 変更点は[Releases](https://github.com/knk1313/docs-rules/releases)に書きます。`CHANGELOG.md`は置きません
 - `main`は常にタグより新しいことがあります。特定の版を使うときは、タグを指定してクローンしてください
 
