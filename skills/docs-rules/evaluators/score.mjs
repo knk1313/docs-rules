@@ -130,15 +130,36 @@ function loadVersions() {
   return pkg.dependencies;
 }
 
+/**
+ * Windows で、Node.js に同梱の npx の本体（npx-cli.js）を探す。見つからなければ null を返す。
+ * npx.cmd はバッチファイルのため、Node.js からはシェルを通さないと起動できない。
+ * シェルを通すと引数がエスケープされず、文書のパスに含まれる「&」などがコマンドとして動くため、
+ * 本体を Node.js で直接起動してシェルを避ける。
+ */
+function findNpxCli() {
+  const path = join(dirname(process.execPath), "node_modules", "npm", "bin", "npx-cli.js");
+  return existsSync(path) ? path : null;
+}
+
+/** cmd.exe に渡す引数を二重引用符で囲む。二重引用符の中では「&」「|」「<」「>」はただの文字になる。 */
+function quoteForCmd(arg) {
+  // Windows のファイル名には「"」を使えないため、含まれていれば不正な引数として扱う
+  if (arg.includes('"')) throw new Error(`引数に「"」を含めない: ${arg}`);
+  return `"${arg}"`;
+}
+
 /** npx でコマンドを実行する。 */
 function runNpx(args, cwd) {
-  const command = process.platform === "win32" ? "npx.cmd" : "npx";
-  return spawnSync(command, ["-y", ...args], {
-    cwd,
-    encoding: "utf8",
-    maxBuffer: 64 * 1024 * 1024,
-    shell: process.platform === "win32",
-  });
+  const options = { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 };
+  if (process.platform !== "win32") {
+    return spawnSync("npx", ["-y", ...args], options);
+  }
+  const npxCli = findNpxCli();
+  if (npxCli) {
+    return spawnSync(process.execPath, [npxCli, "-y", ...args], options);
+  }
+  // 同梱の npx が見つからない環境（nvm-windows の一部の配置など）だけ、引数を囲んでシェルを通す
+  return spawnSync("npx.cmd", ["-y", ...args].map(quoteForCmd), { ...options, shell: true });
 }
 
 /** 文書の行を取り出す。 */
