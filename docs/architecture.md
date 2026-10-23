@@ -27,7 +27,7 @@ flowchart TD
     subgraph T2["2. 参照するファイルを読む"]
         direction TB
         R0["rules/README.md<br>ルールの型と出典の略称"]
-        R1["rules/*.md<br>FW・GRM・NOT・MKD・ACC"]
+        R1["rules/*.md<br>FW・GRM・NOT・MKD・ACC・CMP"]
         R2["schemas/&lt;識別名&gt;.md<br>必須セクションと構造"]
         R3["templates/&lt;識別名&gt;.md<br>見出しの型"]
         R0 --> R1 --> R2 --> R3
@@ -40,7 +40,7 @@ flowchart TD
         P2{"終了コード"}
         P3["違反を直す"]
         P4["機械判定を飛ばしたと利用者に伝える"]
-        P5["rules/ と schemas/ に照らして自己点検"]
+        P5["prompts/evaluate.md でAI評価し、違反を直す"]
         P1 --> P2
         P2 -->|1 違反あり| P3
         P3 -->|再採点| P1
