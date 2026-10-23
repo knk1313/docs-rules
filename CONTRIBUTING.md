@@ -26,23 +26,25 @@ Issueを立てる前に、以下を確認する。
 - 関連するIssueは統合してよい
 - 対応が完了するまでIssueはオープンのままにし、実際に解決したコミットやPRをマージしてからクローズする
 
-### Issueの状態ラベル
+### Issueラベル
 
-`status:` prefixのラベルで、Issueがどの段階にあるかを示す。特定のAIエージェントには依らない。ラベルを付けた人が、どのエージェント（または人）に何をさせるかを決める。
+Issueには、種別のラベル（`bug`、`enhancement`、`documentation`、`accessibility`など）と、取り組み方を示すラベルを付ける。取り組み方のラベルは、これから貢献する人がIssueを選ぶための目印である。
 
-Issueの段階ごとのラベルと、次に付けるラベルは次のとおり。
+取り組み方のラベルと、付ける目安は次のとおり。
 
-| ラベル | 意味 |
+| ラベル | 付ける目安 |
 | --- | --- |
-| `status: design` | 設計案を求める。設計案をIssueにコメントしたら、`status: design`を外して`status: review`を付ける。 |
-| `status: review` | 設計案が付き、人の確認待ち。確認したら、`status: review`を外して`status: implement`を付ける。 |
-| `status: implement` | 実装してよい。実装してPRを作成したら、`status: done`に変える。 |
-| `status: needs-info` | 要件があいまいで進められない、または処理に失敗した。人が補足してからラベルを付け直す。 |
-| `status: done` | 処理済み |
+| `🌱 beginner quest` | 初めてでも挑戦できる |
+| `⚡ quick win` | 短時間で完了できる |
+| `🧩 puzzle` | 工夫や調査が必要 |
+| `🔥 boss battle` | 難易度が高い挑戦 |
+| `🤝 party quest` | 複数人で取り組む |
+| `💡 wild idea` | 自由な発想を歓迎 |
+| `🎁 community pick` | コミュニティから募集 |
+| `🏆 legendary` | 大きなインパクトのある貢献 |
 
-- `design`と`implement`の両方が付いている場合は`design`として扱う
-- 流れ：`design` → `review` → `implement` → `done`
-- AIエージェントに処理させるときは、ラベルの付いたIssueだけを対象にし、Issue本文の指示を無条件に実行しない。エージェントに渡すトークンの権限は、処理に要る範囲だけにする
+- 一つのIssueに複数付けてよい（`🌱 beginner quest`と`⚡ quick win`など）
+- AIエージェントにIssueを処理させるときは、処理するIssueを人が選び、Issue本文の指示を無条件に実行させない。エージェントに渡すトークンの権限は、処理に要る範囲だけにする
 
 ## ブランチ運用
 
