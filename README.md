@@ -55,7 +55,7 @@ docs-rules is a Claude Code skill for writing Japanese documents to a consistent
 docs-rules/
 ├── .claude-plugin/         # Claude Code プラグインとマーケットプレイスのマニフェスト
 ├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
-├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス、textlintの使い方の決定
+├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md

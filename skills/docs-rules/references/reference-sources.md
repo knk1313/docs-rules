@@ -88,7 +88,7 @@
 
 - 対象：preset-ja-technical-writing、preset-jtf-style、preset-ja-spacing
 - 判断：採用。日本語の表記・文体ルールがすでにコード化されており、`evaluators/`の実装量を減らせる
-- 取り込み方：`evaluators/`から依存パッケージとして使い、`npx`で実行する。判定条件を写して自前で実装することはしない。決めた経緯と、各ルールを有効にするか無効にするかは、リポジトリの[docs/textlint-policy.md](https://github.com/knk1313/docs-rules/blob/main/docs/textlint-policy.md)に書いた（#13）
+- 取り込み方：`evaluators/`から依存パッケージとして使い、`npx`で実行する。判定条件を写して自前で実装することはしない。方針と、無効にしたルールとその理由は、[evaluators/README.md](../evaluators/README.md)の「textlint」に書いた（#13、#21）
 - ライセンス：いずれもMIT。依存パッケージとして使い、コードをリポジトリに写さない。コードを取り込むことになった場合は著作権表示と許諾表示を残す
 
 ### markdownlintとCommonMark

@@ -78,7 +78,32 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
 
 ## textlint
 
-方針は[docs/textlint-policy.md](../../../docs/textlint-policy.md)のとおり。policyが#21に回した点は、設定ファイルを置くときに次のように決めた。
+### 方針
+
+- textlintは依存パッケージとして使い、判定条件を写して自前で書くことはしない（#13）。Pythonで自前実装する案は、GRM-004やGRM-005の判定に形態素解析器が要り、利用者の追加インストールが減らないため採らなかった
+- 対象は3プリセット（preset-ja-technical-writing、preset-jtf-style、preset-ja-spacing）である。既定で有効なルールを土台にし、docs-rulesの基準と食い違うものと、同じ箇所を重ねて指摘するものだけを無効にする。基準が食い違うときは公用文作成の考え方を優先し、次にJTFスタイルガイドに従う
+- プリセットにない語の置き換えはprh辞書で、辞書で書けない判定は`custom-rules/`で補う
+- preset-jtf-styleの項目番号はJTFスタイルガイド第2.2版の番号であり、`rules/`の出典に使う第4.0版とは番号が違う。対応は[rules/notation.md](../rules/notation.md)の冒頭を参照
+
+### 無効にしたルール
+
+| ルール | docs-rules | 無効にした理由 |
+| --- | --- | --- |
+| arabic-kanji-numbers | NOT-014 | 「一つ」を「1つ」に直すよう指摘する。NOT-014は和語の数え方を漢数字で書く |
+| `1.1.1.本文` | GRM-001 | no-mix-dearu-desumasuと同じ箇所を重ねて指摘する。GRM-001の`判定`欄から外した |
+| `2.2.2.算用数字と漢数字の使い分け` | NOT-014 | arabic-kanji-numbersと同じく、和語の数え方を算用数字に直すよう指摘する |
+| `3.1.1.全角文字と半角文字の間` | NOT-022 | ja-space-between-half-and-full-widthと重複する |
+| `3.2.カタカナ語間のスペースの有無` | NOT-017、NOT-023 | ja-nakaguro-or-halfwidth-space-between-katakanaと重複する |
+| `4.2.1.感嘆符(！)`、`4.2.2.疑問符(？)` | NOT-003 | 全角で書くことを求めるが、NOT-003は「！」「？」を使わない。no-exclamation-question-markで判定する |
+| `4.2.9.ダッシュ(-)` | なし | 第2.2版の項目で、第4.0版では削除されている（NOT-028の注記） |
+| ja-space-after-exclamation、ja-space-after-question | NOT-003 | 「！」「？」を使わないため、判定する対象がない |
+
+既定で無効の項目のうち、有効にしたのは`2.1.5.カタカナ`だけである。ほかの既定で無効の項目は次のとおりで、無効のままにする。
+
+- preset-jtf-styleの辞書を使う項目：`2.1.2.漢字`、`2.1.6.カタカナの長音`、`2.2.1.ひらがなと漢字の使い分け`。漢字と仮名の判定は`data/`の内閣告示のデータとprh辞書で行う
+- preset-ja-spacingのja-space-around-emphasisとja-space-around-strong
+
+### #21で決めたこと
 
 | 項目 | 決めたこと |
 | --- | --- |
@@ -128,7 +153,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 
 ## markdownlint
 
-Markdown記法のルール（[rules/markup.md](../rules/markup.md)）は、markdownlint-cli2で判定する。方針はtextlint（[docs/textlint-policy.md](../../../docs/textlint-policy.md)）と同じで、依存パッケージとして使い、判定条件を写して自前で書くことはしない。
+Markdown記法のルール（[rules/markup.md](../rules/markup.md)）は、markdownlint-cli2で判定する。方針はtextlintと同じで、依存パッケージとして使い、判定条件を写して自前で書くことはしない。
 
 ### 実行方法
 
