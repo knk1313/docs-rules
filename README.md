@@ -15,7 +15,8 @@ docs-rules/
 │       ├── references/     # ルールの出典となる資料の一覧
 │       ├── rules/          # 文体、表記などの共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
-│       └── templates/      # 用途別の文書テンプレート
+│       ├── templates/      # 用途別の文書テンプレート
+│       └── evaluators/     # 判定データ（内閣告示の JSON）。採点の入口は Step 2 で足す
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
 ├── CONTRIBUTING.md         # Issue と PR の出し方

@@ -10,7 +10,7 @@
 
 ## 漢字とかな
 
-> 常用漢字表に基づく判定データは #11で置く。置き場所が決まったら、ここに参照先を書く。
+> 常用漢字表に基づく判定データは[evaluators/data/joyo-kanji.json](../evaluators/data/joyo-kanji.json)に置いた。項目の意味は[evaluators/data/README.md](../evaluators/data/README.md)を参照。
 
 ### NOT-006 常用漢字表にない漢字と音訓を使わない
 
