@@ -179,6 +179,8 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 
 | ルール | docs-rules | 判定すること |
 | --- | --- | --- |
+| [docs-rules/not-029](custom-rules/not-029.js) | NOT-029 | 年から書いた「2026/10/23」の形の日付。「2026年10月23日」に直す候補を返す。年のない「10/23」は分数と見分けられないため指摘しない |
+| [docs-rules/not-033](custom-rules/not-033.js) | NOT-033 | 月か日を0で埋めていない「2026-4-1」の形の日付。「2026-04-01」に直す候補を返す。英字に続く形（「v2026-1-1」）は版の番号として扱い、指摘しない |
 | [docs-rules/not-002](custom-rules/not-002.js) | NOT-002 | 全角の「．」「，」。「。」「、」に直す候補を返す。数字に挟まれたもの（「1．5」「1，000」）は小数点と桁区切りとみなし、半角の「.」「,」に直す候補を返す |
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
 | [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う。[allowed-terms.json](allowed-terms.json)の`NOT-006`に書いた専門用語（「脆弱性」）は指摘しない |
