@@ -4,15 +4,20 @@
 // 使い方（リポジトリの直下から）:
 //   node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名>]
 //
-// textlint と markdownlint-cli2 を npx で呼び、結果を docs-rules のルールIDに直して JSON で返す。
+// textlint と markdownlint-cli2 を呼び、結果を docs-rules のルールIDに直して JSON で返す。
 // --type に文書種別の識別名（session-log、proposal など）を渡すと、schemas/ の必須セクション表と
 // 文書の見出しも突き合わせる。Node.js の標準モジュールだけで書き、利用者に npm install を求めない。
 //
+// 採点で使うパッケージは、初回の実行で package-lock.json の版のとおりに利用者のキャッシュへ入れる（npm ci）。
+// インストール時のスクリプトは動かさない。ロックファイルが変わると別の場所に入れ直す。
+//
 // 終了コード:
-//   0 違反なし / 1 違反あり / 2 引数の誤り / 3 textlint か markdownlint を実行できなかった（npx の取得の失敗など）
+//   0 違反なし / 1 違反あり / 2 引数の誤り / 3 textlint か markdownlint を実行できなかった（パッケージの取得の失敗など）
 
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync } from "node:fs";
+import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -124,42 +129,78 @@ function loadRules() {
   return { rules, checkers };
 }
 
-/** package.json に固定した版を読む。 */
-function loadVersions() {
-  const pkg = JSON.parse(readFileSync(join(EVALUATORS_DIR, "package.json"), "utf8"));
-  return pkg.dependencies;
+const SPAWN_OPTIONS = { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 };
+
+/**
+ * 採点で使うパッケージを入れる場所を返す。インストールの方法（手動配置、npx skills add、プラグイン）に関わらず、
+ * 利用者のキャッシュに置く。環境変数 DOCS_RULES_CACHE_DIR で変えられる。
+ */
+function cacheRoot() {
+  if (process.env.DOCS_RULES_CACHE_DIR) return resolve(process.env.DOCS_RULES_CACHE_DIR);
+  if (process.platform === "win32") return join(process.env.LOCALAPPDATA || join(homedir(), "AppData", "Local"), "docs-rules");
+  if (process.platform === "darwin") return join(homedir(), "Library", "Caches", "docs-rules");
+  return join(process.env.XDG_CACHE_HOME || join(homedir(), ".cache"), "docs-rules");
+}
+
+/** npm を実行する。インストール時のスクリプトは環境変数でも止める。 */
+function runNpm(args, cwd) {
+  const options = { ...SPAWN_OPTIONS, cwd, env: { ...process.env, npm_config_ignore_scripts: "true" } };
+  if (process.platform !== "win32") return spawnSync("npm", args, options);
+  // npm.cmd はバッチファイルで、シェルを通さないと起動できない。Node.js に同梱の npm の本体があれば、それを直接起動する
+  const cli = join(dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js");
+  if (existsSync(cli)) return spawnSync(process.execPath, [cli, ...args], options);
+  // 引数は固定の文字列だけで、文書のパスなど利用者の入力を含まないため、シェルを通しても安全である
+  return spawnSync("npm.cmd", args, { ...options, shell: true });
 }
 
 /**
- * Windows で、Node.js に同梱の npx の本体（npx-cli.js）を探す。見つからなければ null を返す。
- * npx.cmd はバッチファイルのため、Node.js からはシェルを通さないと起動できない。
- * シェルを通すと引数がエスケープされず、文書のパスに含まれる「&」などがコマンドとして動くため、
- * 本体を Node.js で直接起動してシェルを避ける。
+ * package-lock.json の版のとおりにパッケージを入れ、入れた場所を返す。入れてあれば何もしない。
+ * 場所の名前にロックファイルのハッシュを含め、ロックファイルが変わったら別の場所に入れ直す。
+ * 一時的な場所に入れてから名前を変えるため、並行して呼ばれても、入れかけの場所を使わない。
  */
-function findNpxCli() {
-  const path = join(dirname(process.execPath), "node_modules", "npm", "bin", "npx-cli.js");
-  return existsSync(path) ? path : null;
+function ensurePackages() {
+  const lock = readFileSync(join(EVALUATORS_DIR, "package-lock.json"));
+  const hash = createHash("sha256").update(lock).digest("hex").slice(0, 16);
+  const root = cacheRoot();
+  const dir = join(root, `evaluators-${hash}`);
+  if (existsSync(dir)) return dir;
+
+  mkdirSync(root, { recursive: true });
+  const work = mkdtempSync(join(root, `.installing-${hash}-`));
+  try {
+    copyFileSync(join(EVALUATORS_DIR, "package.json"), join(work, "package.json"));
+    copyFileSync(join(EVALUATORS_DIR, "package-lock.json"), join(work, "package-lock.json"));
+    const result = runNpm(["ci", "--ignore-scripts", "--no-audit", "--no-fund", "--loglevel=error"], work);
+    if (result.status !== 0) {
+      throw new Error(`採点で使うパッケージを入れられなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
+    }
+    try {
+      renameSync(work, dir);
+    } catch (e) {
+      // 別のプロセスが先に入れ終えていれば、そちらを使う
+      if (!existsSync(dir)) throw e;
+    }
+  } finally {
+    rmSync(work, { recursive: true, force: true });
+  }
+
+  // 前のロックファイルで入れたものを消す
+  for (const name of readdirSync(root)) {
+    if (name.startsWith("evaluators-") && name !== basename(dir)) rmSync(join(root, name), { recursive: true, force: true });
+  }
+  return dir;
 }
 
-/** cmd.exe に渡す引数を二重引用符で囲む。二重引用符の中では「&」「|」「<」「>」はただの文字になる。 */
-function quoteForCmd(arg) {
-  // Windows のファイル名には「"」を使えないため、含まれていれば不正な引数として扱う
-  if (arg.includes('"')) throw new Error(`引数に「"」を含めない: ${arg}`);
-  return `"${arg}"`;
+/** 入れたパッケージの、コマンドの本体のパスを返す。 */
+function binPath(packagesDir, name) {
+  const pkgDir = join(packagesDir, "node_modules", name);
+  const { bin } = JSON.parse(readFileSync(join(pkgDir, "package.json"), "utf8"));
+  return join(pkgDir, typeof bin === "string" ? bin : bin[name]);
 }
 
-/** npx でコマンドを実行する。 */
-function runNpx(args, cwd) {
-  const options = { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 };
-  if (process.platform !== "win32") {
-    return spawnSync("npx", ["-y", ...args], options);
-  }
-  const npxCli = findNpxCli();
-  if (npxCli) {
-    return spawnSync(process.execPath, [npxCli, "-y", ...args], options);
-  }
-  // 同梱の npx が見つからない環境（nvm-windows の一部の配置など）だけ、引数を囲んでシェルを通す
-  return spawnSync("npx.cmd", ["-y", ...args].map(quoteForCmd), { ...options, shell: true });
+/** パッケージのコマンドを Node.js で直接起動する。シェルを通さないため、文書のパスがコマンドとして解釈されない。 */
+function runBin(packagesDir, name, args, cwd) {
+  return spawnSync(process.execPath, [binPath(packagesDir, name), ...args], { ...SPAWN_OPTIONS, cwd });
 }
 
 /** 文書の行を取り出す。 */
@@ -168,27 +209,17 @@ function lineText(lines, number) {
 }
 
 /** textlint を実行し、結果を docs-rules の形に直す。 */
-function runTextlint(file, source, lines, versions, ruleIndex) {
-  const packages = [
-    "textlint",
-    "textlint-rule-preset-ja-technical-writing",
-    "textlint-rule-preset-jtf-style",
-    "textlint-rule-preset-ja-spacing",
-    "textlint-rule-prh",
-  ];
-  const args = [];
-  for (const name of packages) args.push("-p", `${name}@${versions[name]}`);
-  args.push(
-    "textlint",
+function runTextlint(file, source, lines, packagesDir, ruleIndex) {
+  const args = [
     "--config",
     join(EVALUATORS_DIR, ".textlintrc.json"),
     "--rulesdir",
     join(EVALUATORS_DIR, "custom-rules"),
     "--format",
     "json",
-    file
-  );
-  const result = runNpx(args, EVALUATORS_DIR);
+    file,
+  ];
+  const result = runBin(packagesDir, "textlint", args, EVALUATORS_DIR);
   let parsed;
   try {
     parsed = JSON.parse(result.stdout);
@@ -248,15 +279,14 @@ function toViolation(message, source, lines, ruleIndex) {
 }
 
 /** markdownlint-cli2 を実行し、結果を docs-rules の形に直す。 */
-function runMarkdownlint(file, lines, versions, ruleIndex) {
+function runMarkdownlint(file, lines, packagesDir, ruleIndex) {
   const args = [
-    `markdownlint-cli2@${versions["markdownlint-cli2"]}`,
     "--config",
     join(EVALUATORS_DIR, ".markdownlint-cli2.jsonc"),
     // 「#」や「!」で始まる名前をグロブとして読ませないため、「:」を付けて文字どおりのパスとして渡す
     `:${basename(file)}`,
   ];
-  const result = runNpx(args, dirname(file));
+  const result = runBin(packagesDir, "markdownlint-cli2", args, dirname(file));
   if (result.status !== 0 && result.status !== 1) {
     throw new Error(`markdownlint-cli2 を実行できなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
   }
@@ -392,12 +422,12 @@ function main() {
   const source = readFileSync(file, "utf8");
   const lines = source.split(/\r?\n/);
   const ruleIndex = loadRules();
-  const versions = loadVersions();
 
   let violations = [];
   try {
-    violations = violations.concat(runTextlint(file, source, lines, versions, ruleIndex));
-    violations = violations.concat(runMarkdownlint(file, lines, versions, ruleIndex));
+    const packagesDir = ensurePackages();
+    violations = violations.concat(runTextlint(file, source, lines, packagesDir, ruleIndex));
+    violations = violations.concat(runMarkdownlint(file, lines, packagesDir, ruleIndex));
   } catch (e) {
     process.stderr.write(`${e.message}\n`);
     return EXIT_TOOL_FAILURE;

@@ -46,7 +46,9 @@ AIを使って日本語の文書を繰り返し作る人と組織です。生成
 ## 動作環境
 
 - Claude Codeで動作を確かめています。スキルの本体はMarkdownだけなので、`SKILL.md`の形式を読める他のエージェントでも読めます。Claude Code以外では確かめていません
-- スキルとして使うだけなら、Python 3もNode.jsも不要です。`evaluators/`のmarkdownlintを動かすにはNode.jsが、`evaluators/data/tools/`のスクリプトを動かすにはPython 3が要ります
+- 書き終えた文書の機械判定（`evaluators/score.mjs`）には、Node.js 18以上とnpmが要ります。ない環境では機械判定を飛ばし、AIの自己点検だけで仕上げます
+- 機械判定は、初回の実行でtextlintとmarkdownlint-cli2をnpmから取得し、利用者のキャッシュ（macOSは`~/Library/Caches/docs-rules`）に入れます。版は`package-lock.json`で依存の依存まで固定し、インストール時のスクリプトは動かしません。詳しくは[evaluators/README.md](skills/docs-rules/evaluators/README.md)の「パッケージの入れ方」を参照してください
+- `evaluators/data/tools/`のスクリプトを動かすにはPython 3が要ります。スキルとして使うだけなら不要です
 
 ## For English readers
 

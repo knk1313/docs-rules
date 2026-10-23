@@ -6,8 +6,8 @@
 | --- | --- | --- |
 | [score.mjs](score.mjs) | 採点の入口。1コマンドで文書を渡し、違反の一覧をJSONで返す | 置いた（#21） |
 | [compare.mjs](compare.mjs) | 書き直しの前後の採点結果を比べ、直った違反、残った違反、新しく出た違反、2回続けて残った違反を返す | 置いた（#24） |
-| [package.json](package.json) | 採点で使うパッケージと版。`score.mjs`がこの版を`npx`に渡す | 置いた（#21） |
-| [package-lock.json](package-lock.json) | 依存の依存まで含めた版の一覧。Dependabotが既知の脆弱性を検出し、版上げのPRを出すのに使う。`score.mjs`の`npx`はまだこのファイルを読まない | 置いた |
+| [package.json](package.json) | 採点で使うパッケージと版 | 置いた（#21） |
+| [package-lock.json](package-lock.json) | 依存の依存まで含めた版の一覧。`score.mjs`はこの版のとおりにパッケージを入れる。Dependabotが既知の脆弱性の検出と版上げに使う | 置いた |
 | [.textlintrc.json](.textlintrc.json) | textlintの設定 | 置いた（#21） |
 | [prh/](prh/) | textlint-rule-prhの辞書 | 置いた（#21） |
 | [custom-rules/](custom-rules/) | 自前のtextlintルール。`lib/`はその共通部分 | 置いた（#21） |
@@ -23,10 +23,23 @@
 node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名>]
 ```
 
-- 前提：Node.js 18以上。`score.mjs`は標準モジュールだけで書いてあり、textlintとmarkdownlint-cli2は`npx`で取得して実行する。利用者に事前の`npm install`を求めない（#13の決定）
-- 版：[package.json](package.json)の`dependencies`に固定した版を使う。版を上げるときは、この文書の表と`rules/`の`判定`欄を見直す
+- 前提：Node.js 18以上とnpm。`score.mjs`は標準モジュールだけで書いてあり、利用者に事前の`npm install`を求めない（#13の決定）
 - `--type`：文書種別の識別名（`session-log`、`proposal`など）を渡すと、`schemas/<識別名>.md`の必須セクション表と文書の`##`見出しを順序込みで突き合わせる。テンプレートの案内のコメント（`<!--`で始まる部分）が残っていないかも見る。渡さないときはこの照合を飛ばす
-- 初回の実行は、パッケージの取得に20秒ほどかかる。2回目からは`npx`のキャッシュを使う
+
+### パッケージの入れ方
+
+textlintとmarkdownlint-cli2は、初回の実行で`score.mjs`が自分で入れる。
+
+- 版：[package-lock.json](package-lock.json)のとおりに`npm ci`で入れる。依存の依存まで版が決まっているため、利用者の手元とCIで同じ版が動く。版を上げるときは、この文書の表と`rules/`の`判定`欄を見直す
+- インストール時のスクリプトは動かさない（`--ignore-scripts`）。依存の中にスクリプトが要るパッケージはない
+- 入れる場所：利用者のキャッシュ。環境変数`DOCS_RULES_CACHE_DIR`で変えられる。プラグインの`${CLAUDE_PLUGIN_DATA}`は、エージェントが実行するコマンドの環境変数に渡らないため使わない
+  - macOS：`~/Library/Caches/docs-rules`
+  - Linux：`~/.cache/docs-rules`。`XDG_CACHE_HOME`があればその下
+  - Windows：`%LOCALAPPDATA%\docs-rules`
+- 入れ直す条件：場所の名前にロックファイルのハッシュを含める。ロックファイルが変わると別の場所に入れ、前の場所は消す
+- 並行して呼ばれたとき：一時的な場所に入れ終えてから名前を変えるため、入れかけの場所は使われない
+- 起動：入れたパッケージのコマンドをNode.jsで直接起動する。シェルを通さないため、文書のパスに「&」などが含まれていてもコマンドとして動かない
+- 初回の実行は、パッケージの取得に数秒から20秒ほどかかる。2回目からは入れたものを使う
 
 ### 終了コード
 
@@ -37,7 +50,7 @@ node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名
 | 0 | 違反なし | そのまま出力してよい |
 | 1 | 違反あり | `violations`を見て直す |
 | 2 | 引数の誤り（文書がない、`schemas/`にない識別名） | 引数を直して実行し直す |
-| 3 | textlintかmarkdownlint-cli2を実行できなかった（ネットワークがなく`npx`で取得できないなど） | 機械判定を飛ばし、そのことを利用者に伝えたうえで、SKILL.mdの自己点検に戻る |
+| 3 | textlintかmarkdownlint-cli2を実行できなかった（ネットワークがなくパッケージを入れられない、npmがないなど） | 機械判定を飛ばし、そのことを利用者に伝えたうえで、SKILL.mdの自己点検に戻る |
 
 Node.jsがない環境では`node`のコマンドが見つからない。この場合も終了コード3と同じく扱う。
 
@@ -198,11 +211,11 @@ Markdown記法のルール（[rules/markup.md](../rules/markup.md)）は、markd
 
 ### 実行方法
 
-- 前提：Node.js。`npx`で実行し、利用者に事前の`npm install`を求めない（#13の決定と同じ）
+- 前提と入れ方：textlintと同じく、`score.mjs`が[package-lock.json](package-lock.json)の版で入れて実行する（上の「パッケージの入れ方」）
 - 版：markdownlint-cli2の0.24.0に固定する。版を上げるときは、「設定の方針」の表とrules/markup.mdの`判定`欄を見直す
-- Node.jsがない環境、初回の`npx`でパッケージを取得できない環境の扱いは、上の「終了コード」のとおり、そのことを伝えたうえでSKILL.mdの自己点検に戻る
+- Node.jsがない環境、パッケージを入れられない環境の扱いは、上の「終了コード」のとおり、そのことを伝えたうえでSKILL.mdの自己点検に戻る
 
-リポジトリの直下で、リポジトリ全体のMarkdownに当てるコマンドは次のとおり。利用者の文書に当てるときは、最後の引数を文書のパスにする。
+開発者がリポジトリの直下で、リポジトリ全体のMarkdownにmarkdownlintだけを当てるコマンドは次のとおり。利用者の文書の採点には使わない。
 
 ```bash
 npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/.markdownlint-cli2.jsonc "**/*.md"
