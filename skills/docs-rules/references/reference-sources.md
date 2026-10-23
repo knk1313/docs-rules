@@ -162,7 +162,7 @@ JTFスタイルガイドに日付の項目がなく、公用文作成の考え�
 
 ## 出典
 
-- [文化庁「文化審議会建議『公用文作成の考え方』について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
+- [文化庁「文化審議会建議「公用文作成の考え方」について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
 - [文化庁「文化庁ホームページについて」](https://www.bunka.go.jp/bunkacho_homepage/index.html)
 - [文部科学省「文部科学省ウェブサイト利用規約」](https://www.mext.go.jp/b_menu/1351168.htm)
 - [日本翻訳連盟「JTF日本語標準スタイルガイド」](https://www.jtf.jp/tips/styleguide)

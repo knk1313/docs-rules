@@ -125,7 +125,7 @@
 
 ## 出典
 
-- [文化庁「文化審議会建議『公用文作成の考え方』について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
+- [文化庁「文化審議会建議「公用文作成の考え方」について」](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/93650001.html)
 - [文化審議会「公用文作成の考え方（建議）」（PDF）](https://www.bunka.go.jp/seisaku/bunkashingikai/kokugo/hokoku/pdf/93731901_01.pdf)
 
 この表の内容（要旨）の列は、文化庁の資料を基に編集・加工したものである。同資料は文部科学省ウェブサイト利用規約に従う。
