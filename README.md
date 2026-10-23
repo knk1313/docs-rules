@@ -59,6 +59,26 @@ Claude Codeのセッション内で実行します。
 /plugin install docs-rules@docs-rules
 ```
 
+## バージョン管理
+
+[Semantic Versioning 2.0.0](https://semver.org/lang/ja/)に従い、`vX.Y.Z`の形のgitタグで版を示します。タグはgitだけに置き、`plugin.json`にはバージョンを書きません。
+
+| 上げる桁 | 変更の内容 |
+| --- | --- |
+| X（メジャー） | 既存のルールIDの削除や意味の変更、`schemas/`の必須セクションの削除、インストール方法の変更。利用者が書いた文書や設定を見直す必要がある変更 |
+| Y（マイナー） | ルール、文書種別、スキーマ、テンプレートの追加。既存の利用者はそのまま使える変更 |
+| Z（パッチ） | 誤字や説明の修正、ルールの意味を変えない例の追加 |
+
+- `1.0.0`は、ロードマップのStep 4までそろった時点で付けます。それまでは`0.Y.Z`で、マイナーの変更でもルールIDの削除や意味の変更が入ることがあります
+- 変更点は[Releases](https://github.com/knk1313/docs-rules/releases)に書きます。`CHANGELOG.md`は置きません
+- `main`は常にタグより新しいことがあります。特定の版を使うときは、タグを指定してクローンしてください
+
+```bash
+git clone --branch v0.1.0 --depth 1 https://github.com/knk1313/docs-rules.git
+```
+
+リリースの手順は[CONTRIBUTING.md](CONTRIBUTING.md)の「リリース」を参照してください。
+
 ## ロードマップ
 
 ```mermaid
