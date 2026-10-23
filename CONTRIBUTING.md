@@ -104,4 +104,6 @@ PRを作成する前に、以下を確認する。
   - `feat`、`fix`、`refactor`、`perf`、`chore`、`docs`、`test`
 - 1つのPRに複数種類の変更を混ぜない（粒度を適切に保つ）
 - 関連するIssueがあれば`Closes #123`のように参照を含める
-- `.env.example`に影響する環境変数を追加した場合は必ず更新する
+- `.github/pull_request_template.md`の全項目を埋める。「人が書く要約」は人が自分の言葉で書く。空欄の項目があるPRと、人が確認した形跡のないPRは、レビューせずに閉じる
+- AIエージェントがPRを出すときは、[AGENTS.md](./AGENTS.md)の「外部からの貢献」の条件を満たす
+- `python3 tests/test_skill_size.py`を通す（[tests/README.md](./tests/README.md)を参照）
