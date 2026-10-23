@@ -30,10 +30,10 @@
 
 ## joyo-kanji.json
 
-常用漢字表の本表（2136字）と付表（116語）を持つ。
+常用漢字表の本表（2,136字）と付表（116語）を持つ。
 
-- `entries`：本表。字種ごとに、康熙字典体（`old_forms`）、許容字体（`accepted_form`）、音訓の一覧（`readings`）を持つ
-- `entries[].readings[]`：音訓ごとに、字音か字訓か（`kind`）、1字下げで示された特別な音訓か（`special`）、例欄の語（`examples`）、備考欄の文（`remark`）を持つ
+- `entries`：本表。字種ごとに、旧字体（`old_forms`。常用漢字表が括弧の中に示す字体）、許容字体（`accepted_form`）、音訓の一覧（`readings`）を持つ
+- `entries[].readings[]`：音訓ごとの項目。字音と字訓の区別（`kind`）、1字下げで示された特別な音訓かどうか（`special`）を持つ。例欄の語（`examples`）と備考欄の文（`remark`）も持つ
 - `appendix`：付表。読み（`reading`）と語（`words`）の組。同じ読みに複数の語がある場合（「かわら」の「河原」「川原」など）は並べる
 
 表外の読みを判定できるよう、字の一覧だけでなく音訓まで持つ。判定の仕方は`evaluators/`の採点の入口（#21）で決める。
@@ -69,7 +69,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_joyo_kanji.py <常用漢�
 ```
 
 - 前提：popplerの`pdftotext`がPATHにあること。Pythonは標準ライブラリだけを使う
-- スクリプトは、字数が告示の2136字と一致すること、字の重複がないこと、音訓のない字がないことを確かめ、合わなければ失敗する
+- スクリプトは、字数が告示の2,136字と一致すること、字の重複がないこと、音訓のない字がないことを確かめ、合わなければ失敗する
 
 ### okurigana.jsonとgairaigo.jsonは手で起こして照合する
 

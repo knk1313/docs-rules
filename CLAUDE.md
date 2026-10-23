@@ -2,6 +2,6 @@
 
 ルールの本体は[AGENTS.md](AGENTS.md)に置く（Codexなどと共有する単一のソース）。本ファイルはClaude Code用の薄いラッパーである。`@AGENTS.md`の構文で、本体の規約をセッション開始時にコンテキストへ展開する。
 
-Claude Code固有の補助（skills、agents、slash commands、docs）は`.claude/`配下に置く。個人のローカル設定は`.claude/settings.local.json`に、MCP（Model Context Protocol）の認証情報は`.claude/.credentials.json`に置く。どちらも`.gitignore`に登録してある。
+Claude Code固有の補助（skills、agents、slash commands、docs）は`.claude/`配下に置く。個人のローカル設定は`.claude/settings.local.json`に置く。MCP（Model Context Protocol）の認証情報は`.claude/.credentials.json`に置く。どちらも`.gitignore`に登録してある。
 
 @AGENTS.md

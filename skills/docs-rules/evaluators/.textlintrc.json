@@ -3,6 +3,7 @@
     "preset-ja-technical-writing": {
       "sentence-length": { "max": 100 },
       "arabic-kanji-numbers": false,
+      "max-kanji-continuous-len": { "max": 6, "allow": ["文化審議会建議"] },
       "no-mix-dearu-desumasu": { "preferInHeader": "", "preferInBody": "", "preferInList": "", "strict": false }
     },
     "preset-jtf-style": {

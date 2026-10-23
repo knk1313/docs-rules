@@ -205,18 +205,25 @@ function toViolation(message, source, lines, ruleIndex) {
   }
   let excerpt;
   let fix;
+  let start;
   if (message.fix) {
+    start = message.fix.range[0];
     excerpt = source.slice(message.fix.range[0], message.fix.range[1]);
     fix = `「${excerpt}」→「${message.fix.text}」`;
   } else {
-    const [start, end] = message.range ?? [message.index, message.index + 1];
+    const [rangeStart, rangeEnd] = message.range ?? [message.index, message.index + 1];
+    start = rangeStart;
     excerpt =
-      end - start > 1 ? source.slice(start, end) : lineText(lines, message.line).slice(message.column - 1, message.column + 19);
+      rangeEnd - rangeStart > 1
+        ? source.slice(rangeStart, rangeEnd)
+        : lineText(lines, message.line).slice(message.column - 1, message.column + 19);
     const rule = ruleId ? ruleIndex.rules.get(ruleId) : null;
     // 直し方の候補がないときは、ルールの要約を直し方として返す。対応するルールがないときは、ツールのメッセージを返す
     fix = rule ? rule.summary : message.message.split("\n")[0];
   }
-  return { rule_id: ruleId, line: message.line, excerpt, fix, judge: "機械", checker };
+  // 該当箇所の桁（1始まり）。行の中で同じ文字列が複数あるときに、どれを指すかを区別する
+  const column = start - source.lastIndexOf("\n", start - 1);
+  return { rule_id: ruleId, line: message.line, column, excerpt, fix, judge: "機械", checker };
 }
 
 /** markdownlint-cli2 を実行し、結果を docs-rules の形に直す。 */
@@ -245,6 +252,7 @@ function runMarkdownlint(file, lines, versions, ruleIndex) {
     violations.push({
       rule_id: ruleId,
       line: Number(lineNo),
+      column: column ? Number(column) : 1,
       excerpt: column ? text.slice(Number(column) - 1, Number(column) + 19) : text.slice(0, 20),
       fix: rule ? rule.summary : description,
       judge: "機械",
@@ -272,6 +280,7 @@ function checkSchema(type, source) {
       violations.push({
         rule_id: "SCHEMA",
         line: null,
+        column: null,
         excerpt: name,
         fix: `必須セクション「${name}」を、schemas/${type}.md の表の順に置く`,
         judge: "機械",
@@ -288,6 +297,7 @@ function checkSchema(type, source) {
       violations.push({
         rule_id: "SCHEMA",
         line: h.number,
+        column: 1,
         excerpt: h.text,
         fix: `「${h.text}」を「${required[maxIndex]}」より前に置く（schemas/${type}.md の表の順）`,
         judge: "機械",

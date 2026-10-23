@@ -49,6 +49,7 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
     {
       "rule_id": "NOT-016",
       "line": 12,
+      "column": 2,
       "excerpt": "ヶ",
       "fix": "「ヶ」→「か」",
       "judge": "機械",
@@ -64,6 +65,7 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
 | `skipped_rules` | 採点しなかったルールと理由。一部だけ実装したルールも、実装していない部分をここに出す |
 | `violations[].rule_id` | docs-rulesのルールID。必須セクションの照合は`SCHEMA`。対応するルールがない判定手段（`max-ten`など、docs-rulesにないルール）は`null` |
 | `violations[].line` | 該当行（1始まり）。必須セクションの欠落は該当行がないため`null` |
+| `violations[].column` | 該当箇所の桁（1始まり）。同じ行に同じ文字列が複数あるときに区別する。必須セクションの欠落は`null`（#22で足した） |
 | `violations[].excerpt` | 該当箇所の文字列 |
 | `violations[].fix` | 直し方。ツールが修正候補を返したときは`「A」→「B」`の形、返さないときは`rules/`の該当ルールの見出しの要約。対応するルールがないときはツールのメッセージ |
 | `violations[].judge` | `機械`。AI評価の結果とまとめるときに区別する |
