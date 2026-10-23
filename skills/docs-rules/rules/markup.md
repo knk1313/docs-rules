@@ -91,10 +91,10 @@
 - ルール：URLをそのまま本文に置かず、`[文言](URL)`の形で書く。文言には「こちら」「ここ」「リンク」のような、リンク先を示さない語を使わない。リンク先が空のリンクを置かない
 - 理由：URLをそのまま置くと、処理系によってリンクにならないことがある。文言がリンク先を示していれば、文言だけを読んでも行き先が分かる
 - 出典：CommonMark Spec 6.3・6.5、markdownlint MD034・MD042・MD059
-- 判定：機械（markdownlint：MD034、MD042、MD059）
+- 判定：機械（markdownlint：MD034、MD042、MD059、textlint：docs-rules/mkd-010）
 - 例：「手順は`[こちら](https://example.com/guide)`」→「手順は`[設定ガイド](https://example.com/guide)`」
 
-> markdownlint：MD059が判定するのは、空の文言と英語の決まり文句（here、link、more）だけである。「こちら」のような日本語の語の判定は、evaluators/ の実装時（#21）にprh辞書で足す。
+> markdownlint：MD059が判定するのは、空の文言と英語の決まり文句（here、link、more）だけである。「こちら」「ここ」「リンク」のような日本語の語は、textlint：docs-rules/mkd-010で判定する（#21）。prh辞書は本文のすべての語に当たり、リンクの文言だけに絞れないため、リンクの文言だけを見る自前のルールにした。
 
 ### MKD-011 画像には代替テキストを付ける
 

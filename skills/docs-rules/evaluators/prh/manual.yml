@@ -1,0 +1,130 @@
+# 手で書く辞書。rules/ の語や文字の置き換えで判定できるルールを置く。
+# prh の項目にルールIDを書く。score.mjs はtextlintのメッセージの末尾からルールIDを読む。
+# 送り仮名（NOT-010）と外来語（NOT-011）の辞書は data/tools/build_prh.py で生成し、別のファイルに置く。
+version: 1
+rules:
+  # NOT-004 繰り返し符号は「々」だけを使う
+  - expected: "々"
+    pattern: "/(?<=[一-龯])〃/"
+    prh: NOT-004
+    specs:
+      - from: "各〃の担当"
+        to: "各々の担当"
+  - expected: "$1$1"
+    pattern: "/([ぁ-ゖ])ゝ/"
+    prh: NOT-004
+    specs:
+      - from: "こゝろ"
+        to: "こころ"
+  - expected: "$1$1"
+    pattern: "/([ァ-ヺ])ヽ/"
+    prh: NOT-004
+    specs:
+      - from: "バヽ"
+        to: "ババ"
+
+  # NOT-008 接続詞と副詞は仮名で書く。接続詞は名詞の直後に来るため、前の字では除かない。
+  # 「更に」だけは、前に漢字が続くとき（「変更に」）を語の一部として除く
+  - expected: "さらに"
+    pattern: "/(?<![一-龯々])更に/"
+    prh: NOT-008
+    specs:
+      - from: "更に設定を変える"
+        to: "さらに設定を変える"
+      - from: "変更に従う"
+        to: "変更に従う"
+  - expected: "しかし"
+    pattern: "/然し/"
+    prh: NOT-008
+    specs:
+      - from: "然し"
+        to: "しかし"
+  - expected: "ただし"
+    pattern: "/但し/"
+    prh: NOT-008
+    specs:
+      - from: "但し"
+        to: "ただし"
+  - expected: "いろいろ"
+    pattern: "/色々/"
+    prh: NOT-008
+    specs:
+      - from: "色々な設定"
+        to: "いろいろな設定"
+  - expected: "たくさん"
+    pattern: "/沢山/"
+    prh: NOT-008
+    specs:
+      - from: "沢山ある"
+        to: "たくさんある"
+  - expected: "ちょうど"
+    pattern: "/丁度/"
+    prh: NOT-008
+    specs:
+      - from: "丁度よい"
+        to: "ちょうどよい"
+  # 「出来事」「出来高」のように後ろに漢字が続く語は除く。「変更出来る」のように前に漢字が続く形は対象にする
+  - expected: "でき"
+    pattern: "/出来(?![一-龯々])/"
+    prh: NOT-008
+    specs:
+      - from: "変更出来る"
+        to: "変更できる"
+      - from: "出来事"
+        to: "出来事"
+  - expected: "および"
+    # 動詞の「及ぶ」の連用形（「被害が及び」）は除く
+    pattern: "/(?<![がにもは])及び/"
+    prh: NOT-008
+    specs:
+      - from: "被害が及び"
+        to: "被害が及び"
+      - from: "設定及び手順"
+        to: "設定および手順"
+  - expected: "または"
+    pattern: "/又は/"
+    prh: NOT-008
+    specs:
+      - from: "設定又は手順"
+        to: "設定または手順"
+  - expected: "ならびに"
+    pattern: "/並びに/"
+    prh: NOT-008
+    specs:
+      - from: "設定並びに手順"
+        to: "設定ならびに手順"
+  - expected: "もしくは"
+    pattern: "/若しくは/"
+    prh: NOT-008
+    specs:
+      - from: "設定若しくは手順"
+        to: "設定もしくは手順"
+
+  # NOT-016 「か所」「か月」は仮名の「か」で書く。数字の後の「ヶ」はjtf-style/2.2.3が判定する。
+  # 数を数える場合だけが対象のため、「該当箇所」のような名詞の「箇所」は除く
+  - expected: "か"
+    pattern: "/(?<=[0-9０-９何数])[箇ケカヵ](?=[所月国年])/"
+    prh: NOT-016
+    specs:
+      - from: "2箇所"
+        to: "2か所"
+      - from: "3ケ月"
+        to: "3か月"
+      - from: "2カ所"
+        to: "2か所"
+      - from: "該当箇所"
+        to: "該当箇所"
+  - expected: "か"
+    pattern: "/(?<=[何数])ヶ(?=[所月国年])/"
+    prh: NOT-016
+    specs:
+      - from: "数ヶ月"
+        to: "数か月"
+
+  # NOT-025 波線は「〜」（U+301C）にそろえる。「～」（U+FF5E）はjtf-style/4.2.5.波線(〜)が検出しない
+  - expected: "〜"
+    pattern: "～"
+    prh: NOT-025
+    specs:
+      - from: "1～3"
+        to: "1〜3"

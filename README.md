@@ -63,7 +63,7 @@ docs-rules/
 │       ├── rules/          # 文体、表記、Markdown 記法の共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
-│       └── evaluators/     # 判定データ（内閣告示の JSON）と markdownlint の設定。採点の入口は Step 2 で足す
+│       └── evaluators/     # 採点の入口（score.mjs）、textlint と markdownlint の設定、prh 辞書、判定データ（内閣告示の JSON）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.md の大きさなど）
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
@@ -132,8 +132,8 @@ git clone --branch v0.1.0 --depth 1 https://github.com/knk1313/docs-rules.git
 
 ```mermaid
 flowchart TD
-    S1["Step 1（今ここ）<br>ルール集をドキュメントで示す<br>守れたかは人が読んで判断する"]
-    S2["Step 2<br>ルールベース採点<br>機械的に判定できるルールをコードにして採点する"]
+    S1["Step 1<br>ルール集をドキュメントで示す<br>守れたかは人が読んで判断する"]
+    S2["Step 2（今ここ）<br>ルールベース採点<br>機械的に判定できるルールをコードにして採点する"]
     S3["Step 3<br>AI 評価<br>コードで見きれないところを AI に評価させる"]
     S4["Step 4<br>書き直し<br>採点と評価の結果を渡して書き直させる"]
 

@@ -83,6 +83,14 @@ python3 skills/docs-rules/evaluators/data/tools/verify_examples.py <原文のPDF
 - `meta.counts.examples`が例語の数と一致することも確かめる
 - 例語を直したときは、このスクリプトを通してからコミットする
 
+### prh辞書を作り直す
+
+okurigana.jsonとgairaigo.jsonを直したときは、次のスクリプトでprh辞書を作り直す。出力先は`evaluators/prh/okurigana.yml`と`evaluators/prh/gairaigo.yml`である。辞書の作り方は[evaluators/README.md](../README.md)の「prh辞書」を参照。
+
+```bash
+python3 skills/docs-rules/evaluators/data/tools/build_prh.py
+```
+
 ## 検証
 
 ```bash
