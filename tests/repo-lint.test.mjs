@@ -1,5 +1,5 @@
 // リポジトリ自身のMarkdownを evaluators/ で採点し、違反が0件であることを確かめる。
-// ルールの型に由来する誤検出は、採点対象を書き換えず、このファイルの除外条件で外す。
+// ルールの型に由来する誤検出は、採点対象を書き換えず、lib/exclusions.mjs の除外条件で外す。
 // Node.js か npx が使えないとき、パッケージを取得できないときは、テストを飛ばしてそのことを出力する。
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -7,6 +7,7 @@ import { spawn, spawnSync } from "node:child_process";
 import { readFileSync, readdirSync } from "node:fs";
 import { join, relative, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { EXCLUSIONS, findExclusion } from "./lib/exclusions.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SKILL = join(ROOT, "skills/docs-rules");
@@ -35,90 +36,6 @@ function targets() {
   }
   return files;
 }
-
-/**
- * 行の中の括弧（既定は「」）で囲まれた範囲を、[開始, 終了] の桁（1始まり）の組で返す。
- * 入れ子の同じ括弧は外側の範囲に含める。
- */
-function quotedRanges(line, open = "「", close = "」") {
-  const ranges = [];
-  let depth = 0;
-  let start = 0;
-  Array.from(line).forEach((ch, i) => {
-    if (ch === open) {
-      if (depth === 0) start = i + 1;
-      depth += 1;
-    } else if (ch === close && depth > 0) {
-      depth -= 1;
-      if (depth === 0) ranges.push([start, i + 1]);
-    }
-  });
-  return ranges;
-}
-
-/** 桁を、文字単位（サロゲートペアを1字と数える）に直す。score.mjs の桁はUTF-16の単位のため。 */
-function charColumn(line, column) {
-  return Array.from(line.slice(0, column - 1)).length + 1;
-}
-
-/** examples.md で、その行が「### …の失敗例」の節の中にあるかを判定する。 */
-function inFailureExample(ctx, lineNumber) {
-  if (!ctx.file.endsWith("rules/examples.md")) return false;
-  for (let i = lineNumber - 1; i >= 0; i -= 1) {
-    const m = ctx.lines[i].match(/^#{1,3} (.+)$/);
-    if (m) return m[1].endsWith("の失敗例");
-  }
-  return false;
-}
-
-// 除外条件。ルールの型に由来する誤検出だけを挙げる。match は (指摘, 行の文字列, { file, lines }) を受け取る
-const EXCLUSIONS = [
-  {
-    // examples.md の失敗例の段落。違反を含めて書いてある
-    reason: "examples.mdの失敗例",
-    match: (v, line, ctx) => line.startsWith(">") && inFailureExample(ctx, v.line),
-  },
-  {
-    // 見出しのルールIDの後のスペース（「### FW-001 …」）
-    reason: "見出しのルールIDの後のスペース",
-    match: (v, line) => /^### [A-Z]+-\d{3} /.test(line) && v.checker === "textlint：ja-space-between-half-and-full-width",
-  },
-  {
-    // 出典欄は資料名と箇所を並べたデータで、rules/README.md の略称の表の書き方に従う。
-    // 資料名と項目番号の間のスペース（「JTFスタイルガイド 2.1.5」）、項目番号の半角の括弧（「Ⅱ5ウ(イ)」）、
-    // 英語の資料の節の区切り（「Accessibility > Tables」）が指摘されるため、行全体を対象外にする
-    reason: "出典欄の資料名と箇所",
-    match: (v, line) => line.startsWith("- 出典："),
-  },
-  {
-    // 日本語を含まない行（README.md の英語の概要など）。rules/ は日本語の文章のためのルールである
-    reason: "日本語を含まない行",
-    match: (v, line) => !/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(line),
-  },
-  {
-    // 判定欄はルール名を並べたデータで、ルール名に半角の括弧や「.」を含む（NOT-025の注記）
-    reason: "判定欄のルール名",
-    match: (v, line) => line.startsWith("- 判定："),
-  },
-  {
-    // 「」の中に例示した語や記号（「.」「,」、NOT-011の「-er」、失敗例の文）
-    reason: "「」の中の例示",
-    match: (v, line) => {
-      if (!v.column) return false;
-      const col = charColumn(line, v.column);
-      return quotedRanges(line).some(([s, e]) => col > s && col < e);
-    },
-  },
-  {
-    // 『』の中の書籍や資料の題名（NOT-018）。題名は原文のまま写すため、「及び」や語の間のスペースも残る
-    reason: "『』の中の題名",
-    match: (v, line) => {
-      if (!v.column) return false;
-      const col = charColumn(line, v.column);
-      return quotedRanges(line, "『", "』").some(([s, e]) => col > s && col < e);
-    },
-  },
-];
 
 function npxAvailable() {
   const r = spawnSync(NPX, ["--version"], { encoding: "utf8", shell: process.platform === "win32" });
@@ -154,17 +71,26 @@ test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件�
     return;
   }
   const problems = [];
+  const used = new Set();
   for (const r of results) {
     assert.ok(r.code === 0 || r.code === 1, `${r.file} の採点が終了コード ${r.code} で終わった: ${r.stderr}`);
     const lines = readFileSync(join(ROOT, r.file), "utf8").split(/\r?\n/);
     const ctx = { file: r.file, lines };
     for (const v of JSON.parse(r.stdout).violations) {
       const line = lines[v.line - 1] ?? "";
-      if (EXCLUSIONS.some((e) => e.match(v, line, ctx))) continue;
+      const exclusion = findExclusion(v, line, ctx);
+      if (exclusion) {
+        used.add(exclusion.reason);
+        continue;
+      }
       problems.push(`${r.file}:${v.line}:${v.column} ${v.rule_id ?? "-"} ${v.checker} 「${v.excerpt}」`);
     }
   }
   assert.deepEqual(problems, [], `除外条件に当たらない違反がある:\n${problems.join("\n")}`);
+
+  // どの指摘にも当たらなかった除外条件は、文書を直した結果、要らなくなったものである。残すと、後から入った本物の違反を隠しうる
+  const unused = EXCLUSIONS.map((e) => e.reason).filter((reason) => !used.has(reason));
+  assert.deepEqual(unused, [], `どの指摘にも当たらない除外条件がある。lib/exclusions.mjs から消す:\n${unused.join("\n")}`);
 });
 
 test("repo: リポジトリのMarkdownにmarkdownlint-cli2を当て、指摘が0件である", (t) => {
