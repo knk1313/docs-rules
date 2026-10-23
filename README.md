@@ -87,6 +87,7 @@ Issueを完了してファイルやディレクトリが増減したときは、
 
 ```bash
 git clone https://github.com/knk1313/docs-rules.git
+mkdir -p ~/.claude/skills
 cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
 ```
 
