@@ -1,0 +1,385 @@
+# NOT-011（外来語の語末の長音）の辞書。
+# data/tools/build_prh.py で生成した。手で直さない（元データ: data/gairaigo.json の用例集）。
+#
+# 用例集の語のうち語末が「ー」の語について、「ー」を省いた形を指摘する。
+# 両様の書き方が認められている語（alt のある語）は指摘しない。
+version: 1
+rules:
+  - expected: "アカデミー"
+    pattern: "/(?<![ァ-ヺー])アカデミ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "アカデミ"
+        to: "アカデミー"
+  - expected: "アクセサリー"
+    pattern: "/(?<![ァ-ヺー])アクセサリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "アクセサリ"
+        to: "アクセサリー"
+  - expected: "アトランティックシティー"
+    pattern: "/(?<![ァ-ヺー])アトランティックシティ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "アトランティックシティ"
+        to: "アトランティックシティー"
+  - expected: "アナウンサー"
+    pattern: "/(?<![ァ-ヺー])アナウンサ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "アナウンサ"
+        to: "アナウンサー"
+  - expected: "ウイークデー"
+    pattern: "/(?<![ァ-ヺー])ウイークデ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ウイークデ"
+        to: "ウイークデー"
+  - expected: "ウェブスター"
+    pattern: "/(?<![ァ-ヺー])ウェブスタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ウェブスタ"
+        to: "ウェブスター"
+  - expected: "エネルギー"
+    pattern: "/(?<![ァ-ヺー])エネルギ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "エネルギ"
+        to: "エネルギー"
+  - expected: "カレンダー"
+    pattern: "/(?<![ァ-ヺー])カレンダ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "カレンダ"
+        to: "カレンダー"
+  - expected: "カロリー"
+    pattern: "/(?<![ァ-ヺー])カロリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "カロリ"
+        to: "カロリー"
+  - expected: "ガンジー"
+    pattern: "/(?<![ァ-ヺー])ガンジ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ガンジ"
+        to: "ガンジー"
+  - expected: "キャンデー"
+    pattern: "/(?<![ァ-ヺー])キャンデ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "キャンデ"
+        to: "キャンデー"
+  - expected: "キュリー"
+    pattern: "/(?<![ァ-ヺー])キュリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "キュリ"
+        to: "キュリー"
+  - expected: "クリスマスツリー"
+    pattern: "/(?<![ァ-ヺー])クリスマスツリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "クリスマスツリ"
+        to: "クリスマスツリー"
+  - expected: "クーデター"
+    pattern: "/(?<![ァ-ヺー])クーデタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "クーデタ"
+        to: "クーデター"
+  - expected: "ケンタッキー"
+    pattern: "/(?<![ァ-ヺー])ケンタッキ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ケンタッキ"
+        to: "ケンタッキー"
+  - expected: "ケーブルカー"
+    pattern: "/(?<![ァ-ヺー])ケーブルカ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ケーブルカ"
+        to: "ケーブルカー"
+  - expected: "コーヒー"
+    pattern: "/(?<![ァ-ヺー])コーヒ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "コーヒ"
+        to: "コーヒー"
+  - expected: "シェーカー"
+    pattern: "/(?<![ァ-ヺー])シェーカ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "シェーカ"
+        to: "シェーカー"
+  - expected: "シドニー"
+    pattern: "/(?<![ァ-ヺー])シドニ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "シドニ"
+        to: "シドニー"
+  - expected: "シャッター"
+    pattern: "/(?<![ァ-ヺー])シャッタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "シャッタ"
+        to: "シャッター"
+  - expected: "シンフォニー"
+    pattern: "/(?<![ァ-ヺー])シンフォニ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "シンフォニ"
+        to: "シンフォニー"
+  - expected: "ジェンナー"
+    pattern: "/(?<![ァ-ヺー])ジェンナ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ジェンナ"
+        to: "ジェンナー"
+  - expected: "スイートピー"
+    pattern: "/(?<![ァ-ヺー])スイートピ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "スイートピ"
+        to: "スイートピー"
+  - expected: "センター"
+    pattern: "/(?<![ァ-ヺー])センタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "センタ"
+        to: "センター"
+  - expected: "セーター"
+    pattern: "/(?<![ァ-ヺー])セータ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "セータ"
+        to: "セーター"
+  - expected: "セーラー"
+    pattern: "/(?<![ァ-ヺー])セーラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "セーラ"
+        to: "セーラー"
+  - expected: "ソファー"
+    pattern: "/(?<![ァ-ヺー])ソファ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ソファ"
+        to: "ソファー"
+  - expected: "タクシー"
+    pattern: "/(?<![ァ-ヺー])タクシ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "タクシ"
+        to: "タクシー"
+  - expected: "ターナー"
+    pattern: "/(?<![ァ-ヺー])ターナ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ターナ"
+        to: "ターナー"
+  - expected: "チャイコフスキー"
+    pattern: "/(?<![ァ-ヺー])チャイコフスキ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "チャイコフスキ"
+        to: "チャイコフスキー"
+  - expected: "テネシー"
+    pattern: "/(?<![ァ-ヺー])テネシ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "テネシ"
+        to: "テネシー"
+  - expected: "ディズニー"
+    pattern: "/(?<![ァ-ヺー])ディズニ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ディズニ"
+        to: "ディズニー"
+  - expected: "デューラー"
+    pattern: "/(?<![ァ-ヺー])デューラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "デューラ"
+        to: "デューラー"
+  - expected: "トロフィー"
+    pattern: "/(?<![ァ-ヺー])トロフィ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "トロフィ"
+        to: "トロフィー"
+  - expected: "ドストエフスキー"
+    pattern: "/(?<![ァ-ヺー])ドストエフスキ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ドストエフスキ"
+        to: "ドストエフスキー"
+  - expected: "ドビュッシー"
+    pattern: "/(?<![ァ-ヺー])ドビュッシ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ドビュッシ"
+        to: "ドビュッシー"
+  - expected: "ドライヤー"
+    pattern: "/(?<![ァ-ヺー])ドライヤ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ドライヤ"
+        to: "ドライヤー"
+  - expected: "ノルウェー"
+    pattern: "/(?<![ァ-ヺー])ノルウェ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ノルウェ"
+        to: "ノルウェー"
+  - expected: "ノルマンディー"
+    pattern: "/(?<![ァ-ヺー])ノルマンディ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ノルマンディ"
+        to: "ノルマンディー"
+  - expected: "ハイヤー"
+    pattern: "/(?<![ァ-ヺー])ハイヤ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ハイヤ"
+        to: "ハイヤー"
+  - expected: "バッファロー"
+    pattern: "/(?<![ァ-ヺー])バッファロ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "バッファロ"
+        to: "バッファロー"
+  - expected: "パーティー"
+    pattern: "/(?<![ァ-ヺー])パーティ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "パーティ"
+        to: "パーティー"
+  - expected: "ファラデー"
+    pattern: "/(?<![ァ-ヺー])ファラデ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ファラデ"
+        to: "ファラデー"
+  - expected: "フェアプレー"
+    pattern: "/(?<![ァ-ヺー])フェアプレ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "フェアプレ"
+        to: "フェアプレー"
+  - expected: "フォスター"
+    pattern: "/(?<![ァ-ヺー])フォスタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "フォスタ"
+        to: "フォスター"
+  - expected: "プロデューサー"
+    pattern: "/(?<![ァ-ヺー])プロデューサ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "プロデューサ"
+        to: "プロデューサー"
+  - expected: "ヘリコプター"
+    pattern: "/(?<![ァ-ヺー])ヘリコプタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ヘリコプタ"
+        to: "ヘリコプター"
+  - expected: "ベストセラー"
+    pattern: "/(?<![ァ-ヺー])ベストセラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ベストセラ"
+        to: "ベストセラー"
+  - expected: "ベーカリー"
+    pattern: "/(?<![ァ-ヺー])ベーカリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ベーカリ"
+        to: "ベーカリー"
+  - expected: "ボディー"
+    pattern: "/(?<![ァ-ヺー])ボディ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ボディ"
+        to: "ボディー"
+  - expected: "ポスター"
+    pattern: "/(?<![ァ-ヺー])ポスタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ポスタ"
+        to: "ポスター"
+  - expected: "マフラー"
+    pattern: "/(?<![ァ-ヺー])マフラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "マフラ"
+        to: "マフラー"
+  - expected: "マンチェスター"
+    pattern: "/(?<![ァ-ヺー])マンチェスタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "マンチェスタ"
+        to: "マンチェスター"
+  - expected: "ミキサー"
+    pattern: "/(?<![ァ-ヺー])ミキサ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ミキサ"
+        to: "ミキサー"
+  - expected: "ミッドウェー"
+    pattern: "/(?<![ァ-ヺー])ミッドウェ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ミッドウェ"
+        to: "ミッドウェー"
+  - expected: "ミルウォーキー"
+    pattern: "/(?<![ァ-ヺー])ミルウォーキ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ミルウォーキ"
+        to: "ミルウォーキー"
+  - expected: "メロディー"
+    pattern: "/(?<![ァ-ヺー])メロディ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "メロディ"
+        to: "メロディー"
+  - expected: "メンバー"
+    pattern: "/(?<![ァ-ヺー])メンバ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "メンバ"
+        to: "メンバー"
+  - expected: "メーカー"
+    pattern: "/(?<![ァ-ヺー])メーカ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "メーカ"
+        to: "メーカー"
+  - expected: "メーデー"
+    pattern: "/(?<![ァ-ヺー])メーデ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "メーデ"
+        to: "メーデー"
+  - expected: "モーター"
+    pattern: "/(?<![ァ-ヺー])モータ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "モータ"
+        to: "モーター"
+  - expected: "レギュラー"
+    pattern: "/(?<![ァ-ヺー])レギュラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "レギュラ"
+        to: "レギュラー"
+  - expected: "レフェリー"
+    pattern: "/(?<![ァ-ヺー])レフェリ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "レフェリ"
+        to: "レフェリー"

@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "preset-ja-technical-writing": {
+      "sentence-length": { "max": 100 },
+      "arabic-kanji-numbers": false,
+      "no-mix-dearu-desumasu": { "preferInHeader": "", "preferInBody": "", "preferInList": "", "strict": false }
+    },
+    "preset-jtf-style": {
+      "1.1.1.本文": false,
+      "2.1.5.カタカナ": true,
+      "2.2.2.算用数字と漢数字の使い分け": false,
+      "3.1.1.全角文字と半角文字の間": false,
+      "3.2.カタカナ語間のスペースの有無": false,
+      "4.2.1.感嘆符(！)": false,
+      "4.2.2.疑問符(？)": false,
+      "4.2.9.ダッシュ(-)": false
+    },
+    "preset-ja-spacing": {
+      "ja-space-after-exclamation": false,
+      "ja-space-after-question": false
+    },
+    "prh": {
+      "rulePaths": ["./prh/manual.yml", "./prh/okurigana.yml", "./prh/gairaigo.yml"]
+    }
+  }
+}

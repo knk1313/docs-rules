@@ -49,7 +49,10 @@
 - 対応する既存の判定ルールがあるときは、`機械（textlint：<ルール名>）`や`機械（markdownlint：<ルール名>）`のように括弧内に併記する
 - ルール名はパッケージ名の`textlint-rule-`prefixを除いた形で書く（例：`ja-no-weak-phrase`）
 - markdownlintのルール名はMD番号で書く（例：`MD004`）。同じ判定手段のルールが複数あるときは「、」で区切って並べる（例：`機械（markdownlint：MD001、MD003）`）
-- 書式を固定しておき、evaluators/ を実装するとき（Step 2）に`判定：機械`の行を正規表現で拾えるようにする
+- prh辞書で判定するルールは`機械（textlint：prh）`と書く。辞書の項目にルールIDを書き、採点結果ではそのIDを返す
+- evaluators/ に置いた自前のtextlintルールは、ルール名の前に`docs-rules/`を付ける（例：`機械（textlint：docs-rules/not-012）`）
+- 1つのルールに複数の判定手段があり、ツールが違うときは、ツール名ごとに続けて並べる（例：`機械（markdownlint：MD034、textlint：docs-rules/mkd-010）`）
+- 書式を固定しておき、採点の入口（`evaluators/score.mjs`）が`判定：機械`の行を正規表現で拾えるようにする。採点の入口は、この欄からルールIDと判定手段の対応を作る
 
 ## 出典の書き方
 

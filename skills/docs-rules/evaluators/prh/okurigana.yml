@@ -1,0 +1,372 @@
+# NOT-010（送り仮名）の辞書。
+# data/tools/build_prh.py で生成した。手で直さない（元データ: data/okurigana.json の許容の形）。
+#
+# 判定できるのは、告示の許容の形として挙がった語だけである。
+version: 1
+rules:
+  - expected: "乗り換え"
+    pattern: "/(?<![一-龯々〆])乗換(?![一-龯々〆え])/"
+    prh: NOT-010
+    specs:
+      - from: "乗換"
+        to: "乗り換え"
+  - expected: "乗り換え"
+    pattern: "/(?<![一-龯々〆])乗換え/"
+    prh: NOT-010
+    specs:
+      - from: "乗換え"
+        to: "乗り換え"
+  - expected: "代わり"
+    pattern: "/(?<![一-龯々〆])代り/"
+    prh: NOT-010
+    specs:
+      - from: "代り"
+        to: "代わり"
+  - expected: "入り江"
+    pattern: "/(?<![一-龯々〆])入江(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "入江"
+        to: "入り江"
+  - expected: "取り扱い"
+    pattern: "/(?<![一-龯々〆])取扱(?![一-龯々〆い])/"
+    prh: NOT-010
+    specs:
+      - from: "取扱"
+        to: "取り扱い"
+  - expected: "取り扱い"
+    pattern: "/(?<![一-龯々〆])取扱い/"
+    prh: NOT-010
+    specs:
+      - from: "取扱い"
+        to: "取り扱い"
+  - expected: "合わせ鏡"
+    pattern: "/(?<![一-龯々〆])合せ鏡(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "合せ鏡"
+        to: "合わせ鏡"
+  - expected: "向かい"
+    pattern: "/(?<![一-龯々〆])向い(?![合])/"
+    prh: NOT-010
+    specs:
+      - from: "向い"
+        to: "向かい"
+  - expected: "向かい合わせる"
+    pattern: "/(?<![一-龯々〆])向い合せる/"
+    prh: NOT-010
+    specs:
+      - from: "向い合せる"
+        to: "向かい合わせる"
+  - expected: "呼び出し電話"
+    pattern: "/(?<![一-龯々〆])呼出し電話(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "呼出し電話"
+        to: "呼び出し電話"
+  - expected: "呼び出し電話"
+    pattern: "/(?<![一-龯々〆])呼出電話(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "呼出電話"
+        to: "呼び出し電話"
+  - expected: "売り上げ"
+    pattern: "/(?<![一-龯々〆])売上(?![一-龯々〆げ])/"
+    prh: NOT-010
+    specs:
+      - from: "売上"
+        to: "売り上げ"
+  - expected: "売り上げ"
+    pattern: "/(?<![一-龯々〆])売上げ/"
+    prh: NOT-010
+    specs:
+      - from: "売上げ"
+        to: "売り上げ"
+  - expected: "変わる"
+    pattern: "/(?<![一-龯々〆])変る/"
+    prh: NOT-010
+    specs:
+      - from: "変る"
+        to: "変わる"
+  - expected: "夜明かし"
+    pattern: "/(?<![一-龯々〆])夜明し/"
+    prh: NOT-010
+    specs:
+      - from: "夜明し"
+        to: "夜明かし"
+  - expected: "封切り"
+    pattern: "/(?<![一-龯々〆])封切(?![一-龯々〆り])/"
+    prh: NOT-010
+    specs:
+      - from: "封切"
+        to: "封切り"
+  - expected: "差し支える"
+    pattern: "/(?<![一-龯々〆])差支える/"
+    prh: NOT-010
+    specs:
+      - from: "差支える"
+        to: "差し支える"
+  - expected: "引き換え"
+    pattern: "/(?<![一-龯々〆])引換(?![一-龯々〆え])/"
+    prh: NOT-010
+    specs:
+      - from: "引換"
+        to: "引き換え"
+  - expected: "引き換え"
+    pattern: "/(?<![一-龯々〆])引換え/"
+    prh: NOT-010
+    specs:
+      - from: "引換え"
+        to: "引き換え"
+  - expected: "当たり"
+    pattern: "/(?<![一-龯々〆])当り/"
+    prh: NOT-010
+    specs:
+      - from: "当り"
+        to: "当たり"
+  - expected: "当たる"
+    pattern: "/(?<![一-龯々〆])当る/"
+    prh: NOT-010
+    specs:
+      - from: "当る"
+        to: "当たる"
+  - expected: "待ち遠しい"
+    pattern: "/(?<![一-龯々〆])待遠しい/"
+    prh: NOT-010
+    specs:
+      - from: "待遠しい"
+        to: "待ち遠しい"
+  - expected: "待ち遠しさ"
+    pattern: "/(?<![一-龯々〆])待遠しさ/"
+    prh: NOT-010
+    specs:
+      - from: "待遠しさ"
+        to: "待ち遠しさ"
+  - expected: "打ち合わせる"
+    pattern: "/(?<![一-龯々〆])打ち合せる/"
+    prh: NOT-010
+    specs:
+      - from: "打ち合せる"
+        to: "打ち合わせる"
+  - expected: "打ち合わせる"
+    pattern: "/(?<![一-龯々〆])打合せる/"
+    prh: NOT-010
+    specs:
+      - from: "打合せる"
+        to: "打ち合わせる"
+  - expected: "抜け駆け"
+    pattern: "/(?<![一-龯々〆])抜駆け/"
+    prh: NOT-010
+    specs:
+      - from: "抜駆け"
+        to: "抜け駆け"
+  - expected: "押さえる"
+    pattern: "/(?<![一-龯々〆])押える/"
+    prh: NOT-010
+    specs:
+      - from: "押える"
+        to: "押さえる"
+  - expected: "捕らえる"
+    pattern: "/(?<![一-龯々〆])捕える/"
+    prh: NOT-010
+    specs:
+      - from: "捕える"
+        to: "捕らえる"
+  - expected: "断る"
+    pattern: "/(?<![一-龯々〆])断わる/"
+    prh: NOT-010
+    specs:
+      - from: "断わる"
+        to: "断る"
+  - expected: "日当たり"
+    pattern: "/(?<![一-龯々〆])日当り/"
+    prh: NOT-010
+    specs:
+      - from: "日当り"
+        to: "日当たり"
+  - expected: "晴れやかだ"
+    pattern: "/(?<![一-龯々〆])晴やかだ/"
+    prh: NOT-010
+    specs:
+      - from: "晴やかだ"
+        to: "晴れやかだ"
+  - expected: "暮らし向き"
+    pattern: "/(?<![一-龯々〆])暮し向き/"
+    prh: NOT-010
+    specs:
+      - from: "暮し向き"
+        to: "暮らし向き"
+  - expected: "暮らす"
+    pattern: "/(?<![一-龯々〆])暮す/"
+    prh: NOT-010
+    specs:
+      - from: "暮す"
+        to: "暮らす"
+  - expected: "書き抜く"
+    pattern: "/(?<![一-龯々〆])書抜く/"
+    prh: NOT-010
+    specs:
+      - from: "書抜く"
+        to: "書き抜く"
+  - expected: "有り難み"
+    pattern: "/(?<![一-龯々〆])有難み/"
+    prh: NOT-010
+    specs:
+      - from: "有難み"
+        to: "有り難み"
+  - expected: "浮かぶ"
+    pattern: "/(?<![一-龯々〆])浮ぶ/"
+    prh: NOT-010
+    specs:
+      - from: "浮ぶ"
+        to: "浮かぶ"
+  - expected: "現れる"
+    pattern: "/(?<![一-龯々〆])現われる/"
+    prh: NOT-010
+    specs:
+      - from: "現われる"
+        to: "現れる"
+  - expected: "生まれる"
+    pattern: "/(?<![一-龯々〆])生れる/"
+    prh: NOT-010
+    specs:
+      - from: "生れる"
+        to: "生まれる"
+  - expected: "田植え"
+    pattern: "/(?<![一-龯々〆])田植(?![一-龯々〆え])/"
+    prh: NOT-010
+    specs:
+      - from: "田植"
+        to: "田植え"
+  - expected: "申し込み"
+    pattern: "/(?<![一-龯々〆])申込(?![一-龯々〆みむ])/"
+    prh: NOT-010
+    specs:
+      - from: "申込"
+        to: "申し込み"
+  - expected: "申し込み"
+    pattern: "/(?<![一-龯々〆])申込み/"
+    prh: NOT-010
+    specs:
+      - from: "申込み"
+        to: "申し込み"
+  - expected: "申し込む"
+    pattern: "/(?<![一-龯々〆])申込む/"
+    prh: NOT-010
+    specs:
+      - from: "申込む"
+        to: "申し込む"
+  - expected: "移り変わり"
+    pattern: "/(?<![一-龯々〆])移り変り/"
+    prh: NOT-010
+    specs:
+      - from: "移り変り"
+        to: "移り変わり"
+  - expected: "積もる"
+    pattern: "/(?<![一-龯々〆])積る/"
+    prh: NOT-010
+    specs:
+      - from: "積る"
+        to: "積もる"
+  - expected: "立ち居振る舞い"
+    pattern: "/(?<![一-龯々〆])立ち居振舞(?![一-龯々〆い])/"
+    prh: NOT-010
+    specs:
+      - from: "立ち居振舞"
+        to: "立ち居振る舞い"
+  - expected: "立ち居振る舞い"
+    pattern: "/(?<![一-龯々〆])立ち居振舞い/"
+    prh: NOT-010
+    specs:
+      - from: "立ち居振舞い"
+        to: "立ち居振る舞い"
+  - expected: "立ち居振る舞い"
+    pattern: "/(?<![一-龯々〆])立居振舞(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "立居振舞"
+        to: "立ち居振る舞い"
+  - expected: "立ち退く"
+    pattern: "/(?<![一-龯々〆])立退く/"
+    prh: NOT-010
+    specs:
+      - from: "立退く"
+        to: "立ち退く"
+  - expected: "終わる"
+    pattern: "/(?<![一-龯々〆])終る/"
+    prh: NOT-010
+    specs:
+      - from: "終る"
+        to: "終わる"
+  - expected: "聞こえる"
+    pattern: "/(?<![一-龯々〆])聞える/"
+    prh: NOT-010
+    specs:
+      - from: "聞える"
+        to: "聞こえる"
+  - expected: "聞き苦しい"
+    pattern: "/(?<![一-龯々〆])聞苦しい/"
+    prh: NOT-010
+    specs:
+      - from: "聞苦しい"
+        to: "聞き苦しい"
+  - expected: "落とす"
+    pattern: "/(?<![一-龯々〆])落す/"
+    prh: NOT-010
+    specs:
+      - from: "落す"
+        to: "落とす"
+  - expected: "落書き"
+    pattern: "/(?<![一-龯々〆])落書(?![一-龯々〆き])/"
+    prh: NOT-010
+    specs:
+      - from: "落書"
+        to: "落書き"
+  - expected: "著す"
+    pattern: "/(?<![一-龯々〆])著わす/"
+    prh: NOT-010
+    specs:
+      - from: "著わす"
+        to: "著す"
+  - expected: "行う"
+    pattern: "/(?<![一-龯々〆])行なう/"
+    prh: NOT-010
+    specs:
+      - from: "行なう"
+        to: "行う"
+  - expected: "表す"
+    pattern: "/(?<![一-龯々〆])表わす/"
+    prh: NOT-010
+    specs:
+      - from: "表わす"
+        to: "表す"
+  - expected: "賜る"
+    pattern: "/(?<![一-龯々〆])賜わる/"
+    prh: NOT-010
+    specs:
+      - from: "賜わる"
+        to: "賜る"
+  - expected: "起こる"
+    pattern: "/(?<![一-龯々〆])起る/"
+    prh: NOT-010
+    specs:
+      - from: "起る"
+        to: "起こる"
+  - expected: "雨上がり"
+    pattern: "/(?<![一-龯々〆])雨上り/"
+    prh: NOT-010
+    specs:
+      - from: "雨上り"
+        to: "雨上がり"
+  - expected: "預かり金"
+    pattern: "/(?<![一-龯々〆])預り金(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "預り金"
+        to: "預かり金"
+  - expected: "飛び火"
+    pattern: "/(?<![一-龯々〆])飛火(?![一-龯々〆])/"
+    prh: NOT-010
+    specs:
+      - from: "飛火"
+        to: "飛び火"
