@@ -9,6 +9,7 @@
 | [forbidden-words.md](forbidden-words.md) | 使わない語・言い回しと、その言い換え | `FW-` |
 | [grammar.md](grammar.md) | 文法・文体（文末、文の長さ、接続、否定など） | `GRM-` |
 | [notation.md](notation.md) | 表記（漢字とかな、送り仮名、外来語、数字、記号など） | `NOT-` |
+| [markup.md](markup.md) | Markdown記法（見出し、箇条書、コードブロック、リンク、表など） | `MKD-` |
 | [examples.md](examples.md) | 段落単位の失敗例と成功例の対比 | なし（ルールIDを参照する） |
 
 ## 1ルールの書き方
@@ -47,6 +48,7 @@
 
 - 対応する既存の判定ルールがあるときは、`機械（textlint：<ルール名>）`や`機械（markdownlint：<ルール名>）`のように括弧内に併記する
 - ルール名はパッケージ名の`textlint-rule-`prefixを除いた形で書く（例：`ja-no-weak-phrase`）
+- markdownlintのルール名はMD番号で書く（例：`MD004`）。同じ判定手段のルールが複数あるときは「、」で区切って並べる（例：`機械（markdownlint：MD001、MD003）`）
 - 書式を固定しておき、evaluators/ を実装するとき（Step 2）に`判定：機械`の行を正規表現で拾えるようにする
 
 ## 出典の書き方
@@ -64,6 +66,8 @@
 | JTFスタイルガイド | 日本翻訳連盟「JTF日本語標準スタイルガイド」第4.0版 | 第4.0版の本文の項目番号（例：`2.3.1`） |
 | 内閣告示 | 常用漢字表・送り仮名の付け方・外来語の表記 | 告示名と項目 |
 | textlint | textlint-rule-preset-ja-technical-writing、textlint-rule-preset-jtf-style、textlint-rule-preset-ja-spacing内の各ルール | ルール名（例：`textlint：ja-no-weak-phrase`）。preset-jtf-styleのルールは`jtf-style/`を前に付ける（例：`textlint：jtf-style/4.3.1.丸かっこ（）`） |
+| CommonMark Spec | CommonMark Spec 第0.31.2版（2024年1月28日） | 節番号（例：`4.2`）。複数は「・」で区切る |
+| markdownlint | markdownlintの各ルール | MD番号（例：`MD004`） |
 
 - preset-jtf-styleのルール名の番号は、JTFスタイルガイド第2.2版の項目番号である。第4.0版では項目番号が変わったため、「出典」には第4.0版の番号を、「判定」にはpreset-jtf-styleのルール名をそのまま書く。両者の対応は[notation.md](notation.md)の冒頭を参照
 

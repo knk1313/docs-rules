@@ -1,0 +1,34 @@
+{
+  // docs-rules の markdownlint の設定（#14）。
+  // 各ルールと rules/markup.md の対応、無効にした理由は evaluators/README.md に書く。
+  // 実行例（リポジトリの直下から）:
+  //   npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/.markdownlint-cli2.jsonc "**/*.md"
+  "config": {
+    // 既定で有効な全ルールを土台にする
+    "default": true,
+    // 行の長さ。日本語の文は1行が長く、折り返す運用をしていないため無効にする
+    "MD013": false,
+    // 見出しは「#」の形（ATX形式）にそろえる（MKD-001）
+    "MD003": { "style": "atx" },
+    // 箇条書の記号は「-」にそろえる（MKD-004）
+    "MD004": { "style": "dash" },
+    // 番号付きの箇条書は1から順に番号を振る（MKD-005）
+    "MD029": { "style": "ordered" },
+    // コードブロックは「```」で囲み、言語名を付ける（MKD-008）
+    "MD046": { "style": "fenced" },
+    "MD048": { "style": "backtick" },
+    // 強調は「*」「**」で書く（MKD-009）
+    "MD049": { "style": "asterisk" },
+    "MD050": { "style": "asterisk" },
+    // 行末のスペースは、強制改行の2つも含めて残さない（MKD-013）
+    "MD009": { "br_spaces": 0 },
+    // 表の各行の先頭と末尾に「|」を置く（MKD-014）
+    "MD055": { "style": "leading_and_trailing" },
+    // リンクの文言（MKD-010）。MD059 の prohibited_texts に日本語の語を足すと、日本語の文言がすべて指摘されるため既定のままにする。
+    // 「こちら」のような日本語の語は #21 の prh 辞書で判定する
+    "MD059": true
+  },
+  // .github/ のテンプレートは判定の対象外（#27 で textlint の対象からも外している）
+  "ignores": [".github/**", "node_modules/**"],
+  "gitignore": true
+}

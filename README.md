@@ -13,10 +13,10 @@ docs-rules/
 │   └── docs-rules/
 │       ├── SKILL.md
 │       ├── references/     # ルールの出典となる資料の一覧
-│       ├── rules/          # 文体、表記などの共通ルール
+│       ├── rules/          # 文体、表記、Markdown 記法の共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
-│       └── evaluators/     # 判定データ（内閣告示の JSON）。採点の入口は Step 2 で足す
+│       └── evaluators/     # 判定データ（内閣告示の JSON）と markdownlint の設定。採点の入口は Step 2 で足す
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
