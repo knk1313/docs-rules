@@ -112,6 +112,7 @@ node --test tests/*.test.mjs
 - 前提：Node.js 18以上。依存パッケージは要らない。`tests/repo-lint.test.mjs`は`npx`でtextlintとmarkdownlint-cli2を取得するため、初回はネットワークが要る
 - `npx`が使えないとき、パッケージを取得できないときは、採点のテストを飛ばし、飛ばしたことを出力する
 - Node.js 22では`node --test tests/`のようにディレクトリを渡すと動かないため、ファイルを`tests/*.test.mjs`で指定する
+- PRと`main`へのpushでは、GitHub Actions（`.github/workflows/ci.yml`）が同じテストと`claude plugin validate`を実行する。依存パッケージとアクションの版は、Dependabot（`.github/dependabot.yml`）が週に1回確かめる
 
 テストのファイルごとに確かめることは次のとおり。
 

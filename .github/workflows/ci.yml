@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# 既定ではすべての権限を外し、ジョブごとに必要なものだけを付ける
+permissions: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      # リポジトリの取得にだけ使う
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: SKILL.mdの大きさ
+        run: python3 tests/test_skill_size.py
+      # repo-lint.test.mjs は npx で textlint と markdownlint-cli2 を取得し、evaluators/ で採点する
+      - name: rules・schemas・templatesの整合と、Markdownの採点
+        run: node --test tests/*.test.mjs
+
+  plugin:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # 警告はエラーにしない（CONTRIBUTING.mdの「プラグイン配布の検証」）。版を上げるときは警告の内容を見直す
+      - name: プラグインのマニフェストの検証
+        run: npx -y @anthropic-ai/claude-code@2.1.309 plugin validate .
