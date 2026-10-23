@@ -53,23 +53,23 @@ docs-rules is a Claude Code skill for writing Japanese documents to a consistent
 
 ```text
 docs-rules/
-├── .claude-plugin/         # Claude Code プラグインとマーケットプレイスのマニフェスト
-├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
+├── .claude-plugin/         # Claude Codeプラグインとマーケットプレイスのマニフェスト
+├── .github/                # IssueとPRのテンプレート、GitHub Actionsのワークフロー
 ├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md
 │       ├── references/     # ルールの出典となる資料の一覧
-│       ├── rules/          # 文体、表記、構成、Markdown 記法の共通ルール
+│       ├── rules/          # 文体、表記、構成、Markdown記法の共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
-│       ├── prompts/        # AI 評価の手順（evaluate.md）と書き直しの手順（rewrite.md）
-│       └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlint と markdownlint の設定、prh 辞書、判定データ（内閣告示の JSON）
-├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.md の大きさ、rules・schemas・templates の整合、Markdown の採点）
-├── AGENTS.md               # AI エージェント向けの禁止事項と規約
-├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
+│       ├── prompts/        # AI評価の手順（evaluate.md）と書き直しの手順（rewrite.md）
+│       └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlintとmarkdownlintの設定、prh辞書、判定データ（内閣告示のJSON）
+├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.mdの大きさ、rules・schemas・templatesの整合、Markdownの採点）
+├── AGENTS.md               # AIエージェント向けの禁止事項と規約
+├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
-├── CONTRIBUTING.md         # Issue と PR の出し方
+├── CONTRIBUTING.md         # IssueとPRの出し方
 ├── LICENSE
 ├── README.md
 └── SECURITY.md             # 脆弱性の報告先と対応の方針

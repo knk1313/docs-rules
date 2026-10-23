@@ -1,6 +1,6 @@
 # AGENTS.md
 
-このファイルは、このリポジトリで動くAIコーディングエージェント（Claude Code、OpenAI Codexなど）が共通で参照する**絶対禁止事項と最低限のチェック**を集めた索引である。
+このファイルは、このリポジトリで動くAIコーディングエージェント（Claude Code、OpenAI Codexなど）が共通で参照する**禁止事項と最低限のチェック**を集めた索引である。
 
 - **Claude Code**：ルートの`CLAUDE.md`が`@AGENTS.md`で取り込む
 - **OpenAI Codex**：ルートの`AGENTS.md`を直接読み込む

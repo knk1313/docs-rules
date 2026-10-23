@@ -1,4 +1,4 @@
-# Contributing Guide
+# Contributing to docs-rules
 
 このドキュメントは、IssueとPRの立て方、ブランチ運用、リリースの手順をまとめたガイドである。
 
