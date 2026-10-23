@@ -7,6 +7,7 @@
 | [score.mjs](score.mjs) | 採点の入口。1コマンドで文書を渡し、違反の一覧をJSONで返す | 置いた（#21） |
 | [compare.mjs](compare.mjs) | 書き直しの前後の採点結果を比べ、直った違反、残った違反、新しく出た違反、2回続けて残った違反を返す | 置いた（#24） |
 | [package.json](package.json) | 採点で使うパッケージと版。`score.mjs`がこの版を`npx`に渡す | 置いた（#21） |
+| [package-lock.json](package-lock.json) | 依存の依存まで含めた版の一覧。Dependabotが既知の脆弱性を検出し、版上げのPRを出すのに使う。`score.mjs`の`npx`はまだこのファイルを読まない | 置いた |
 | [.textlintrc.json](.textlintrc.json) | textlintの設定 | 置いた（#21） |
 | [prh/](prh/) | textlint-rule-prhの辞書 | 置いた（#21） |
 | [custom-rules/](custom-rules/) | 自前のtextlintルール。`lib/`はその共通部分 | 置いた（#21） |
