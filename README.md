@@ -36,7 +36,7 @@ AIを使って日本語の文書を繰り返し作る人と組織です。生成
 /docs-rules:docs-rules README.mdを校正して
 ```
 
-ルールの一覧は[skills/docs-rules/rules/](skills/docs-rules/rules/)に、どのファイルをどの順に読むかは[skills/docs-rules/SKILL.md](skills/docs-rules/SKILL.md)にあります。
+ルールの一覧は[skills/docs-rules/rules/](skills/docs-rules/rules/)に、どのファイルをどの順に読むかは[skills/docs-rules/SKILL.md](skills/docs-rules/SKILL.md)にあります。Claude Codeがスキルを読み込んでから文書を出すまでの流れは、[docs/architecture.md](docs/architecture.md)に図で示しています。
 
 ## 動作環境
 
@@ -55,7 +55,7 @@ docs-rules is a Claude Code skill for writing Japanese documents to a consistent
 docs-rules/
 ├── .claude-plugin/         # Claude Code プラグインとマーケットプレイスのマニフェスト
 ├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
-├── docs/                   # 価値仮説、価値提案キャンバス、textlintの使い方の決定
+├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス、textlintの使い方の決定
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md
