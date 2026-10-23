@@ -36,16 +36,19 @@ function targets() {
   return files;
 }
 
-/** 行の中の「」で囲まれた範囲を、[開始, 終了] の桁（1始まり）の組で返す。入れ子の「」は外側の範囲に含める。 */
-function quotedRanges(line) {
+/**
+ * 行の中の括弧（既定は「」）で囲まれた範囲を、[開始, 終了] の桁（1始まり）の組で返す。
+ * 入れ子の同じ括弧は外側の範囲に含める。
+ */
+function quotedRanges(line, open = "「", close = "」") {
   const ranges = [];
   let depth = 0;
   let start = 0;
   Array.from(line).forEach((ch, i) => {
-    if (ch === "「") {
+    if (ch === open) {
       if (depth === 0) start = i + 1;
       depth += 1;
-    } else if (ch === "」" && depth > 0) {
+    } else if (ch === close && depth > 0) {
       depth -= 1;
       if (depth === 0) ranges.push([start, i + 1]);
     }
@@ -104,6 +107,15 @@ const EXCLUSIONS = [
       if (!v.column) return false;
       const col = charColumn(line, v.column);
       return quotedRanges(line).some(([s, e]) => col > s && col < e);
+    },
+  },
+  {
+    // 『』の中の書籍や資料の題名（NOT-018）。題名は原文のまま写すため、「及び」や語の間のスペースも残る
+    reason: "『』の中の題名",
+    match: (v, line) => {
+      if (!v.column) return false;
+      const col = charColumn(line, v.column);
+      return quotedRanges(line, "『", "』").some(([s, e]) => col > s && col < e);
     },
   },
 ];
