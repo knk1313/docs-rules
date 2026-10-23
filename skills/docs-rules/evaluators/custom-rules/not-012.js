@@ -1,7 +1,7 @@
 "use strict";
 // NOT-012 横書きでは算用数字を使い、4桁以上は3桁ごとにコンマで区切る。
 // 判定するのは次の2つ。
-// - 4桁以上の算用数字で、3桁ごとの「,」がないもの（「1200人」）
+// - 4桁の算用数字で、3桁ごとの「,」がないもの（「1200人」）。1万以上の数は NOT-013 が「万」「億」「兆」を交ぜた形に直すため、ここでは見ない
 // - 「千」「百」を含む漢数字で数量を書いたもの（「千二百人」）。助数詞が後ろに続くものだけを見る
 const { NUMBER_PATTERN, isExcludedNumber } = require("../lib/numbers");
 
@@ -43,7 +43,7 @@ function rule(context) {
         const start = m.index;
         const end = start + raw.length;
         if (raw.includes(",")) continue;
-        if (raw.length < 4) continue;
+        if (raw.length !== 4) continue;
         if (isExcludedNumber(text, start, end)) continue;
         const fixed = withSeparators(raw);
         report(
