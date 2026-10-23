@@ -1,1 +1,5 @@
 blank_issues_enabled: false
+contact_links:
+  - name: 質問・トラブルシューティング
+    url: https://github.com/knk1313/docs-rules/discussions/categories/q-a
+    about: 使い方の質問や動かないときの相談は、IssueではなくDiscussionsのQ&Aに書いてください
