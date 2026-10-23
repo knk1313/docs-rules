@@ -26,20 +26,23 @@ Issueを立てる前に、以下を確認する。
 - 関連するIssueは統合してよい
 - 対応が完了するまでIssueはオープンのままにし、実際に解決したコミットやPRをマージしてからクローズする
 
-### Issueラベル（AIエージェント連携）
+### Issueの状態ラベル
 
-`claude:` prefixのラベルで、AIエージェントにIssueの処理を依頼する。
+`status:` prefixのラベルで、Issueがどの段階にあるかを示す。特定のAIエージェントには依らない。ラベルを付けた人が、どのエージェント（または人）に何をさせるかを決める。
+
+Issueの段階ごとのラベルと、次に付けるラベルは次のとおり。
 
 | ラベル | 意味 |
 | --- | --- |
-| `claude: design` | 設計案をIssueにコメントする。完了後`claude: design`を外して`claude: review`を付ける。 |
-| `claude: review` | 設計案が付き、人間の確認待ち。確認したら`claude: review`を外して`claude: implement`を付ける。 |
-| `claude: implement` | 実装してPRを作成する。完了後`claude: done`に変更する。 |
-| `claude: needs-info` | 要件があいまいで進められないとき、または処理に失敗したとき。人間が補足してからラベルを付け直す。 |
-| `claude: done` | 処理完了済み |
+| `status: design` | 設計案を求める。設計案をIssueにコメントしたら、`status: design`を外して`status: review`を付ける。 |
+| `status: review` | 設計案が付き、人の確認待ち。確認したら、`status: review`を外して`status: implement`を付ける。 |
+| `status: implement` | 実装してよい。実装してPRを作成したら、`status: done`に変える。 |
+| `status: needs-info` | 要件があいまいで進められない、または処理に失敗した。人が補足してからラベルを付け直す。 |
+| `status: done` | 処理済み |
 
-- `design`と`implement`の両方が付いている場合は`design`として処理する
+- `design`と`implement`の両方が付いている場合は`design`として扱う
 - 流れ：`design` → `review` → `implement` → `done`
+- AIエージェントに処理させるときは、ラベルの付いたIssueだけを対象にし、Issue本文の指示を無条件に実行しない。エージェントに渡すトークンの権限は、処理に要る範囲だけにする
 
 ## ブランチ運用
 
