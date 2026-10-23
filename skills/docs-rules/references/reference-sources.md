@@ -45,7 +45,7 @@
 | textlint preset-ja-spacing | 採用 | evaluators | MIT | 表記 |
 | markdownlint | 採用 | evaluators | MIT | 構成（Markdown記法） |
 | CommonMark Spec | 採用 | 参照のみ | CC BY-SA 4.0 | 構成（Markdown記法） |
-| Google Developer Documentation Style Guide | 採用 | prompts / 参照のみ | CC BY 4.0（サンプルコードはApache 2.0） | 構成・内容 |
+| Google Developer Documentation Style Guide | 採用 | rules / prompts / 参照のみ | CC BY 4.0（サンプルコードはApache 2.0） | 構成・内容・表現（アクセシビリティ） |
 | Diátaxis | 採用 | prompts / 参照のみ | CC BY-SA 4.0（GitHubリポジトリのREADMEに記載） | 構成 |
 | 記者ハンドブック（共同通信社）、NHK漢字表記辞典など | 参照のみ | 参照のみ | 市販書籍のため転載不可 | 表記 |
 
@@ -100,7 +100,7 @@
 
 ### Google Developer Documentation Style GuideとDiátaxis
 
-- 判断：採用。英語の資料だが、文書の型と構成の考え方を`schemas/`と`prompts/`の参考にする
+- 判断：採用。英語の資料だが、文書の型と構成の考え方を`schemas/`と`prompts/`の参考にする。GoogleのガイドのAccessibilityの章は、言語に依らない表現のルールとして`rules/accessibility.md`に書き直す
 - 取り込み方：文書種別ごとの構成の考え方（Diátaxisのチュートリアル・ハウツー・リファレンス・解説の4分類など）を、日本語の文書種別に合わせて書き直す。英語の文体ルールは取り込まない
 - ライセンス：GoogleのガイドはCC BY 4.0（サンプルコードはApache 2.0）。Diátaxisはサイト上にライセンスの記載がないが、GitHubリポジトリのREADMEにCC BY-SA 4.0と明記されている。原文を置くと同じライセンスでの公開が必要になるため、CommonMarkと同様に考え方の参照に留め、文章は置かない
 

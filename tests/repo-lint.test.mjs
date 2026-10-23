@@ -71,12 +71,16 @@ const EXCLUSIONS = [
     match: (v, line) => /^### [A-Z]+-\d{3} /.test(line) && v.checker === "textlint：ja-space-between-half-and-full-width",
   },
   {
-    // 出典欄の資料名と項目番号の間のスペース（「JTFスタイルガイド 2.1.5」「内閣告示 常用漢字表」）と、
-    // 項目番号に含まれる半角の括弧（「Ⅱ5ウ(イ)」。rules/README.md の略称の表の書き方）
-    reason: "出典欄の資料名と項目番号",
-    match: (v, line) =>
-      line.startsWith("- 出典：") &&
-      ["textlint：ja-space-between-half-and-full-width", "textlint：ja-no-space-between-full-width", "textlint：jtf-style/4.3.1.丸かっこ（）"].includes(v.checker),
+    // 出典欄は資料名と箇所を並べたデータで、rules/README.md の略称の表の書き方に従う。
+    // 資料名と項目番号の間のスペース（「JTFスタイルガイド 2.1.5」）、項目番号の半角の括弧（「Ⅱ5ウ(イ)」）、
+    // 英語の資料の節の区切り（「Accessibility > Tables」）が指摘されるため、行全体を対象外にする
+    reason: "出典欄の資料名と箇所",
+    match: (v, line) => line.startsWith("- 出典："),
+  },
+  {
+    // 日本語を含まない行（README.md の英語の概要など）。rules/ は日本語の文章のためのルールである
+    reason: "日本語を含まない行",
+    match: (v, line) => !/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(line),
   },
   {
     // 判定欄はルール名を並べたデータで、ルール名に半角の括弧や「.」を含む（NOT-025の注記）

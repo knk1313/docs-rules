@@ -59,7 +59,7 @@ Issueを立てる前に、以下を確認する。
    git push origin v0.1.0
    ```
 
-4. GitHubのReleasesでタグからリリースを作り、変更点を書く。見出しは「追加」「変更」「修正」の3つにし、該当しない見出しは省く
+4. GitHubのReleasesでタグからリリースを作り、変更点を書く。見出しは「追加」「変更」「修正」の3つにし、該当しない見出しは省く。本文はコミットの一覧ではなく、利用者に向けて「何が不便で、何を変えたか」を段落で書く。報告や検証をした人には、名前を挙げて礼を書く
 5. ルールIDの削除や意味の変更を含むときは、リリースの冒頭にその旨と移行の方法を書く
 
 ## プラグイン配布の検証
@@ -114,7 +114,7 @@ node --test tests/*.test.mjs
 | `tests/schemas.test.mjs` | `schemas/`の型と必須セクション表、`templates/`の見出しとの一致、各READMEの一覧と実ファイルの一致 |
 | `tests/repo-lint.test.mjs` | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること |
 
-`tests/repo-lint.test.mjs`は、ルールの型に由来する誤検出を、採点対象を書き換えずにテストの除外条件で外している。対象は、見出しのルールIDの後のスペース、出典欄、判定欄、「」の中の例示、`examples.md`の失敗例である。除外条件はファイルの`EXCLUSIONS`に理由と合わせて書く。
+`tests/repo-lint.test.mjs`は、ルールの型に由来する誤検出を、採点対象を書き換えずにテストの除外条件で外している。対象は、見出しのルールIDの後のスペース、出典欄、判定欄、「」の中の例示、`examples.md`の失敗例、日本語を含まない行である。除外条件はファイルの`EXCLUSIONS`に理由と合わせて書く。
 
 ## PRの作り方
 
@@ -124,4 +124,6 @@ PRを作成する前に、以下を確認する。
   - `feat`、`fix`、`refactor`、`perf`、`chore`、`docs`、`test`
 - 1つのPRに複数種類の変更を混ぜない（粒度を適切に保つ）
 - 関連するIssueがあれば`Closes #123`のように参照を含める
-- `.env.example`に影響する環境変数を追加した場合は必ず更新する
+- `.github/pull_request_template.md`の全項目を埋める。「人が書く要約」は人が自分の言葉で書く。空欄の項目があるPRと、人が確認した形跡のないPRは、レビューせずに閉じる
+- AIエージェントがPRを出すときは、[AGENTS.md](./AGENTS.md)の「外部からの貢献」の条件を満たす
+- `python3 tests/test_skill_size.py`と`node --test tests/*.test.mjs`を通す（[tests/README.md](./tests/README.md)と上の「テスト」を参照）
