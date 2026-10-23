@@ -129,7 +129,7 @@
 - JTF日本語標準スタイルガイドの表記項目を`rules/`に書き直す（#3と関連）
 - textlintのルールセットを`evaluators/`から使う方針を決める
 - markdownlintを`evaluators/`で使い、CommonMarkをMarkdown記法ルールの出典にする
-- Google Developer Documentation Style GuideとDiátaxisを参考に、文書種別の構成の考え方を`schemas/`に反映する（#4と関連）
+- Google Developer Documentation Style GuideとDiátaxisを参考に、文書種別の構成の考え方を`schemas/`に反映する（#4と関連）。取り込み先は[schemas/README.md](../schemas/README.md)の「文書種別の決め方」（#15）
 
 ## 出典
 
