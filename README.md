@@ -8,7 +8,7 @@
 docs-rules/
 ├── .claude-plugin/         # Claude Code プラグインとマーケットプレイスのマニフェスト
 ├── .github/                # Issue と PR のテンプレート、GitHub Actions のワークフロー
-├── docs/                   # 価値仮説と価値提案キャンバス
+├── docs/                   # 価値仮説、価値提案キャンバス、textlintの使い方の決定
 ├── skills/
 │   └── docs-rules/
 │       ├── SKILL.md
