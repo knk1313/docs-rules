@@ -9,6 +9,8 @@
 
 詳細な仕様・アーキテクチャは[README.md](./README.md)を参照する。
 
+参加する人は[行動規範](./CODE_OF_CONDUCT.md)に従う。
+
 ## Issue
 
 Issueを立てる前に、以下を確認する。

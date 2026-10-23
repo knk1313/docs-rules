@@ -19,6 +19,7 @@ docs-rules/
 │       └── evaluators/     # 判定データ（内閣告示の JSON）。採点の入口は Step 2 で足す
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
+├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
 ├── CONTRIBUTING.md         # Issue と PR の出し方
 ├── LICENSE
 └── README.md
