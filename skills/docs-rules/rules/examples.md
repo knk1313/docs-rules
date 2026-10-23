@@ -61,7 +61,7 @@
 
 ### 例3の成功例
 
-> サーバーの設定を変更した。APIの応答も確認した。各担当者は、SLO（Service Level Objective、サービスレベル目標）を明日中に確認してほしい。
+> サーバーの設定を変更した。API（Application Programming Interface）の応答も確認した。各担当者は、SLO（Service Level Objective、サービスレベル目標）を明日中に確認してほしい。
 
 ### 例3に関係するルール
 
