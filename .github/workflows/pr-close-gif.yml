@@ -15,8 +15,10 @@ jobs:
       # PR へのコメントの作成にだけ使う。リポジトリの内容は取得しない
       pull-requests: write
     steps:
+      # pull_request_target は外部の人のPRでも書き込み権限付きで動く。PRのコードは取得しない（checkout を足さない）。
+      # アクションはタグの付け替えで中身が変わらないよう、コミットのSHAで固定する
       - name: Create comment
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             github.rest.issues.createComment({
