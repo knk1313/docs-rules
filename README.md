@@ -17,6 +17,7 @@ docs-rules/
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
 │       └── evaluators/     # 判定データ（内閣告示の JSON）と markdownlint の設定。採点の入口は Step 2 で足す
+├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.md の大きさなど）
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code 用の入口（AGENTS.md を読み込む）
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
