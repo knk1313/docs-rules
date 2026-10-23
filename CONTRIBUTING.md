@@ -113,6 +113,7 @@ node --test tests/*.test.mjs
 | `tests/rules.test.mjs` | `rules/`の各ルールの型（項目の順序、IDの形と重複、`判定`の書式、出典の略称）と、一覧表と本文の一致 |
 | `tests/schemas.test.mjs` | `schemas/`の型と必須セクション表、`templates/`の見出しとの一致、各READMEの一覧と実ファイルの一致 |
 | `tests/repo-lint.test.mjs` | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること |
+| `tests/compare.test.mjs` | `evaluators/compare.mjs`が、書き直しの前後の採点結果を、直った違反、残った違反、新しく出た違反、2回続けて残った違反に分けること |
 
 `tests/repo-lint.test.mjs`は、ルールの型に由来する誤検出を、採点対象を書き換えずにテストの除外条件で外している。対象は、見出しのルールIDの後のスペース、出典欄、判定欄、「」の中の例示、`examples.md`の失敗例、日本語を含まない行である。除外条件はファイルの`EXCLUSIONS`に理由と合わせて書く。
 
