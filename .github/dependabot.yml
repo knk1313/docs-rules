@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # 採点で使うパッケージ（textlint、markdownlint-cli2、各プリセット）。
+  # 版を上げるときは、evaluators/README.md の表と rules/ の「判定」欄を見直す。
+  # markdownlint-cli2 の版は .markdownlint-cli2.jsonc のコメントと evaluators/README.md にも書いてある
+  - package-ecosystem: npm
+    directory: /skills/docs-rules/evaluators
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # GitHub Actions のワークフローで使うアクション
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
