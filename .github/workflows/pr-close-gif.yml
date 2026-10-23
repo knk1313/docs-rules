@@ -4,12 +4,15 @@ on:
   pull_request_target:
     types: [closed]
 
+# 既定ではすべての権限を外し、ジョブごとに必要なものだけを付ける
+permissions: {}
+
 jobs:
   comment-gif:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
-      issues: write
+      # PR へのコメントの作成にだけ使う。リポジトリの内容は取得しない
       pull-requests: write
     steps:
       - name: Create comment
