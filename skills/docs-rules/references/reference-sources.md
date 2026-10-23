@@ -130,14 +130,14 @@
 
 ## 取り込みIssueの候補
 
-採用した資料ごとに、次のIssueを別途起票する。
+採用した資料ごとに、次のIssueを起票した。どれも対応済みである。
 
-- 公用文作成の考え方を`rules/`の表記・文体ルールに書き直す（#3と関連）。項目ごとの取り込み先は[koyobun-mapping.md](koyobun-mapping.md)
-- 常用漢字表・送り仮名の付け方・外来語の表記を判定データとして置く
-- JTF日本語標準スタイルガイドの表記項目を`rules/`に書き直す（#3と関連）
-- textlintのルールセットを`evaluators/`から使う方針を決める
-- markdownlintを`evaluators/`で使い、CommonMarkをMarkdown記法ルールの出典にする
-- Google Developer Documentation Style GuideとDiátaxisを参考に、文書種別の構成の考え方を`schemas/`に反映する（#4と関連）。取り込み先は[schemas/README.md](../schemas/README.md)の「文書種別の決め方」（#15）
+- #10：公用文作成の考え方を`rules/`の表記・文体ルールに書き直す（#3と関連）。項目ごとの取り込み先は[koyobun-mapping.md](koyobun-mapping.md)
+- #11：常用漢字表・送り仮名の付け方・外来語の表記を判定データとして置く
+- #12：JTF日本語標準スタイルガイドの表記項目を`rules/`に書き直す（#3と関連）
+- #13：textlintのルールセットを`evaluators/`から使う方針を決める
+- #14：markdownlintを`evaluators/`で使い、CommonMarkをMarkdown記法ルールの出典にする
+- #15：Google Developer Documentation Style GuideとDiátaxisを参考に、文書種別の構成の考え方を`schemas/`に反映する（#4と関連）。取り込み先は[schemas/README.md](../schemas/README.md)の「文書種別の決め方」
 
 ## 出典
 
