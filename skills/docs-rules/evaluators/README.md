@@ -116,7 +116,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 | --- | --- | --- |
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
 | [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う |
-| [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁以上で「,」のない算用数字と、「千」「百」を含む漢数字の数量（「千二百人」） |
+| [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁で「,」のない算用数字（1万以上はNOT-013で見る）と、「千」「百」を含む漢数字の数量（「千二百人」） |
 | [docs-rules/not-013](custom-rules/not-013.js) | NOT-013 | 1万以上で「万」「億」「兆」を交ぜない数と、「千」「百」を単位にした数（「3千人」） |
 | [docs-rules/mkd-010](custom-rules/mkd-010.js) | MKD-010 | リンクの文言の「こちら」「ここ」「リンク」など。prh辞書では本文のすべての語に当たるため、リンクの文言だけを見るルールにした |
 
