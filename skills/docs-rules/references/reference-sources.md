@@ -64,7 +64,7 @@
 - 判断：採用。漢字の使用範囲、送り仮名、カタカナ語の表記の根拠になる
 - 取り込み方：判定基準を`rules/`に書き、機械的に判定できる部分（常用漢字外の漢字、送り仮名の揺れ）は`evaluators/`で扱う
 - ライセンス：内閣告示は著作権法第13条により権利の目的とならないため、表そのものをデータとして置いてよい
-- データの置き場所：[evaluators/data/](../evaluators/data/README.md)。常用漢字表は`joyo-kanji.json`に置いた。送り仮名の付け方と外来語の表記は #11の残りのPRで置く
+- データの置き場所：[evaluators/data/](../evaluators/data/README.md)。常用漢字表は`joyo-kanji.json`、送り仮名の付け方は`okurigana.json`、外来語の表記は`gairaigo.json`に置いた
 
 ### JTF日本語標準スタイルガイド
 
