@@ -43,6 +43,10 @@ AIを使って日本語の文書を繰り返し作る人と組織です。生成
 - Claude Codeで動作を確かめています。スキルの本体はMarkdownだけなので、`SKILL.md`の形式を読める他のエージェントでも読めます。Claude Code以外では確かめていません
 - スキルとして使うだけなら、Python 3もNode.jsも不要です。`evaluators/`のmarkdownlintを動かすにはNode.jsが、`evaluators/data/tools/`のスクリプトを動かすにはPython 3が要ります
 
+## For English readers
+
+docs-rules is a Claude Code skill for writing Japanese documents to a consistent standard. It ships a rule set (forbidden phrases, grammar and style, notation, Markdown syntax, accessibility) with an ID and a cited source for every rule, plus schemas and templates for document types such as session logs and proposals. The rules are rewritten in our own words from public sources, mainly the Japanese Agency for Cultural Affairs' guidance on official documents, the JTF Japanese Standard Style Guide, Cabinet notifications on kanji and kana usage, the CommonMark Spec, and markdownlint. Install it with `npx skills add knk1313/docs-rules` or as a Claude Code plugin, then ask Claude Code for a Japanese document. The rest of this README is in Japanese.
+
 ## ディレクトリ構成
 
 現状のリポジトリに実在するファイルとディレクトリです。これから作るものは、[ロードマップ](#ロードマップ)の「目指す構成」に載せています。
