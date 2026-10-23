@@ -310,6 +310,31 @@ function checkSchema(type, source) {
   return violations;
 }
 
+/**
+ * 同じルールIDで同じ箇所（行と桁）を指す違反を1件にまとめる。
+ * 複数の判定手段が同じ箇所を指摘したとき（文末の「．」を ja-no-mixed-period と docs-rules/not-002 の両方が指摘するなど）、
+ * 書き直しに同じ違反を2回渡さないため。直し方の候補（「A」→「B」）を返した方を残す。
+ */
+function mergeDuplicates(violations) {
+  const kept = new Map();
+  const out = [];
+  for (const v of violations) {
+    if (!v.rule_id || v.line === null) {
+      out.push(v);
+      continue;
+    }
+    const key = `${v.rule_id}:${v.line}:${v.column}`;
+    const prev = kept.get(key);
+    if (prev === undefined) {
+      kept.set(key, out.length);
+      out.push(v);
+    } else if (!out[prev].fix.includes("」→「") && v.fix.includes("」→「")) {
+      out[prev] = v;
+    }
+  }
+  return out;
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help || !args.file || args.error) {
@@ -353,6 +378,7 @@ function main() {
     violations = violations.concat(checkSchema(args.type, source));
   }
   checked.sort();
+  violations = mergeDuplicates(violations);
   violations.sort((a, b) => (a.line ?? 0) - (b.line ?? 0));
 
   const result = {

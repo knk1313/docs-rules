@@ -76,6 +76,7 @@ Node.jsがない環境では`node`のコマンドが見つからない。この�
 - 判定手段とルールIDの対応は、実行のたびに`rules/*.md`の`判定`欄から作る。ルールを足すときに`score.mjs`を直す必要はない
 - 1つの判定手段が複数のルールの`判定`欄に書いてあるときは、先に書いてあるルールのIDを返す。ja-no-redundant-expressionはFW-001とFW-002の両方に当たるが、`rule_id`は常にFW-001になる。FW-002の「〜を行う」はprh辞書が`FW-002`で返す
 - prh辞書の指摘は、辞書の項目の`prh`に書いたルールIDを返す
+- 複数の判定手段が、同じルールIDで同じ箇所（行と桁）を指摘したときは1件にまとめる。直し方の候補（`「A」→「B」`）を返した方を残す。段落の末尾の「．」は、ja-no-mixed-periodとdocs-rules/not-002の両方がNOT-002として指摘する
 
 ## 書き直しの前後の比較
 
@@ -116,6 +117,7 @@ node skills/docs-rules/evaluators/compare.mjs <最初の採点結果> … <前�
 | --- | --- | --- |
 | arabic-kanji-numbers | NOT-014 | 「一つ」を「1つ」に直すよう指摘する。NOT-014は和語の数え方を漢数字で書く |
 | `1.1.1.本文` | GRM-001 | no-mix-dearu-desumasuと同じ箇所を重ねて指摘する。GRM-001の`判定`欄から外した |
+| `1.2.2.ピリオド(.)とカンマ(,)` | NOT-002 | 全角の「．」「，」を半角の「.」「,」に直す候補を返す。NOT-002は「。」「、」に直す。1つのテキストの中で最初の1つしか指摘しないため、2つ目からを見落とす。docs-rules/not-002に置き換え、NOT-002の`判定`欄から外した |
 | `2.2.2.算用数字と漢数字の使い分け` | NOT-014 | arabic-kanji-numbersと同じく、和語の数え方を算用数字に直すよう指摘する |
 | `3.1.1.全角文字と半角文字の間` | NOT-022 | ja-space-between-half-and-full-widthと重複する |
 | `3.2.カタカナ語間のスペースの有無` | NOT-017、NOT-023 | ja-nakaguro-or-halfwidth-space-between-katakanaと重複する |
@@ -167,6 +169,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 
 | ルール | docs-rules | 判定すること |
 | --- | --- | --- |
+| [docs-rules/not-002](custom-rules/not-002.js) | NOT-002 | 全角の「．」「，」。「。」「、」に直す候補を返す。数字に挟まれたもの（「1．5」「1，000」）は小数点と桁区切りとみなし、半角の「.」「,」に直す候補を返す |
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
 | [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う。[allowed-terms.json](allowed-terms.json)の`NOT-006`に書いた専門用語（「脆弱性」）は指摘しない |
 | [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁で「,」のない算用数字（1万以上はNOT-013で見る）と、「千」「百」を含む漢数字の数量（「千二百人」） |
