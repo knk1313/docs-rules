@@ -1,7 +1,7 @@
 // rules/ の各ルールが README.md の型を満たしているかを確かめる。
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { linesOutsideCode, section, tableRows, splitOutsideParens, linkTarget } from "./lib/markdown.mjs";
@@ -35,7 +35,7 @@ function readRules(file) {
   for (const { text, number } of linesOutsideCode(join(RULES_DIR, file))) {
     const heading = text.match(/^### (\S+) (.+)$/);
     if (heading) {
-      current = { id: heading[1], summary: heading[2], number, items: [], body: [] };
+      current = { id: heading[1], summary: heading[2], number, items: [], body: [], notes: [] };
       rules.push(current);
       continue;
     }
@@ -44,8 +44,12 @@ function readRules(file) {
       continue;
     }
     if (!current) continue;
-    // ルールの後ろに付く「>」の注記は、型の点検の対象外にする
-    if (text.startsWith(">") || text.trim() === "") continue;
+    // ルールの後ろに付く「>」の注記は、型の点検の対象外にする。注記の言い回しの点検のために別に集める
+    if (text.startsWith(">")) {
+      current.notes.push(text);
+      continue;
+    }
+    if (text.trim() === "") continue;
     current.body.push(text);
     const item = text.match(/^- ([^：]+)：(.*)$/);
     if (item) current.items.push({ name: item[1], value: item[2] });
@@ -129,6 +133,40 @@ test("rules: 出典の資料名が、README.mdの略称の表にある", () => {
         );
       }
     }
+  }
+});
+
+// 機械判定のルールのうち、AI評価に回す部分を示す注記の言い回し（rules/README.md の「機械で判定できない部分をAI評価に回す」）
+const AI_PHRASE = "AI評価で扱う";
+const EVALUATE = join(ROOT, "skills/docs-rules/prompts/evaluate.md");
+
+test("rules: 注記でAI評価に触れるときは「AI評価で扱う」の言い回しを使う", () => {
+  for (const { file } of ruleFiles()) {
+    for (const rule of readRules(file)) {
+      for (const note of rule.notes) {
+        if (!note.includes("AI評価")) continue;
+        assert.ok(note.includes(AI_PHRASE), `${file}:${rule.id} の注記が「${AI_PHRASE}」の言い回しを使っていない: ${note}`);
+      }
+    }
+  }
+});
+
+test("rules: 「AI評価で扱う」の注記があるルールと、判定：AIのルールが、評価の手順の対象に入る", () => {
+  const evaluate = readFileSync(EVALUATE, "utf8");
+  // evaluate.md は rules/README.md の表にあるファイルをすべて読み、判定：AI と注記の言い回しで対象を決める
+  assert.ok(evaluate.includes("ファイルの分け方"), "prompts/evaluate.md が rules/README.md の「ファイルの分け方」の表を読む手順になっていない");
+  assert.ok(evaluate.includes("`判定：AI`"), "prompts/evaluate.md が判定：AIのルールを対象にしていない");
+  assert.ok(evaluate.includes(AI_PHRASE), `prompts/evaluate.md が注記の「${AI_PHRASE}」を対象にしていない`);
+  const delegated = [];
+  for (const { file } of ruleFiles()) {
+    for (const rule of readRules(file)) {
+      const judge = rule.items.find((i) => i.name === "判定")?.value ?? "";
+      if (judge.startsWith("機械") && rule.notes.some((n) => n.includes(AI_PHRASE))) delegated.push(rule.id);
+    }
+  }
+  // GRM-001（文末の混在）とGRM-002（論点の数）は、機械で判定できない部分をAI評価に回している
+  for (const id of ["GRM-001", "GRM-002"]) {
+    assert.ok(delegated.includes(id), `${id} の注記に「${AI_PHRASE}」がない`);
   }
 });
 

@@ -60,9 +60,10 @@ docs-rules/
 │   └── docs-rules/
 │       ├── SKILL.md
 │       ├── references/     # ルールの出典となる資料の一覧
-│       ├── rules/          # 文体、表記、Markdown 記法の共通ルール
+│       ├── rules/          # 文体、表記、構成、Markdown 記法の共通ルール
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
+│       ├── prompts/        # AI 評価の手順（evaluate.md）
 │       └── evaluators/     # 採点の入口（score.mjs）、textlint と markdownlint の設定、prh 辞書、判定データ（内閣告示の JSON）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.md の大きさ、rules・schemas・templates の整合、Markdown の採点）
 ├── AGENTS.md               # AI エージェント向けの禁止事項と規約

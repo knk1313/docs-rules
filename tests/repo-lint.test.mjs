@@ -19,6 +19,7 @@ const TARGET_DIRS = [
   "skills/docs-rules/rules",
   "skills/docs-rules/schemas",
   "skills/docs-rules/templates",
+  "skills/docs-rules/prompts",
   "skills/docs-rules/references",
   "skills/docs-rules/evaluators",
   "skills/docs-rules/evaluators/data",
