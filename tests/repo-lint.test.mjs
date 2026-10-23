@@ -14,9 +14,19 @@ const SCORE = join(SKILL, "evaluators/score.mjs");
 const NPX = process.platform === "win32" ? "npx.cmd" : "npx";
 const CONCURRENCY = 3;
 
-// 採点の対象。.github/ のテンプレートは対象外（#27）
-const TARGET_DIRS = ["skills/docs-rules/rules", "skills/docs-rules/schemas", "skills/docs-rules/templates", "skills/docs-rules/references", "docs"];
-const TARGET_FILES = ["README.md", "CONTRIBUTING.md"];
+// 採点の対象。.github/ のテンプレートは対象外（#27）。ディレクトリは直下の .md だけを見る。
+// CODE_OF_CONDUCT.md と SECURITY.md は、「脆弱性」のような表外漢字を含む専門用語の扱いを決めるまで対象にしない
+const TARGET_DIRS = [
+  "skills/docs-rules/rules",
+  "skills/docs-rules/schemas",
+  "skills/docs-rules/templates",
+  "skills/docs-rules/references",
+  "skills/docs-rules/evaluators",
+  "skills/docs-rules/evaluators/data",
+  "docs",
+  "tests",
+];
+const TARGET_FILES = ["README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "skills/docs-rules/SKILL.md"];
 
 function targets() {
   const files = [...TARGET_FILES];
