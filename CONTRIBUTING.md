@@ -109,7 +109,8 @@ Issueには、種別のラベル（`bug`、`enhancement`、`documentation`、`ac
 node --test tests/*.test.mjs
 ```
 
-- 前提：Node.js 18以上。依存パッケージは要らない。`tests/repo-lint.test.mjs`は`npx`でtextlintとmarkdownlint-cli2を取得するため、初回はネットワークが要る
+- 前提：Node.js 18以上とnpm。依存パッケージを事前に入れる必要はない
+- `tests/repo-lint.test.mjs`は、初回にネットワークが要る。採点のテストでは、`score.mjs`がtextlintを`npm ci`で入れる（`evaluators/README.md`の「パッケージの入れ方」）。markdownlintのテストでは、`npx`でmarkdownlint-cli2を取得する
 - `npx`が使えないとき、パッケージを取得できないときは、採点のテストを飛ばし、飛ばしたことを出力する
 - Node.js 22では`node --test tests/`のようにディレクトリを渡すと動かないため、ファイルを`tests/*.test.mjs`で指定する
 - PRと`main`へのpushでは、GitHub Actions（`.github/workflows/ci.yml`）が同じテストと`claude plugin validate`を実行する。依存パッケージとアクションの版は、Dependabot（`.github/dependabot.yml`）が週に1回確かめる

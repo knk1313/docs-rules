@@ -14,5 +14,7 @@
 | [exclusions.test.mjs](exclusions.test.mjs) | `repo-lint.test.mjs`の除外条件（[lib/exclusions.mjs](lib/exclusions.mjs)）が、外すべき誤検出だけを外し、同じ場所にある本物の違反を外さないこと | 同上 |
 
 - `test_skill_size.py`はPython 3の標準ライブラリだけで動く
-- `*.test.mjs`はNode.js 18以上の組み込みのテストランナーで動く。`repo-lint.test.mjs`は`npx`でtextlintとmarkdownlint-cli2を取得するため、初回はネットワークが要る。`npx`が使えないときは、テストを飛ばしたことを出力する
+- `*.test.mjs`はNode.js 18以上の組み込みのテストランナーで動く
+- `repo-lint.test.mjs`は、初回にネットワークが要る。採点のテストでは`score.mjs`がtextlintを`npm ci`で入れ、markdownlintのテストでは`npx`でmarkdownlint-cli2を取得するため
+- `npx`が使えないとき、パッケージを取得できないときは、テストを飛ばしたことを出力する
 - 実行方法の詳細と除外条件は、CONTRIBUTING.mdの「テスト」を参照

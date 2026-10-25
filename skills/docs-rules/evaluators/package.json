@@ -1,7 +1,7 @@
 {
   "name": "docs-rules-evaluators",
   "private": true,
-  "description": "docs-rules の採点で使うパッケージと版。score.mjs はこの版を npx に渡す。利用者に npm install は求めない",
+  "description": "docs-rules の採点で使うパッケージと版。score.mjs が初回の実行で package-lock.json の版のとおりに npm ci で利用者のキャッシュへ入れる。利用者に npm install は求めない",
   "license": "MIT",
   "engines": {
     "node": ">=18"
