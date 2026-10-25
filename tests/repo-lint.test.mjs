@@ -1,6 +1,7 @@
 // リポジトリ自身のMarkdownを evaluators/ で採点し、違反が0件であることを確かめる。
 // ルールの型に由来する誤検出は、採点対象を書き換えず、lib/exclusions.mjs の除外条件で外す。
-// Node.js か npx が使えないとき、パッケージを取得できないときは、テストを飛ばしてそのことを出力する。
+// 採点のテストは、score.mjs がパッケージを入れられないとき（終了コード3。npm がない、ネットワークがないなど）に飛ばす。
+// markdownlint のテストは npx で markdownlint-cli2 を取得するため、npx が使えないときに飛ばす。どちらも飛ばしたことを出力する。
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
@@ -55,8 +56,11 @@ function score(file) {
 }
 
 test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件である", async (t) => {
-  if (!npxAvailable()) {
-    t.skip("npx が使えないため、採点のテストを飛ばした");
+  // score.mjs は npx ではなく npm ci でパッケージを入れる。先に1件だけ採点して、入れられるかを確かめる。
+  // 初回の取得もここで済むため、後の並行の採点がパッケージを入れる処理を取り合わない
+  const first = await score(TARGET_FILES[0]);
+  if (first.code === 3) {
+    t.skip(`score.mjs がパッケージを入れられないため、採点のテストを飛ばした: ${first.stderr.trim().split("\n")[0]}`);
     return;
   }
   // textlint はファイルごとに起動するため、同時に動かす数を絞ってメモリの使いすぎを防ぐ
