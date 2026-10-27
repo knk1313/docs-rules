@@ -9,9 +9,10 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
 
-  # CIのプラグインの検証で使うClaude Code。版を上げるときは、検証の警告の内容を見直す
+  # CIのプラグインの検証で使うClaude Code。版を上げるときは、検証の警告の内容を見直す。
+  # .github/ の下に置くと、Dependabotが版上げの変更を作れずに失敗したため、ci/ に置く
   - package-ecosystem: npm
-    directory: /.github/plugin-validate
+    directory: /ci/plugin-validate
     schedule:
       interval: weekly
 

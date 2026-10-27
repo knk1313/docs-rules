@@ -98,7 +98,8 @@ docs-rules is a Claude Code skill for writing Japanese documents to a consistent
 ```text
 docs-rules/
 ├── .claude-plugin/         # Claude Codeプラグインとマーケットプレイスのマニフェスト
-├── .github/                # IssueとPRのテンプレート、GitHub Actionsのワークフロー、Dependabotの設定、CIで使うClaude Codeの版
+├── .github/                # IssueとPRのテンプレート、GitHub Actionsのワークフロー、Dependabotの設定
+├── ci/                     # CIのプラグインの検証で使うClaude Codeの版
 ├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス
 ├── skills/
 │   └── docs-rules/

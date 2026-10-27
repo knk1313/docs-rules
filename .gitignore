@@ -2,7 +2,7 @@
 .DS_Store
 
 # CIのプラグインの検証で入れるClaude Code
-.github/plugin-validate/node_modules/
+ci/plugin-validate/node_modules/
 
 # Claude Code の個人ローカル設定と認証情報 (CLAUDE.md 参照)
 .claude/settings.local.json

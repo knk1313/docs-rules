@@ -49,10 +49,10 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
-      # Claude Codeの版はplugin-validate/package-lock.jsonで固定し、Dependabotが版上げのPRを出す
+      # Claude Codeの版はci/plugin-validate/package-lock.jsonで固定し、Dependabotが版上げのPRを出す
       - name: 検証で使うClaude Codeを入れる
         run: npm ci --no-audit --no-fund
-        working-directory: .github/plugin-validate
+        working-directory: ci/plugin-validate
       # 警告はエラーにしない（CONTRIBUTING.mdの「プラグイン配布の検証」）。版を上げるときは警告の内容を見直す
       - name: プラグインのマニフェストの検証
-        run: .github/plugin-validate/node_modules/.bin/claude plugin validate .
+        run: ci/plugin-validate/node_modules/.bin/claude plugin validate .
