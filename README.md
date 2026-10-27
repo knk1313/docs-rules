@@ -25,7 +25,7 @@ AIを使って日本語の文書を繰り返し作る人と組織です。生成
 
 ## インストール
 
-3通りあります。
+Claude Codeでは3通りあります。claude.aiで使う場合は、4のとおりzipをアップロードします。
 
 ### 1. 手動配置
 
@@ -55,6 +55,10 @@ Claude Codeのセッション内で実行します。
 /plugin marketplace add knk1313/docs-rules
 /plugin install docs-rules@docs-rules
 ```
+
+### 4. claude.aiへのアップロード
+
+[Releases](https://github.com/knk1313/docs-rules/releases)から`docs-rules-vX.Y.Z.zip`を取得し、claude.aiのスキルの設定でアップロードします。新しい版を使うときは、新しい版のzipをアップロードし直します。zipは、リリースを公開したときにGitHub Actionsが作ります。
 
 ## 使い方
 

@@ -1,0 +1,41 @@
+name: Release zip
+
+# Releaseを公開したときに、スキルのzipを作ってそのReleaseに添付する。
+# claude.aiのスキルのアップロードに使う。手で作ると「.」で始まるファイルの抜けや、余計なファイルの混入が起きるため
+on:
+  release:
+    types: [published]
+  # 既存のReleaseに添付し直すとき。タグ名を渡す
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "zipを添付するReleaseのタグ（例：v0.2.0）"
+        required: true
+
+permissions: {}
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    permissions:
+      # Releaseへの添付に使う
+      contents: write
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.TAG }}
+          persist-credentials: false
+      # evaluators/data/tools/ は判定データを作り直す開発用のスクリプトで、スキルとして使うときは要らないため除く
+      - name: スキルのzipを作る
+        working-directory: skills
+        run: zip -r -X "$RUNNER_TEMP/docs-rules-$TAG.zip" docs-rules -x 'docs-rules/evaluators/data/tools/*'
+      - name: zipの中身を確かめる
+        run: |
+          unzip -l "$RUNNER_TEMP/docs-rules-$TAG.zip"
+          unzip -l "$RUNNER_TEMP/docs-rules-$TAG.zip" | grep -q ' docs-rules/SKILL.md$'
+      - name: Releaseに添付する
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$TAG" "$RUNNER_TEMP/docs-rules-$TAG.zip" --clobber --repo "$GITHUB_REPOSITORY"
