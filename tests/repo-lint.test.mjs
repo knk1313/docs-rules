@@ -2,6 +2,7 @@
 // ルールの型に由来する誤検出は、採点対象を書き換えず、lib/exclusions.mjs の除外条件で外す。
 // 採点のテストは、score.mjs がパッケージを入れられないとき（終了コード3。npm がない、ネットワークがないなど）に飛ばす。
 // markdownlint のテストは npx で markdownlint-cli2 を取得するため、npx が使えないときに飛ばす。どちらも飛ばしたことを出力する。
+// CI（環境変数 CI がある）では、飛ばさずに失敗にする。
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
@@ -38,6 +39,12 @@ function targets() {
   return files;
 }
 
+/** 手元では飛ばし、CI（環境変数 CI がある）では失敗にする。CI で採点のテストが黙って飛ぶと、採点が壊れても気づけないため。 */
+function skipOrFail(t, reason) {
+  if (process.env.CI) assert.fail(reason);
+  t.skip(reason);
+}
+
 function npxAvailable() {
   const r = spawnSync(NPX, ["--version"], { encoding: "utf8", shell: process.platform === "win32" });
   return r.status === 0;
@@ -60,7 +67,7 @@ test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件�
   // 初回の取得もここで済むため、後の並行の採点がパッケージを入れる処理を取り合わない
   const first = await score(TARGET_FILES[0]);
   if (first.code === 3) {
-    t.skip(`score.mjs がパッケージを入れられないため、採点のテストを飛ばした: ${first.stderr.trim().split("\n")[0]}`);
+    skipOrFail(t, `score.mjs がパッケージを入れられないため、採点のテストを飛ばした: ${first.stderr.trim().split("\n")[0]}`);
     return;
   }
   // textlint はファイルごとに起動するため、同時に動かす数を絞ってメモリの使いすぎを防ぐ
@@ -71,7 +78,7 @@ test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件�
   });
   await Promise.all(workers);
   if (results.some((r) => r.code === 3)) {
-    t.skip(`textlint か markdownlint-cli2 を取得できないため、採点のテストを飛ばした: ${results.find((r) => r.code === 3).stderr.trim()}`);
+    skipOrFail(t, `textlint か markdownlint-cli2 を取得できないため、採点のテストを飛ばした: ${results.find((r) => r.code === 3).stderr.trim()}`);
     return;
   }
   const problems = [];
@@ -99,7 +106,7 @@ test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件�
 
 test("repo: リポジトリのMarkdownにmarkdownlint-cli2を当て、指摘が0件である", (t) => {
   if (!npxAvailable()) {
-    t.skip("npx が使えないため、markdownlint のテストを飛ばした");
+    skipOrFail(t, "npx が使えないため、markdownlint のテストを飛ばした");
     return;
   }
   const pkg = JSON.parse(readFileSync(join(SKILL, "evaluators/package.json"), "utf8"));
@@ -109,7 +116,7 @@ test("repo: リポジトリのMarkdownにmarkdownlint-cli2を当て、指摘が0
     { cwd: ROOT, encoding: "utf8", shell: process.platform === "win32" }
   );
   if (r.status !== 0 && r.status !== 1) {
-    t.skip(`markdownlint-cli2 を実行できないため、テストを飛ばした: ${(r.stderr || "").trim().split("\n")[0]}`);
+    skipOrFail(t, `markdownlint-cli2 を実行できないため、テストを飛ばした:${(r.stderr || "").trim().split("\n")[0]}`);
     return;
   }
   assert.equal(r.status, 0, `markdownlint-cli2 の指摘がある:\n${r.stderr}`);

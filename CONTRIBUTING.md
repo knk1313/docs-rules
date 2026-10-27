@@ -110,8 +110,8 @@ node --test tests/*.test.mjs
 ```
 
 - 前提：Node.js 18以上とnpm。依存パッケージを事前に入れる必要はない
-- `tests/repo-lint.test.mjs`は、初回にネットワークが要る。採点のテストでは、`score.mjs`がtextlintを`npm ci`で入れる（`evaluators/README.md`の「パッケージの入れ方」）。markdownlintのテストでは、`npx`でmarkdownlint-cli2を取得する
-- `npx`が使えないとき、パッケージを取得できないときは、採点のテストを飛ばし、飛ばしたことを出力する
+- `tests/repo-lint.test.mjs`と`tests/score.test.mjs`は、初回にネットワークが要る。採点のテストでは、`score.mjs`がtextlintを`npm ci`で入れる（`evaluators/README.md`の「パッケージの入れ方」）。markdownlintのテストでは、`npx`でmarkdownlint-cli2を取得する
+- `npx`が使えないとき、パッケージを取得できないときは、採点のテストを飛ばし、飛ばしたことを出力する。CI（環境変数`CI`がある）では、飛ばさずに失敗として扱う
 - Node.js 22では`node --test tests/`のようにディレクトリを渡すと動かないため、ファイルを`tests/*.test.mjs`で指定する
 - PRと`main`へのpushでは、GitHub Actions（`.github/workflows/ci.yml`）が同じテストと`claude plugin validate`を実行する。依存パッケージとアクションの版は、Dependabot（`.github/dependabot.yml`）が週に1回確かめる
 
@@ -121,7 +121,8 @@ node --test tests/*.test.mjs
 | --- | --- |
 | `tests/rules.test.mjs` | `rules/`の各ルールの型（項目の順序、IDの形と重複、`判定`の書式、出典の略称）と、一覧表と本文の一致 |
 | `tests/schemas.test.mjs` | `schemas/`の型と必須セクション表、`templates/`の見出しとの一致、各READMEの一覧と実ファイルの一致 |
-| `tests/repo-lint.test.mjs` | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること |
+| `tests/repo-lint.test.mjs` | リポジトリのMarkdownに`evaluators/score.mjs`とmarkdownlint-cli2を当て、違反が0件であること。`skills/`の下に「.」で始まるファイルがないこと |
+| `tests/score.test.mjs` | `evaluators/score.mjs`が、違反を含む決まった文書で期待するルールIDを返すこと。終了コード0〜3、`--type`の照合、重複した指摘の統合、番号を数量として直さないこと |
 | `tests/compare.test.mjs` | `evaluators/compare.mjs`が、書き直しの前後の採点結果を、直った違反、残った違反、新しく出た違反、2回続けて残った違反に分けること |
 | `tests/exclusions.test.mjs` | 採点の除外条件が、外すべき誤検出だけを外し、同じ場所にある本物の違反を外さないこと |
 

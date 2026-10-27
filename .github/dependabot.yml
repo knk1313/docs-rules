@@ -9,6 +9,12 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
 
+  # CIのプラグインの検証で使うClaude Code。版を上げるときは、検証の警告の内容を見直す
+  - package-ecosystem: npm
+    directory: /.github/plugin-validate
+    schedule:
+      interval: weekly
+
   # GitHub Actions のワークフローで使うアクション
   - package-ecosystem: github-actions
     directory: /

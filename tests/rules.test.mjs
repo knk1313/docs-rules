@@ -151,6 +151,23 @@ test("rules: 注記でAI評価に触れるときは「AI評価で扱う」の言
   }
 });
 
+// 機械で判定しない部分や、判定を先送りした部分を示す言い回し。
+// 「見分けられない」は、指摘しすぎる側の説明（NOT-006の固有名詞）にも使うため含めない
+const UNJUDGED = /判定しない|検出できない|実装時|別途決める|未実装/;
+
+test("rules: 判定：機械のルールで機械が判定しない部分は、「AI評価で扱う」としてAI評価に回す", () => {
+  for (const { file } of ruleFiles()) {
+    for (const rule of readRules(file)) {
+      const judge = rule.items.find((i) => i.name === "判定")?.value ?? "";
+      if (!judge.startsWith("機械")) continue;
+      for (const note of rule.notes) {
+        if (!UNJUDGED.test(note)) continue;
+        assert.ok(note.includes(AI_PHRASE), `${file}:${rule.id} の注記が、機械で判定しない部分をAI評価にも回していない: ${note}`);
+      }
+    }
+  }
+});
+
 test("rules: 「AI評価で扱う」の注記があるルールと、判定：AIのルールが、評価の手順の対象に入る", () => {
   const evaluate = readFileSync(EVALUATE, "utf8");
   // evaluate.md は rules/README.md の表にあるファイルをすべて読み、判定：AI と注記の言い回しで対象を決める

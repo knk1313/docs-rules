@@ -16,7 +16,7 @@
 
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, statSync, utimesSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,44 +26,74 @@ const SKILL_DIR = resolve(EVALUATORS_DIR, "..");
 const RULES_DIR = join(SKILL_DIR, "rules");
 const SCHEMAS_DIR = join(SKILL_DIR, "schemas");
 
-// 機械判定のうち、実装していない部分。ルールIDは checked_rules にも含める
-const PARTIAL_SKIPS = [{ rule_id: "NOT-006", reason: "表外の音訓は未実装（語の読みを決める形態素解析が要る）" }];
+// 機械判定のルールのうち、注記にこの言い回しがある部分は機械では判定しない（rules/README.md の「機械で判定できない部分をAI評価に回す」）
+const AI_PHRASE = "AI評価で扱う";
+
+// 使わなくなった版のキャッシュを消すまでの日数。並行して動く別の版のスキルが使っているものを消さないため、すぐには消さない
+const CACHE_KEEP_DAYS = 7;
 
 const EXIT_OK = 0;
 const EXIT_VIOLATIONS = 1;
 const EXIT_USAGE = 2;
 const EXIT_TOOL_FAILURE = 3;
 
-/** 引数を読む。 */
+/** 引数を読む。誤りがあれば error に理由を入れる。 */
 function parseArgs(argv) {
   const args = { file: null, type: null };
   for (let i = 0; i < argv.length; i += 1) {
-    if (argv[i] === "--type") {
-      args.type = argv[i + 1];
-      i += 1;
-    } else if (argv[i] === "-h" || argv[i] === "--help") {
+    const arg = argv[i];
+    if (arg === "--type" || arg.startsWith("--type=")) {
+      const value = arg === "--type" ? argv[i + 1] : arg.slice("--type=".length);
+      if (arg === "--type") i += 1;
+      if (!value || value.startsWith("-")) {
+        args.error = "--type の後に文書種別の識別名がない";
+        break;
+      }
+      args.type = value;
+    } else if (arg === "-h" || arg === "--help") {
       args.help = true;
+    } else if (arg.startsWith("-")) {
+      args.error = `知らないオプション: ${arg}`;
+      break;
     } else if (!args.file) {
-      args.file = argv[i];
+      args.file = arg;
     } else {
-      args.error = `引数が多すぎる: ${argv[i]}`;
+      args.error = `文書のパスは一つだけ渡す: ${arg}`;
+      break;
     }
   }
   return args;
 }
 
-/** コードブロックの中を除いた行を、行番号（1始まり）と組にして返す。 */
+/**
+ * コードブロックの中を除いた行を、行番号（1始まり）と組にして返す。
+ * 囲み型（「```」「~~~」）と字下げ型（空行の後の4字以上の字下げ）の両方を除く。
+ * 箇条書の続きの字下げは、字下げ型のコードブロックとして扱わない。
+ */
 function linesOutsideCode(text) {
   const out = [];
   let fence = null;
+  let indented = false;
+  let inList = false;
+  let prevBlank = true;
   text.split(/\r?\n/).forEach((line, i) => {
+    const blank = line.trim() === "";
     const m = line.match(/^\s*(`{3,}|~{3,})/);
     if (m) {
       if (!fence) fence = m[1][0];
       else if (m[1][0] === fence) fence = null;
+      prevBlank = false;
       return;
     }
-    if (!fence) out.push({ line, number: i + 1 });
+    if (fence) return;
+    const deep = /^( {4}|\t)/.test(line);
+    if (!blank) {
+      indented = deep && (indented || (prevBlank && !inList));
+      if (/^\s*([-*+]|\d+[.)])\s/.test(line)) inList = true;
+      else if (!deep && !/^\s/.test(line)) inList = false;
+    }
+    prevBlank = blank;
+    if (!indented || blank) out.push({ line, number: i + 1 });
   });
   return out;
 }
@@ -100,8 +130,14 @@ function loadRules() {
     for (const { line } of linesOutsideCode(readFileSync(join(RULES_DIR, file), "utf8"))) {
       const heading = line.match(/^### ([A-Z]+-\d{3}) (.+)$/);
       if (heading) {
-        current = { id: heading[1], summary: heading[2], judge: null, checkers: [] };
+        current = { id: heading[1], summary: heading[2], judge: null, checkers: [], aiParts: [] };
         rules.set(current.id, current);
+        continue;
+      }
+      // 注記のうち、機械では判定せずAI評価に回す部分を書いた文
+      if (current && line.startsWith(">") && line.includes(AI_PHRASE)) {
+        const sentences = line.replace(/^>\s*/, "").split(/(?<=。)/);
+        current.aiParts.push(...sentences.filter((s) => s.includes(AI_PHRASE)).map((s) => s.trim()));
         continue;
       }
       const judge = line.match(/^- 判定：(.+)$/);
@@ -157,13 +193,17 @@ function runNpm(args, cwd) {
  * package-lock.json の版のとおりにパッケージを入れ、入れた場所を返す。入れてあれば何もしない。
  * 場所の名前にロックファイルのハッシュを含め、ロックファイルが変わったら別の場所に入れ直す。
  * 一時的な場所に入れてから名前を変えるため、並行して呼ばれても、入れかけの場所を使わない。
+ * 使うたびに場所の更新日時を今にし、使わなくなった版の場所を消す目安にする。
  */
 function ensurePackages() {
   const lock = readFileSync(join(EVALUATORS_DIR, "package-lock.json"));
   const hash = createHash("sha256").update(lock).digest("hex").slice(0, 16);
   const root = cacheRoot();
   const dir = join(root, `evaluators-${hash}`);
-  if (existsSync(dir)) return dir;
+  if (existsSync(dir)) {
+    touch(dir);
+    return dir;
+  }
 
   mkdirSync(root, { recursive: true });
   const work = mkdtempSync(join(root, `.installing-${hash}-`));
@@ -184,11 +224,30 @@ function ensurePackages() {
     rmSync(work, { recursive: true, force: true });
   }
 
-  // 前のロックファイルで入れたものを消す
+  touch(dir);
+  // 別のロックファイルで入れたもののうち、CACHE_KEEP_DAYS 日より長く使っていないものを消す。
+  // 別の版のスキルが並行して動いていると、その版の場所は使用中のため、すぐには消さない
+  const limit = Date.now() - CACHE_KEEP_DAYS * 24 * 60 * 60 * 1000;
   for (const name of readdirSync(root)) {
-    if (name.startsWith("evaluators-") && name !== basename(dir)) rmSync(join(root, name), { recursive: true, force: true });
+    if (!name.startsWith("evaluators-") || name === basename(dir)) continue;
+    const path = join(root, name);
+    try {
+      if (statSync(path).mtimeMs < limit) rmSync(path, { recursive: true, force: true });
+    } catch {
+      // 別のプロセスが先に消したときは何もしない
+    }
   }
   return dir;
+}
+
+/** 場所の更新日時を今にする。更新できなくても採点は続ける。 */
+function touch(path) {
+  const now = new Date();
+  try {
+    utimesSync(path, now, now);
+  } catch {
+    // 読み取り専用のキャッシュなど、更新できない場所でも採点には差し支えない
+  }
 }
 
 /** 入れたパッケージの、コマンドの本体のパスを返す。 */
@@ -363,8 +422,8 @@ function checkSchema(type, source) {
   }
   for (const { line, number } of linesOutsideCode(source)) {
     const at = line.indexOf("<!--");
-    // インラインコードの中の「<!--」（`<!-- -->` のような記法の説明）は除く
-    if (at < 0 || line[at - 1] === "`") continue;
+    // インラインコードや引用符で囲んだ「<!--」（`<!-- -->` のような記法の説明）は除く
+    if (at < 0 || /[`「『"“]/.test(line[at - 1] ?? "")) continue;
     violations.push({
       rule_id: "SCHEMA",
       line: number,
@@ -415,11 +474,21 @@ function main() {
     process.stderr.write(`文書が見つからない: ${args.file}\n`);
     return EXIT_USAGE;
   }
+  if (!statSync(file).isFile()) {
+    process.stderr.write(`文書のパスがファイルではない: ${args.file}\n`);
+    return EXIT_USAGE;
+  }
   if (args.type && !existsSync(join(SCHEMAS_DIR, `${args.type}.md`))) {
     process.stderr.write(`schemas/ に ${args.type}.md がない\n`);
     return EXIT_USAGE;
   }
-  const source = readFileSync(file, "utf8");
+  let source;
+  try {
+    source = readFileSync(file, "utf8");
+  } catch (e) {
+    process.stderr.write(`文書を読めない: ${args.file}（${e.code ?? e.message}）\n`);
+    return EXIT_USAGE;
+  }
   const lines = source.split(/\r?\n/);
   const ruleIndex = loadRules();
 
@@ -434,12 +503,17 @@ function main() {
   }
 
   // 機械判定のルールのうち、判定手段が「判定」欄に書いてあるものを、採点したルールとする
+  // 一部だけ機械で判定するルールは checked_rules に入れ、機械で判定しない部分を skipped_rules にも出す
   const checked = [];
-  const skipped = [...PARTIAL_SKIPS];
+  const skipped = [];
   for (const rule of ruleIndex.rules.values()) {
     if (rule.judge !== "機械") continue;
-    if (rule.checkers.length > 0) checked.push(rule.id);
-    else skipped.push({ rule_id: rule.id, reason: "「判定」欄に判定手段が書いていない" });
+    if (rule.checkers.length === 0) {
+      skipped.push({ rule_id: rule.id, reason: "「判定」欄に判定手段が書いていない" });
+      continue;
+    }
+    checked.push(rule.id);
+    for (const part of rule.aiParts) skipped.push({ rule_id: rule.id, reason: `一部は機械で判定しない：${part}` });
   }
   if (args.type) {
     checked.push("SCHEMA");
