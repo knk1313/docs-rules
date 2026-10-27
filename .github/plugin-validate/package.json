@@ -1,0 +1,8 @@
+{
+  "name": "docs-rules-plugin-validate",
+  "private": true,
+  "description": "CIのプラグインの検証（claude plugin validate）で使うClaude Codeの版。Dependabotが版上げのPRを出す",
+  "dependencies": {
+    "@anthropic-ai/claude-code": "2.1.309"
+  }
+}

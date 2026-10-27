@@ -23,6 +23,39 @@
 
 AIを使って日本語の文書を繰り返し作る人と組織です。生成のたびに見出し、表記、文章量が変わり、人が読んで直す手間が生じています。ルールを共通の資産にし、この手間を減らします。ルールは公用文作成の考え方やJTF日本語標準スタイルガイドなどの公開資料を出典にしているので、自分の基準を一から書く必要はありません。
 
+## インストール
+
+3通りあります。
+
+### 1. 手動配置
+
+クローンして、スキルディレクトリに置きます。
+
+```bash
+git clone https://github.com/knk1313/docs-rules.git
+mkdir -p ~/.claude/skills
+cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
+```
+
+Claude Codeは、再起動時にこのスキルを読み込みます。
+
+### 2. `npx skills add`
+
+GitHubから直接入れます。
+
+```bash
+npx skills add knk1313/docs-rules
+```
+
+### 3. Claude Codeプラグイン
+
+Claude Codeのセッション内で実行します。
+
+```text
+/plugin marketplace add knk1313/docs-rules
+/plugin install docs-rules@docs-rules
+```
+
 ## 使い方
 
 インストールしたうえで、Claude Codeのセッションで日本語の文書を頼みます。
@@ -61,7 +94,7 @@ docs-rules is a Claude Code skill for writing Japanese documents to a consistent
 ```text
 docs-rules/
 ├── .claude-plugin/         # Claude Codeプラグインとマーケットプレイスのマニフェスト
-├── .github/                # IssueとPRのテンプレート、GitHub Actionsのワークフロー
+├── .github/                # IssueとPRのテンプレート、GitHub Actionsのワークフロー、Dependabotの設定、CIで使うClaude Codeの版
 ├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス
 ├── skills/
 │   └── docs-rules/
@@ -83,39 +116,6 @@ docs-rules/
 ```
 
 Issueを完了してファイルやディレクトリが増減したときは、そのPRでこのツリーも更新します。
-
-## インストール
-
-3通りあります。
-
-### 1. 手動配置
-
-クローンして、スキルディレクトリに置きます。
-
-```bash
-git clone https://github.com/knk1313/docs-rules.git
-mkdir -p ~/.claude/skills
-cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
-```
-
-Claude Codeは、再起動時にこのスキルを読み込みます。
-
-### 2. `npx skills add`
-
-GitHubから直接入れます。
-
-```bash
-npx skills add knk1313/docs-rules
-```
-
-### 3. Claude Codeプラグイン
-
-Claude Codeのセッション内で実行します。
-
-```text
-/plugin marketplace add knk1313/docs-rules
-/plugin install docs-rules@docs-rules
-```
 
 ## バージョン管理
 
