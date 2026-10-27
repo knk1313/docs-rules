@@ -104,7 +104,7 @@
 
 - 判断：採用。Markdown記法のルールの根拠と判定手段になる
 - 取り込み方：markdownlintは`evaluators/`で使う。CommonMark Specは記法の根拠として参照のみとし、`rules/`のMarkdown記法ルールに出典として付ける
-- 置き場所：記法のルールは[rules/markup.md](../rules/markup.md)、markdownlintの設定は[evaluators/.markdownlint-cli2.jsonc](../evaluators/.markdownlint-cli2.jsonc)に置いた（#14）
+- 置き場所：記法のルールは[rules/markup.md](../rules/markup.md)、markdownlintの設定は[evaluators/docs-rules.markdownlint-cli2.jsonc](../evaluators/docs-rules.markdownlint-cli2.jsonc)に置いた（#14）
 - ライセンス：markdownlintはMIT。CommonMark SpecはCC BY-SA 4.0で、原文を置くと同じライセンスでの公開が必要になるため、原文は置かない
 
 ### Google Developer Documentation Style GuideとDiátaxis

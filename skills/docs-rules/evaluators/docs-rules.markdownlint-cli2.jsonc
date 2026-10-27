@@ -2,7 +2,7 @@
   // docs-rules の markdownlint の設定（#14）。
   // 各ルールと rules/markup.md の対応、無効にした理由は evaluators/README.md に書く。
   // 実行例（リポジトリの直下から）:
-  //   npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/.markdownlint-cli2.jsonc "**/*.md"
+  //   npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/docs-rules.markdownlint-cli2.jsonc "**/*.md"
   "config": {
     // 既定で有効な全ルールを土台にする
     "default": true,

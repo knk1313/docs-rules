@@ -4,7 +4,7 @@
 // 表にない音訓の判定は、語の読みを決める形態素解析が要るため実装していない（evaluators/README.md）。
 // 固有名詞はルールの対象外だが、文から見分けられないため指摘に含まれる。
 // 定着した専門用語（「脆弱性」など）は、evaluators/allowed-terms.json の NOT-006 に語の単位で書くと指摘しない。
-// （--rulesdir で読み込むルールには .textlintrc.json の設定値が渡らないため、ファイルから直接読む）
+// （--rulesdir で読み込むルールには textlintrc.json の設定値が渡らないため、ファイルから直接読む）
 const path = require("path");
 const joyo = require(path.join(__dirname, "..", "data", "joyo-kanji.json"));
 const ALLOW = require(path.join(__dirname, "..", "allowed-terms.json"))["NOT-006"] || [];

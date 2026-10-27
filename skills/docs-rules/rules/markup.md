@@ -4,7 +4,7 @@
 
 > 出典のCommonMark Specは第0.31.2版（2024年1月28日）の節番号で示す。原文はCC BY-SA 4.0のため写さず、自分の文章で書いている。表はCommonMark Specにはなく（GitHub Flavored Markdownの拡張）、表のルールはmarkdownlintだけを出典にする。
 >
-> 「判定」のmarkdownlintのルール名はMD番号で書く。各ルールの設定は[evaluators/.markdownlint-cli2.jsonc](../evaluators/.markdownlint-cli2.jsonc)にあり、設定の方針は[evaluators/README.md](../evaluators/README.md)を参照。
+> 「判定」のmarkdownlintのルール名はMD番号で書く。各ルールの設定は[evaluators/docs-rules.markdownlint-cli2.jsonc](../evaluators/docs-rules.markdownlint-cli2.jsonc)にあり、設定の方針は[evaluators/README.md](../evaluators/README.md)を参照。
 
 ## 見出し
 

@@ -212,7 +212,7 @@ function lineText(lines, number) {
 function runTextlint(file, source, lines, packagesDir, ruleIndex) {
   const args = [
     "--config",
-    join(EVALUATORS_DIR, ".textlintrc.json"),
+    join(EVALUATORS_DIR, "textlintrc.json"),
     "--rulesdir",
     join(EVALUATORS_DIR, "custom-rules"),
     "--format",
@@ -282,7 +282,7 @@ function toViolation(message, source, lines, ruleIndex) {
 function runMarkdownlint(file, lines, packagesDir, ruleIndex) {
   const args = [
     "--config",
-    join(EVALUATORS_DIR, ".markdownlint-cli2.jsonc"),
+    join(EVALUATORS_DIR, "docs-rules.markdownlint-cli2.jsonc"),
     // 「#」や「!」で始まる名前をグロブとして読ませないため、「:」を付けて文字どおりのパスとして渡す
     `:${basename(file)}`,
   ];

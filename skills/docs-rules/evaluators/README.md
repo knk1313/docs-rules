@@ -8,12 +8,14 @@
 | [compare.mjs](compare.mjs) | 書き直しの前後の採点結果を比べ、直った違反、残った違反、新しく出た違反、2回続けて残った違反を返す | 置いた（#24） |
 | [package.json](package.json) | 採点で使うパッケージと版 | 置いた（#21） |
 | [package-lock.json](package-lock.json) | 依存の依存まで含めた版の一覧。`score.mjs`はこの版のとおりにパッケージを入れる。Dependabotが既知の脆弱性の検出と版上げに使う | 置いた |
-| [.textlintrc.json](.textlintrc.json) | textlintの設定 | 置いた（#21） |
+| [textlintrc.json](textlintrc.json) | textlintの設定 | 置いた（#21） |
 | [prh/](prh/) | textlint-rule-prhの辞書 | 置いた（#21） |
 | [custom-rules/](custom-rules/) | 自前のtextlintルール。`lib/`はその共通部分 | 置いた（#21） |
-| [allowed-terms.json](allowed-terms.json) | 採点で指摘しない語（ルールIDごと）。`--rulesdir`のルールには`.textlintrc.json`の設定値が渡らないため、ルールがこのファイルを直接読む | 置いた |
+| [allowed-terms.json](allowed-terms.json) | 採点で指摘しない語（ルールIDごと）。`--rulesdir`のルールには`textlintrc.json`の設定値が渡らないため、ルールがこのファイルを直接読む | 置いた |
 | [data/](data/README.md) | 内閣告示の判定データ（JSON） | 置いた（#11） |
-| [.markdownlint-cli2.jsonc](.markdownlint-cli2.jsonc) | markdownlintの設定 | 置いた（#14） |
+| [docs-rules.markdownlint-cli2.jsonc](docs-rules.markdownlint-cli2.jsonc) | markdownlintの設定 | 置いた（#14） |
+
+設定ファイルの名前は「.」で始めない。スキルをzipでアップロードする経路などで「.」で始まるファイルが落ち、採点が設定なしで動かなくなるため。`score.mjs`は`--config`で設定ファイルのパスを渡す。markdownlint-cli2は名前の末尾が`.markdownlint-cli2.jsonc`のファイルを自分の設定として読むため、`docs-rules.`を前に付けた。
 
 ## 採点の入口
 
@@ -164,7 +166,7 @@ node skills/docs-rules/evaluators/compare.mjs <最初の採点結果> … <前�
 | `3.3.かっこ類と隣接する文字の間のスペースの有無`とja-no-space-around-parentheses | NOT-024の例を検出したのはja-no-space-around-parenthesesだけだった。NOT-024の`判定`欄に足した |
 | arabic-kanji-numbers | 「一つ」を「1つ」に直すよう指摘した。NOT-014（漢数字で書く）と食い違うため無効にする |
 | `4.2.9.ダッシュ(-)` | 第4.0版で削除された項目のため無効にする |
-| preset-jtf-styleの設定キー | パッケージの`rulesConfig`から確かめ、`.textlintrc.json`に書いた |
+| preset-jtf-styleの設定キー | パッケージの`rulesConfig`から確かめ、`textlintrc.json`に書いた |
 
 ## prh辞書
 
@@ -218,7 +220,7 @@ Markdown記法のルール（[rules/markup.md](../rules/markup.md)）は、markd
 開発者がリポジトリの直下で、リポジトリ全体のMarkdownにmarkdownlintだけを当てるコマンドは次のとおり。利用者の文書の採点には使わない。
 
 ```bash
-npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/.markdownlint-cli2.jsonc "**/*.md"
+npx -y markdownlint-cli2@0.24.0 --config skills/docs-rules/evaluators/docs-rules.markdownlint-cli2.jsonc "**/*.md"
 ```
 
 指摘が0件なら何も表示されず、終了コードが0になる。`score.mjs`は同じ設定でmarkdownlint-cli2を呼び、`checker`を`markdownlint：MD0xx`として採点結果にまとめる。

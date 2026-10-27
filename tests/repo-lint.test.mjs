@@ -105,7 +105,7 @@ test("repo: リポジトリのMarkdownにmarkdownlint-cli2を当て、指摘が0
   const pkg = JSON.parse(readFileSync(join(SKILL, "evaluators/package.json"), "utf8"));
   const r = spawnSync(
     NPX,
-    ["-y", `markdownlint-cli2@${pkg.dependencies["markdownlint-cli2"]}`, "--config", relative(ROOT, join(SKILL, "evaluators/.markdownlint-cli2.jsonc")), "**/*.md"],
+    ["-y", `markdownlint-cli2@${pkg.dependencies["markdownlint-cli2"]}`, "--config", relative(ROOT, join(SKILL, "evaluators/docs-rules.markdownlint-cli2.jsonc")), "**/*.md"],
     { cwd: ROOT, encoding: "utf8", shell: process.platform === "win32" }
   );
   if (r.status !== 0 && r.status !== 1) {
@@ -113,4 +113,18 @@ test("repo: リポジトリのMarkdownにmarkdownlint-cli2を当て、指摘が0
     return;
   }
   assert.equal(r.status, 0, `markdownlint-cli2 の指摘がある:\n${r.stderr}`);
+});
+
+/** ディレクトリの下にある「.」で始まるファイルとディレクトリを、ルートからの相対パスで返す。 */
+function dotEntries(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.name.startsWith(".")) return [relative(ROOT, path)];
+    return entry.isDirectory() ? dotEntries(path) : [];
+  });
+}
+
+// スキルをzipでアップロードする経路などで「.」で始まるファイルが落ち、採点が設定なしで動かなくなるため
+test("repo: skills/の下に「.」で始まるファイルを置かない", () => {
+  assert.deepEqual(dotEntries(join(ROOT, "skills")), [], "「.」で始まる名前を変え、参照している箇所も直す");
 });
