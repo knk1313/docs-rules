@@ -142,7 +142,8 @@ JTFスタイルガイドに日付の項目がなく、公用文作成の考え�
 
 - 本文を書き直して載せられるのは、デジタル庁デザインシステムだけである。公共データ利用規約（第1.0版）に従い、出典と編集・加工した旨を書く
 - Atlassian、Shopify Polaris、Microsoftの英語の資料は、エラー、空の状態、ボタンの型の根拠として参照のみにする
-- Google Material Design、Apple Human Interface Guidelines、GOV.UKの採否は決まっていない
+- GOV.UKは、Open Government Licence v3.0のため採用する
+- Google Material Design、Apple Human Interface Guidelines、Nielsen Norman Groupは参照のみにする。どれも利用条件が改変や転載を認めない
 
 ### 論文の資料
 
@@ -150,7 +151,14 @@ JTFスタイルガイドに日付の項目がなく、公用文作成の考え�
 
 - 採用するのは、文部科学省の不正行為のガイドライン（盗用の定義）と、国際単位系（SI）第9版（数値と単位の書き方）である
 - SIST 02は事業が終わり、利用条件も改変を認めないため、参照のみにする。学会の規定と市販書籍も参照のみにする
-- 文体（常体、一人称、受身）と図表のキャプションの位置は、市販書籍以外の一次資料が見つかっていない
+- 文体（常体）は日本科学教育学会と日本看護研究学会、図表のキャプションの位置はSIST 08と情報処理学会のスタイルファイルを根拠にする。どれも参照のみである
+
+### Diátaxisの4分類の資料
+
+Diátaxisの4分類を汎用の文書種別として足すために、#55で種別ごとの構成の型を調べた。候補の一覧、必須セクションの候補、種別の境目は[diataxis-sources.md](diataxis-sources.md)に分けて書いた。実装も#55で行う。
+
+- 見出しの並びの主な根拠は、The Good Docs Projectのテンプレート（MIT-0）にする。ADRを扱う場合はMADR（MIT OR CC0-1.0）を使う
+- Red HatとGitLabの手引きは、CC BY-SA 4.0のため参照のみにする
 
 ## 層ごとのカバー状況
 
