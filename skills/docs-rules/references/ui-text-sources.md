@@ -6,6 +6,8 @@
 
 2026-10-28に、#32のコメントに残した未確認の点を同じ方法で調べ直した。確かめたのは、英語の4資料（GOV.UK、Apple、Material Design 3、Nielsen Norman Group）の主張と、GOV.UKとAtlassianの利用条件である。日本語のUI文言の文字数の上限、句点、敬体と常体を定めた一次資料は、今回も見つからなかった。
 
+同じ日に、Apple、Material Design 3、Nielsen Norman Groupの利用条件をブラウザーで確かめた。三つとも改変や転載を認めていないため、参照のみのままにする。
+
 ## 調査結果一覧
 
 候補ごとの採否と取り込み方は次のとおり。
@@ -17,9 +19,9 @@
 | Shopify PolarisのContent guidelines | 参照のみ | 参照のみ | 未確認。リポジトリはアーカイブ済み | 内容 |
 | Microsoftの「Writing style - Windows apps」と「Error message guidelines」 | 参照のみ | 参照のみ | 未確認 | 内容 |
 | GOV.UK Service ManualとGOV.UK Design System | 採用 | 考え方を日本語で書き下ろす | Open Government Licence v3.0（翻案を認め、出典の表示が要る） | 内容・表記 |
-| Apple Human Interface GuidelinesのWriting | 参照のみ | 参照のみ | 未確認 | 内容 |
-| Google Material Design 3のUX writing best practices | 参照のみ | 参照のみ | 未確認 | 内容 |
-| Nielsen Norman Group『Error-Message Guidelines』 | 参照のみ | 参照のみ | 未確認 | 内容 |
+| Apple Human Interface GuidelinesのWriting | 参照のみ | 参照のみ | Apple Website Terms of Use。書面の同意なく複製、翻訳、配布ができない | 内容 |
+| Google Material Design 3のUX writing best practices | 参照のみ | 参照のみ | Google利用規約だけで、オープンライセンスの表示はない | 内容 |
+| Nielsen Norman Group『Error-Message Guidelines』 | 参照のみ | 参照のみ | 全著作権を留保。転載と翻訳は有償で、短い引用とリンクだけ自由 | 内容 |
 | 公用文作成の考え方、JTF日本語標準スタイルガイド | 採用済み（#1） | 共通ルールの例外を決めるときに参照 | [reference-sources.md](reference-sources.md)を参照 | 表記・文体 |
 
 ## 候補ごとの判断
@@ -64,7 +66,11 @@
 
 ### Apple、Material Design 3、Nielsen Norman Group
 
-主張の中身は一次資料で確かめたが、サイトの利用条件は確かめていない。参照のみとし、名前とURLだけを挙げる。
+主張の中身と、サイトの利用条件を一次資料で確かめた。三つとも参照のみとし、名前とURLだけを挙げる。
+
+- Appleの利用条件：HIGのページのフッターは、apple.comのWebsite Terms of Use（2009年11月20日更新）を指す。書面による事前の同意がなければ、内容の複製、転載、翻訳、配布はできない。ロボットなどによる自動の取得も禁じている
+- Material Design 3の利用条件：フッターにはGoogleの利用規約とプライバシーポリシーへのリンクだけがあり、Creative Commonsなどの表示はない
+- Nielsen Norman Groupの利用条件：記事の全著作権を留保している。ほかのサイトへの転載と翻訳には、1記事250ドルの使用料が要る。数語から数行の引用と、記事へのリンクは許可なしにできる
 
 - Apple HIGのWriting：ボタンとリンクのラベルには、ほぼ常に動詞を使う。エラーは問題の箇所の近くに出し、利用者を責めず、直し方を示す。例は、パスワードが短すぎると伝えるより、8文字以上のパスワードを選ぶよう伝える、である。「oops!」のような感嘆詞と、「Invalid name」のような情報のない文言は避ける。このページには「OK」を避けるという記述はない
 - Material Design 3のUX writing best practices：操作の結果を、中立かつ直接的な言葉で伝える。何が起き、どう元に戻せるかを示し、不安をあおる警告を避ける。タイトルやボタンを含むすべての文言をsentence caseで書くとするが、英語の大文字の規則のため日本語には当てはめない
@@ -72,8 +78,9 @@
 
 ### 未決定の点
 
-- 視点のルール（機能の説明ではなく、利用者ができることで書く）は、根拠にした主張が検証で否定された。今回の調査でも、この原則を明文化した一次資料は見つからなかった。ルールに入れるかは#33で決める
+- 視点のルール（機能の説明ではなく、利用者ができることで書く）は、根拠にした主張が検証で否定された。今回の調査でも、この原則を明文化した一次資料は見つからなかった
 - 確認の画面のボタンで「OK」「はい」を避けるとする一次資料は見つからなかった。Apple HIGの「ボタンは動詞」は、動詞を勧めるだけで「OK」を禁じていない
+- 2026-10-28に、UI-004、UI-009、UI-010は、一次資料がないままルールに入れると決めた。出典の欄には、一次資料がないことと、参照のみの資料を書く
 
 ## ルール候補
 
@@ -90,7 +97,7 @@ IDの接頭辞は`UI-`を仮に使う。採否と最終のIDは#33で決める�
 | UI-007 | 開閉する要素のラベルを、状態に応じて変えない | 機械（「開く」「閉じる」で終わるラベルの検出）とAI | デジタル庁デザインシステム |
 | UI-008 | 開閉する要素のタイトルは短く内容を表し、操作を促す言い方にしない | AI | デジタル庁デザインシステム |
 | UI-009 | 要素ごとに文字数の上限を決め、文言表に書く | 機械 | デジタル庁デザインシステム（緊急時バナーの30字と100字を例にする） |
-| UI-010 | 機能の説明（「〜する機能です」「本画面では」）ではなく、利用者ができることで書く | AI（言い回しの一部は機械） | 未確定 |
+| UI-010 | 機能の説明（「〜する機能です」「本画面では」）ではなく、利用者ができることで書く | AI（言い回しの一部は機械） | 一次資料なし。入れると決めた |
 | UI-011 | エラーを「エラーが発生しました」「入力が正しくありません」のような汎用の文言で済ませず、何が違うかと直し方を書く | AI（汎用の文言は機械） | GOV.UK、Apple、Nielsen Norman Group（GOV.UK以外は参照のみ） |
 | UI-012 | エラーに感嘆の語（「おっと」）や、解決に役立たない謝罪の言葉を入れない | 機械（語の一覧）とAI | GOV.UK、Apple（Appleは参照のみ） |
 | UI-013 | 取り消せない操作の確認では、何が起き、元に戻せるかを中立の言葉で示す | AI | Material Design 3（参照のみ） |
@@ -104,9 +111,11 @@ IDの接頭辞は`UI-`を仮に使う。採否と最終のIDは#33で決める�
 | 共通ルール | UI文言での扱いの案 | 根拠 |
 | --- | --- | --- |
 | NOT-003（「！」「？」を使わない） | 問いの形のラベル（「どの機能に問題がありましたか？」）に限り「？」を認める | デジタル庁デザインシステムのテキストエリアの例 |
-| NOT-002、GRM-016（句点） | ラベル、ボタン、タイトルには句点を付けない。2文以上のメッセージには付ける | GOV.UK（見出しとラベルには句読点を付けず、ほかは文末にピリオドを打つ）。英語の資料のため、日本語の句点に当てはめてよいかは#33で決める。GRM-017（図表の中の文）と同じ考え方でもある |
-| GRM-001（常体と敬体を混ぜない） | 文書全体ではなく、要素の種類ごとにそろえる。ラベルとボタンは体言止めか動詞の終止形、メッセージは敬体 | 未確定 |
-| GRM-003（三つ以上の項目は箇条書） | 1行の文言には当てはめない | 未確定 |
+| NOT-002、GRM-016（句点） | ラベル、ボタン、タイトルには句点を付けない。2文以上のメッセージには付ける | GOV.UK（見出しとラベルには句読点を付けず、ほかは文末にピリオドを打つ）。英語の資料だが、日本語の一次資料がないまま入れると決めた。GRM-017（図表の中の文）と同じ考え方でもある |
+| GRM-001（常体と敬体を混ぜない） | 文書全体ではなく、要素の種類ごとにそろえる。ラベルとボタンは体言止めか動詞の終止形、メッセージは敬体 | 一次資料なし |
+| GRM-003（三つ以上の項目は箇条書） | 1行の文言には当てはめない | 一次資料なし |
+
+2026-10-28に、GRM-001とGRM-003の例外は、一次資料がないまま入れると決めた。
 
 ## 文言表の必須セクション候補
 
@@ -133,6 +142,9 @@ IDの接頭辞は`UI-`を仮に使う。採否と最終のIDは#33で決める�
 - [Material Design 3『UX writing best practices』](https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices)
 - [Nielsen Norman Group『Error-Message Guidelines』](https://www.nngroup.com/articles/error-message-guidelines/)
 - [Atlassian Design System『License』](https://atlassian.design/license)
+- [Apple『Website Terms of Use』](https://www.apple.com/legal/internet-services/terms/site.html)
+- [Google『利用規約』](https://policies.google.com/terms)
+- [Nielsen Norman Group『Copyright and Reprint Information』](https://www.nngroup.com/copyright-and-reprint-info/)
 - [Atlassian Design System『Error messages』](https://atlassian.design/foundations/content/designing-messages/error-messages)
 - [Atlassian Design System『Empty state』](https://atlassian.design/foundations/content/designing-messages/empty-state)
 - [Shopify Polaris『Empty state』（GitHubのアーカイブ）](https://github.com/Shopify/polaris/blob/main/polaris.shopify.com/content/components/layout-and-structure/empty-state.mdx)
