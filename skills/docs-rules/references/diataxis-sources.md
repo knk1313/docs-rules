@@ -15,7 +15,7 @@ Diátaxisの4分類（チュートリアル、ハウツー、リファレンス�
 | Diátaxis（4分類の各ページ） | 採用済み（#15） | 参照のみ（考え方を書き直す） | CC BY-SA 4.0（GitHubリポジトリのREADMEに記載） | 構成 |
 | The Good Docs Projectのテンプレート | 採用 | schemas、templates | MIT No Attribution（MIT-0） | 構成 |
 | Google Developer Documentation Style Guide | 採用済み（#1） | schemas | CC BY 4.0 | 構成 |
-| MADR（Markdown Architectural Decision Records） | 採用 | schemas（ADRを扱う場合） | MIT OR CC0-1.0 | 構成 |
+| MADR（Markdown Architectural Decision Records） | 参照のみ | 参照のみ（ADRを今回は扱わないため） | MIT OR CC0-1.0 | 構成 |
 | Red Hatのモジュラードキュメントの手引き | 参照のみ | 参照のみ | CC BY-SA 4.0 | 構成 |
 | GitLabのドキュメントのトピックタイプ | 参照のみ | 参照のみ | CC BY-SA 4.0 | 構成 |
 | JIS Z 82079-1:2026（製品の使用説明の作成） | 参照のみ | 参照のみ | 規格の本文は有償。JISCでは閲覧だけができる | 構成・内容 |
@@ -60,7 +60,7 @@ Diátaxisの4分類（チュートリアル、ハウツー、リファレンス�
 
 ### MADR
 
-- 判断：採用。解説の種別でADR（設計の決定の記録）を扱う場合の根拠にする
+- 判断：参照のみ。ADR（設計の決定の記録）は今回の種別では扱わないと決めたため、根拠にしない。ADRの種別を足すときの根拠として残す
 - ライセンス：リポジトリ（adr/madr）は、MITとCC0-1.0のどちらかを選べる二重ライセンスである
 - 最小のテンプレートの見出しは、次の順である。Consequencesは、Decision Outcomeの下の見出しである
   1. Context and Problem Statement
@@ -93,8 +93,9 @@ Diátaxisの4分類（チュートリアル、ハウツー、リファレンス�
 | 1 | `## 目的` | 何を達成するための手順か、どんなときに使うかを示す | Good Docs（Overview）、Diátaxis |
 | 2 | `## 前提` | 始める前に要る権限、環境、済ませておく作業を示す。ない場合はその旨を一文で書く | Good Docs（Before you start）、Google、Red Hat |
 | 3 | `## 手順` | 番号付きの箇条書で、一つの手順に一つの動作を書く | Good Docs、Google、Red Hat |
-| 4 | `## 結果の確認` | 手順が終わったことを、読み手がどう確かめるかを示す | Red Hat（Verification）。Good Docsは手順ごとの結果として任意 |
-| 5 | `## 関連文書` | 関連する手順、解説、リファレンスへのリンクを並べる | Good Docs（See also）、Red Hat（Additional resources） |
+| 4 | `## 関連文書` | 関連する手順、解説、リファレンスへのリンクを並べる | Good Docs（See also）、Red Hat（Additional resources） |
+
+- 結果の確認は任意にする。書く場合は、`## 手順`の中に`### 結果の確認`を置く。任意の`##`見出しは最後の必須セクションより後ろにしか置けないため（[schemas/README.md](../schemas/README.md)の「見出しの規約」）、`##`にはしない。根拠はRed Hat（Verification、任意）と、Good Docs（手順ごとの結果、任意）である
 
 ### チュートリアル（`tutorial`）
 
@@ -124,7 +125,7 @@ Diátaxisの4分類（チュートリアル、ハウツー、リファレンス�
 | 1 | `## 要旨` | 何について説明するかと、その要点を示す | Good Docs（冒頭の要約）、Diátaxis |
 | 2 | `## 背景` | 経緯、制約、前提となる事情を示す | Diátaxis（Provide context）、Good Docs（Background） |
 | 3 | `## 考え方` | 設計の判断や方針と、その理由を示す | Diátaxis |
-| 4 | `## ほかの選択肢との比較` | ほかの考え方や案と比べ、選ばなかった理由を示す | Diátaxis（Admit opinion and perspective）、Good Docs（Comparison）、MADR（Considered Options） |
+| 4 | `## ほかの選択肢との比較` | ほかの考え方や案と比べ、選ばなかった理由を示す | Diátaxis（Admit opinion and perspective）、Good Docs（Comparison）、MADR（Considered Options、参照のみ） |
 | 5 | `## 関連文書` | 手順やリファレンスの文書へのリンクを並べる | Good Docs（Related resources） |
 
 ## 種別の境目
@@ -147,11 +148,18 @@ Diátaxisの4分類（チュートリアル、ハウツー、リファレンス�
 
 ## 決めること
 
-- 識別名と見出し名：上の候補は案である。実装の最初の種別（`how-to`）で決める
-- ADRの扱い：Issueの例に挙げたADRを、解説の種別に含めるか、別の種別にするか。MADRの見出しは、決定の記録の性格が強い。セッションログの「決めたこと」「決めた理由」とも重なる
-- トラブルシューティング：Good Docs、Red Hat、GitLabは独立した型として扱うが、Diátaxisの4分類にはない。ハウツーに含めるか、種別を足さないかを決める
-- 自動生成のリファレンス：APIの仕様のように自動生成する文書を、リファレンスの種別の対象にするか
-- `## 結果の確認`：ハウツーで必須にするか。Red Hatでは任意、Good Docsでは手順ごとの任意の項目である
+- 識別名と見出し名：2026-10-28に、上の候補のまま使うと決めた
+- ADRの扱い：2026-10-28に、解説の種別に含めず、今回は扱わないと決めた
+  - ADRは何を決めたかの記録で、なぜそうなのかを示す解説とは目的が違う
+  - MADRは決めた結果とその影響を必須にしており、解説の見出しの候補と合わない
+  - 決めたことの記録は、セッションログの「決めたこと」「決めた理由」で書ける。要るようになったら、別の種別として足す
+- トラブルシューティング：2026-10-28に、ハウツーに含めると決めた
+  - 症状への対処は、目的を果たすための手順であり、Diátaxisではハウツーに当たる
+  - 題名を「〜が起きたときの対処」の形にし、ハウツーの型で書く。Good Docs、Red Hat、GitLabは独立した型にしているが、種別は足さない
+- 自動生成のリファレンス：2026-10-28に、対象外にすると決めた
+  - APIの仕様のようにコードから生成する文書は、生成するツールが見出しを決めるため、必須セクションの照合が当たらない
+  - 人が書くリファレンス（設定項目の一覧、用語集など）だけを対象にし、リファレンスの`## 目的と読み手`の「対象外」に書く
+- 結果の確認：2026-10-28に、ハウツーでは任意にすると決めた。書き方は、ハウツーの必須セクションの表の下に書いた
 
 ## 出典
 

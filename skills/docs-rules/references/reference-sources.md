@@ -157,7 +157,8 @@ JTFスタイルガイドに日付の項目がなく、公用文作成の考え�
 
 Diátaxisの4分類を汎用の文書種別として足すために、#55で種別ごとの構成の型を調べた。候補の一覧、必須セクションの候補、種別の境目は[diataxis-sources.md](diataxis-sources.md)に分けて書いた。実装も#55で行う。
 
-- 見出しの並びの主な根拠は、The Good Docs Projectのテンプレート（MIT-0）にする。ADRを扱う場合はMADR（MIT OR CC0-1.0）を使う
+- 見出しの並びの主な根拠は、The Good Docs Projectのテンプレート（MIT-0）にする
+- ADRは今回の種別では扱わない。ADRの型のMADR（MIT OR CC0-1.0）は、参照のみにする
 - Red HatとGitLabの手引きは、CC BY-SA 4.0のため参照のみにする
 
 ## 層ごとのカバー状況
