@@ -29,7 +29,7 @@ const TARGET_DIRS = [
   "docs",
   "tests",
 ];
-const TARGET_FILES = ["README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "skills/docs-rules/SKILL.md"];
+const TARGET_FILES = ["README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "skills/docs-rules/SKILL.md", "skills/docs-rules-feedback/SKILL.md"];
 
 function targets() {
   const files = [...TARGET_FILES];

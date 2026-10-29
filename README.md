@@ -41,7 +41,10 @@ Claude Codeでは3通りあります。claude.aiで使う場合は、4のとお�
 git clone https://github.com/knk1313/docs-rules.git
 mkdir -p ~/.claude/skills
 cp -r docs-rules/skills/docs-rules ~/.claude/skills/docs-rules
+cp -r docs-rules/skills/docs-rules-feedback ~/.claude/skills/docs-rules-feedback
 ```
+
+`docs-rules-feedback`は、改善点をIssueにするためのスキルです。使わない場合は、2行目のコピーを省けます。
 
 Claude Codeは、再起動時にこのスキルを読み込みます。
 
@@ -64,7 +67,7 @@ Claude Codeのセッション内で実行します。
 
 ### 4. claude.aiへのアップロード
 
-[Releases](https://github.com/knk1313/docs-rules/releases)から`docs-rules-vX.Y.Z.zip`を取得し、claude.aiのスキルの設定でアップロードします。新しい版を使うときは、新しい版のzipをアップロードし直します。zipは、リリースを公開したときにGitHub Actionsが作ります。
+[Releases](https://github.com/knk1313/docs-rules/releases)から`docs-rules-vX.Y.Z.zip`を取得し、claude.aiのスキルの設定でアップロードします。新しい版を使うときは、新しい版のzipをアップロードし直します。zipは、リリースを公開したときにGitHub Actionsが作ります。zipには`docs-rules-feedback`を入れていません。claude.aiでは改善点をファイルにためられないため、報告に出た改善点の候補を、手でIssueに写してください。
 
 ## 使い方
 
@@ -82,6 +85,12 @@ Claude Codeのセッション内で実行します。
 
 ```text
 /docs-rules:docs-rules README.mdを校正して
+```
+
+文書の点検で、ルールや採点の不備に気付くことがあります。気付いた不備は「改善点の候補」として報告され、手元のファイルにためられます。たまった候補は、次のように頼むとIssueの下書きになります。下書きを確かめて承認したものだけが、Issueとして出ます。
+
+```text
+docs-rulesの改善点をIssueにして
 ```
 
 ルールの一覧は[skills/docs-rules/rules/](skills/docs-rules/rules/)に、どのファイルをどの順に読むかは[skills/docs-rules/SKILL.md](skills/docs-rules/SKILL.md)にあります。Claude Codeがスキルを読み込んでから文書を出すまでの流れは、[docs/architecture.md](docs/architecture.md)に図で示しています。
@@ -108,14 +117,17 @@ docs-rules/
 ├── ci/                     # CIのプラグインの検証で使うClaude Codeの版
 ├── docs/                   # アーキテクチャの図、価値仮説、価値提案キャンバス
 ├── skills/
-│   └── docs-rules/
-│       ├── SKILL.md
-│       ├── references/     # ルールの出典となる資料の一覧
-│       ├── rules/          # 文体、表記、構成、Markdown記法の共通ルール
-│       ├── schemas/        # 必須セクションや文書構造の定義
-│       ├── templates/      # 用途別の文書テンプレート
-│       ├── prompts/        # AI評価の手順（evaluate.md）と書き直しの手順（rewrite.md）
-│       └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlintとmarkdownlintの設定、prh辞書、判定データ（内閣告示のJSON）、文書種別ごとの判定（schema-checks/）
+│   ├── docs-rules/
+│   │   ├── SKILL.md
+│   │   ├── references/     # ルールの出典となる資料の一覧
+│   │   ├── rules/          # 文体、表記、構成、Markdown記法の共通ルール
+│   │   ├── schemas/        # 必須セクションや文書構造の定義
+│   │   ├── templates/      # 用途別の文書テンプレート
+│   │   ├── prompts/        # AI評価の手順（evaluate.md）と書き直しの手順（rewrite.md）
+│   │   └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlintとmarkdownlintの設定、prh辞書、判定データ（内閣告示のJSON）、文書種別ごとの判定（schema-checks/）
+│   └── docs-rules-feedback/
+│       ├── SKILL.md        # 改善点の候補をIssueにする手順
+│       └── scripts/        # 改善点の候補をためる（feedback.mjs）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.mdの大きさ、rules・schemas・templatesの整合、Markdownの採点）
 ├── AGENTS.md               # AIエージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）
