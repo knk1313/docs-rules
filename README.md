@@ -17,12 +17,13 @@
 | `schemas/` | 文書種別ごとの必須セクションと構造 | セッションログは「決めたこと」「決めた理由」「未解決の課題」を必ず持つ |
 | `templates/` | 文書種別ごとの見出しの型 | 提案書は「決めてほしいこと」を先頭に置き、「選択肢と比較」「推奨案と理由」の順で続ける |
 
-対応する文書種別は、次の四つです。どれにも当たらない文書には、共通ルールだけを適用します。
+対応する文書種別は、次の五つです。どれにも当たらない文書には、共通ルールだけを適用します。
 
 - セッションログ（`session-log`）
 - 提案書（`proposal`）
 - 学会論文（`journal-paper`）
 - 学位論文（`thesis`）
+- UI文言（`ui-text`）
 
 ## 誰向けか
 
@@ -114,7 +115,7 @@ docs-rules/
 │       ├── schemas/        # 必須セクションや文書構造の定義
 │       ├── templates/      # 用途別の文書テンプレート
 │       ├── prompts/        # AI評価の手順（evaluate.md）と書き直しの手順（rewrite.md）
-│       └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlintとmarkdownlintの設定、prh辞書、判定データ（内閣告示のJSON）
+│       └── evaluators/     # 採点の入口（score.mjs）、書き直しの前後の比較（compare.mjs）、textlintとmarkdownlintの設定、prh辞書、判定データ（内閣告示のJSON）、文書種別ごとの判定（schema-checks/）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.mdの大きさ、rules・schemas・templatesの整合、Markdownの採点）
 ├── AGENTS.md               # AIエージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）
@@ -184,7 +185,7 @@ docs-rules/
 
 本リポジトリはMITライセンスで公開しています。全文は[LICENSE](LICENSE)を参照してください。文書とコードでライセンスを分けていません。
 
-ただし、`skills/docs-rules/rules/`の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
+ただし、`skills/docs-rules/rules/`と`skills/docs-rules/schemas/`の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
 
 | 資料 | 資料の利用条件 | 本リポジトリでの扱い |
 | --- | --- | --- |
@@ -194,6 +195,8 @@ docs-rules/
 | [Google Developer Documentation Style Guide](https://developers.google.com/style)（AccessibilityとDates and timesの章） | CC BY 4.0 | 自分の文章で日本語に書き直して編集・加工しています |
 | [政府相互運用性フレームワーク（GIF）](https://www.digital.go.jp/policies/data_strategy_government_interoperability_framework)DS-441『コアデータパーツ 日付及び時刻』（デジタル庁） | 公共データ利用規約（PDL1.0、CC BY 4.0互換）。配布ファイルはCC0 1.0 | デジタル庁の資料を基に、自分の文章で書き直して編集・加工しています |
 | [在留支援のためのやさしい日本語ガイドライン](https://www.moj.go.jp/isa/content/930006072.pdf)（出入国在留管理庁・文化庁） | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | 出入国在留管理庁と文化庁の資料を基に、自分の文章で書き直して編集・加工しています |
+| [デジタル庁デザインシステム](https://design.digital.go.jp/dads/)（入力フィールド、ボタン、ディスクロージャー、緊急時バナー、リンクテキストのページ） | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | デジタル庁の資料を基に、自分の文章で書き直して編集・加工しています。UI文言（`schemas/ui-text.md`）とMKD-010に使います |
+| [GOV.UK Service Manual](https://www.gov.uk/service-manual/design/writing-for-user-interfaces)と[GOV.UK Design System](https://design-system.service.gov.uk/components/error-message)（Writing for user interfaces、Error message） | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) | Contains public sector information licensed under the Open Government Licence v3.0. 考え方を自分の文章で日本語に書き直し、UI文言（`schemas/ui-text.md`）に使います |
 
 - 上の資料の作成元は、本リポジトリの作成や内容に関わっていません。本リポジトリのルールは、作成元の見解を示すものではありません
 - 今後`rules/`に取り込む資料は、[references/reference-sources.md](skills/docs-rules/references/reference-sources.md)のライセンス欄に従い、出典の表示を保ちます

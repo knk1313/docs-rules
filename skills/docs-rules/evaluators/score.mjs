@@ -6,7 +6,8 @@
 //
 // textlint と markdownlint-cli2 を呼び、結果を docs-rules のルールIDに直して JSON で返す。
 // --type に文書種別の識別名（session-log、proposal など）を渡すと、schemas/ の必須セクション表と
-// 文書の見出しも突き合わせる。Node.js の標準モジュールだけで書き、利用者に npm install を求めない。
+// 文書の見出しも突き合わせる。evaluators/schema-checks/<識別名>.mjs があれば、その種別に固有のルールも判定する。
+// Node.js の標準モジュールだけで書き、利用者に npm install を求めない。
 //
 // 採点で使うパッケージは、初回の実行で package-lock.json の版のとおりに利用者のキャッシュへ入れる（npm ci）。
 // インストール時のスクリプトは動かさない。ロックファイルが変わると別の場所に入れ直す。
@@ -19,7 +20,7 @@ import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, statSync, utimesSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const EVALUATORS_DIR = dirname(fileURLToPath(import.meta.url));
 const SKILL_DIR = resolve(EVALUATORS_DIR, "..");
@@ -120,14 +121,19 @@ function splitNames(text) {
 /**
  * rules/*.md の各ルールの見出しと「判定」欄を読み、判定手段からルールIDへの対応表を作る。
  * 「判定：機械（textlint：a、b）」は、textlint：a と textlint：b の両方を同じルールIDに対応させる。
+ * 文書種別を渡したときは、schemas/<識別名>.md の「文書全体の制約」に書いたルールも読む。
  */
-function loadRules() {
+function loadRules(type) {
   const rules = new Map();
   const checkers = new Map();
-  const files = readdirSync(RULES_DIR).filter((f) => f.endsWith(".md") && f !== "README.md" && f !== "examples.md");
-  for (const file of files.sort()) {
+  const files = readdirSync(RULES_DIR)
+    .filter((f) => f.endsWith(".md") && f !== "README.md" && f !== "examples.md")
+    .sort()
+    .map((f) => join(RULES_DIR, f));
+  if (type) files.push(join(SCHEMAS_DIR, `${type}.md`));
+  for (const path of files) {
     let current = null;
-    for (const { line } of linesOutsideCode(readFileSync(join(RULES_DIR, file), "utf8"))) {
+    for (const { line } of linesOutsideCode(readFileSync(path, "utf8"))) {
       const heading = line.match(/^### ([A-Z]+-\d{3}) (.+)$/);
       if (heading) {
         current = { id: heading[1], summary: heading[2], judge: null, checkers: [], aiParts: [] };
@@ -154,8 +160,10 @@ function loadRules() {
           tool = m[1];
         }
         const name = m ? m[2] : item;
-        if (!tool) continue;
-        const key = `${tool}：${name}`;
+        // 種別ごとの判定（evaluators/schema-checks/<識別名>.mjs）は、ツール名を付けずに「docs-rules/<識別名>」と書く
+        const own = !m && !tool && /^docs-rules\/[a-z-]+$/.test(item);
+        if (!tool && !own) continue;
+        const key = own ? item : `${tool}：${name}`;
         current.checkers.push(key);
         if (!checkers.has(key)) checkers.set(key, []);
         checkers.get(key).push(current.id);
@@ -462,7 +470,17 @@ function mergeDuplicates(violations) {
   return out;
 }
 
-function main() {
+/**
+ * 文書種別ごとの判定（evaluators/schema-checks/<識別名>.mjs）を読み込む。ない種別では null を返す。
+ * モジュールは check(lines) で違反を返し、exempt(violation, lines) で共通ルールの例外に当たる違反を見分ける。
+ */
+async function loadSchemaCheck(type) {
+  const path = join(EVALUATORS_DIR, "schema-checks", `${type}.mjs`);
+  if (!existsSync(path)) return null;
+  return import(pathToFileURL(path).href);
+}
+
+async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help || !args.file || args.error) {
     if (args.error) process.stderr.write(`${args.error}\n`);
@@ -490,7 +508,7 @@ function main() {
     return EXIT_USAGE;
   }
   const lines = source.split(/\r?\n/);
-  const ruleIndex = loadRules();
+  const ruleIndex = loadRules(args.type);
 
   let violations = [];
   try {
@@ -518,6 +536,11 @@ function main() {
   if (args.type) {
     checked.push("SCHEMA");
     violations = violations.concat(checkSchema(args.type, source));
+    const schemaCheck = await loadSchemaCheck(args.type);
+    if (schemaCheck) {
+      const docLines = linesOutsideCode(source);
+      violations = violations.filter((v) => !schemaCheck.exempt(v, docLines)).concat(schemaCheck.check(docLines));
+    }
   }
   checked.sort();
   violations = mergeDuplicates(violations);
@@ -533,4 +556,4 @@ function main() {
   return violations.length > 0 ? EXIT_VIOLATIONS : EXIT_OK;
 }
 
-process.exitCode = main();
+process.exitCode = await main();

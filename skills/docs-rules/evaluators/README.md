@@ -13,6 +13,7 @@
 | [custom-rules/](custom-rules/) | 自前のtextlintルール。`lib/`はその共通部分 | 置いた（#21） |
 | [allowed-terms.json](allowed-terms.json) | 採点で指摘しない語（ルールIDごと）。`--rulesdir`のルールには`textlintrc.json`の設定値が渡らないため、ルールがこのファイルを直接読む | 置いた |
 | [data/](data/README.md) | 内閣告示の判定データ（JSON） | 置いた（#11） |
+| [schema-checks/](schema-checks/) | 文書種別に固有のルールの判定。1種別1ファイルで、ファイル名は`<識別名>.mjs`にする | 置いた（#33、`ui-text.mjs`） |
 | [docs-rules.markdownlint-cli2.jsonc](docs-rules.markdownlint-cli2.jsonc) | markdownlintの設定 | 置いた（#14） |
 
 設定ファイルの名前は「.」で始めない。スキルをzipでアップロードする経路などで「.」で始まるファイルが落ち、採点が設定なしで動かなくなるため。`score.mjs`は`--config`で設定ファイルのパスを渡す。markdownlint-cli2は名前の末尾が`.markdownlint-cli2.jsonc`のファイルを自分の設定として読むため、`docs-rules.`を前に付けた。
@@ -27,6 +28,7 @@ node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名
 
 - 前提：Node.js 18以上とnpm。`score.mjs`は標準モジュールだけで書いてあり、利用者に事前の`npm install`を求めない（#13の決定）
 - `--type`：文書種別の識別名（`session-log`、`proposal`など）を渡すと、`schemas/<識別名>.md`の必須セクション表と文書の`##`見出しを順序込みで突き合わせる。テンプレートの案内のコメント（`<!--`で始まる部分）が残っていないかも見る。渡さないときはこの照合を飛ばす。`--type=<識別名>`の形でも渡せる
+- 種別に固有のルール：`--type`の種別に`schema-checks/<識別名>.mjs`があれば、その種別のルールも採点する。対象は、`schemas/<識別名>.md`の「文書全体の制約」で`判定：機械（docs-rules/<識別名>）`としたルールである。共通ルールの例外に当たる違反は、採点の結果から外す。今は`ui-text`だけにある
 - 案内のコメントの照合では、コードブロックの中の`<!--`を対象にしない。囲み型と、空行の後を4字以上字下げした型の両方である
 - 直前がバッククォート、かぎ括弧、二重かぎ括弧、引用符の`<!--`も対象にしない。記法の説明に書いたものを消し忘れと誤って指摘しないため
 

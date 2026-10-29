@@ -12,6 +12,7 @@
 | [proposal.md](proposal.md) | 提案書 | `proposal` | [schemas/proposal.md](../schemas/proposal.md) |
 | [journal-paper.md](journal-paper.md) | 学会論文 | `journal-paper` | [schemas/journal-paper.md](../schemas/journal-paper.md) |
 | [thesis.md](thesis.md) | 学位論文 | `thesis` | [schemas/thesis.md](../schemas/thesis.md) |
+| [ui-text.md](ui-text.md) | UI文言 | `ui-text` | [schemas/ui-text.md](../schemas/ui-text.md) |
 
 ## 1種別の書き方
 

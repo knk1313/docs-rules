@@ -120,6 +120,71 @@ test("score: --typeで、必須セクションの欠落と順序、残った案�
   assert.ok(r.result.checked_rules.includes("SCHEMA"));
 });
 
+test("score: --type ui-textで、文言表の種別に固有のルールを判定し、例外に当たる共通ルールの違反を外す", (t) => {
+  const text = [
+    "# 画面の文言",
+    "",
+    "## 対象の画面",
+    "",
+    "一覧の画面だけを扱う。",
+    "",
+    "## 用語表",
+    "",
+    "揺れやすい語はない。",
+    "",
+    "## 文言",
+    "",
+    "### 一覧",
+    "",
+    "一覧の文言は次のとおり。",
+    "",
+    "| 要素 | 文言 | 上限 |",
+    "| --- | --- | --- |",
+    "| サブタイトル | 本画面では申請を管理する機能です | 10 |",
+    "| プレースホルダー | 例）2026年10月28日 | |",
+    "| ラベル | 領収書の画像はありますか？ | 20 |",
+    "| ボタン | 送信しますか？ | 20 |",
+    "",
+    "## エラーと空の状態",
+    "",
+    "エラーと空の状態の文言は次のとおり。",
+    "",
+    "| 画面 | 要素 | 文言 | 上限 |",
+    "| --- | --- | --- | --- |",
+    "| 一覧 | エラー | おっと。エラーが発生しました。申し訳ありません。 | 60 |",
+    "",
+    "## 未決定の文言",
+    "",
+    "決まっていない文言はない。",
+    "",
+  ].join("\n");
+  const r = score("ui-text.md", text, ["--type", "ui-text"]);
+  if (skipWithoutPackages(t, r)) return;
+  assert.equal(r.code, 1, r.stderr);
+  const found = (id, line) => r.result.violations.some((v) => v.rule_id === id && v.line === line);
+  for (const [id, line] of [
+    ["UI-009", 19],
+    ["UI-010", 19],
+    ["UI-005", 20],
+    ["UI-009", 20],
+    ["UI-001", 30],
+    ["UI-011", 30],
+    ["UI-012", 30],
+  ]) {
+    assert.ok(found(id, line), `${line}行目の ${id} が見つからない: ${JSON.stringify(r.result.violations, null, 2)}`);
+  }
+  assert.ok(!found("NOT-003", 21), "問いの形のラベルの「？」を、NOT-003の違反にしている");
+  assert.ok(found("NOT-003", 22), "ボタンの「？」を、NOT-003の違反にしていない");
+  for (const id of ["UI-001", "UI-005", "UI-009", "UI-010"]) assert.ok(r.result.checked_rules.includes(id), `checked_rules に ${id} がない`);
+});
+
+test("score: --typeを渡さないときは、種別に固有のルールを判定しない", (t) => {
+  const r = score("no-type.md", "# 画面\n\n| 要素 | 文言 | 上限 |\n| --- | --- | --- |\n| プレースホルダー | 例 | 1 |\n");
+  if (skipWithoutPackages(t, r)) return;
+  assert.ok(!r.result.checked_rules.some((id) => id.startsWith("UI-")));
+  assert.ok(!ids(r).some((id) => id?.startsWith("UI-")));
+});
+
 test("score: 引数の誤りと読めない入力は、終了コード2になる", () => {
   const file = join(WORK, "args.md");
   writeFileSync(file, "# 見出し\n\n本文を書く。\n");

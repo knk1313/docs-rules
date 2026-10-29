@@ -90,7 +90,7 @@
 
 - ルール：URLをそのまま本文に置かず、`[文言](URL)`の形で書く。文言には「こちら」「ここ」「リンク」のような、リンク先を示さない語を使わない。リンク先が空のリンクを置かない
 - 理由：URLをそのまま置くと、処理系によってリンクにならないことがある。文言がリンク先を示していれば、文言だけを読んでも行き先が分かる
-- 出典：CommonMark Spec 6.3・6.5、markdownlint MD034・MD042・MD059
+- 出典：CommonMark Spec 6.3・6.5、markdownlint MD034・MD042・MD059、デジタル庁デザインシステム リンクテキスト
 - 判定：機械（markdownlint：MD034、MD042、MD059、textlint：docs-rules/mkd-010）
 - 例：「手順は`[こちら](https://example.com/guide)`」→「手順は`[設定ガイド](https://example.com/guide)`」
 
