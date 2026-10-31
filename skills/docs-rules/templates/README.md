@@ -13,6 +13,10 @@
 | [journal-paper.md](journal-paper.md) | 学会論文 | `journal-paper` | [schemas/journal-paper.md](../schemas/journal-paper.md) |
 | [thesis.md](thesis.md) | 学位論文 | `thesis` | [schemas/thesis.md](../schemas/thesis.md) |
 | [ui-text.md](ui-text.md) | UI文言 | `ui-text` | [schemas/ui-text.md](../schemas/ui-text.md) |
+| [how-to.md](how-to.md) | ハウツー | `how-to` | [schemas/how-to.md](../schemas/how-to.md) |
+| [tutorial.md](tutorial.md) | チュートリアル | `tutorial` | [schemas/tutorial.md](../schemas/tutorial.md) |
+| [reference.md](reference.md) | リファレンス | `reference` | [schemas/reference.md](../schemas/reference.md) |
+| [explanation.md](explanation.md) | 解説 | `explanation` | [schemas/explanation.md](../schemas/explanation.md) |
 
 ## 1種別の書き方
 
