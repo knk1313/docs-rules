@@ -5,7 +5,7 @@
 // CI（環境変数 CI がある）では、飛ばさずに失敗にする。
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { readFileSync, readdirSync } from "node:fs";
 import { join, relative, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,7 +15,6 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SKILL = join(ROOT, "skills/docs-rules");
 const SCORE = join(SKILL, "evaluators/score.mjs");
 const NPX = process.platform === "win32" ? "npx.cmd" : "npx";
-const CONCURRENCY = 3;
 
 // 採点の対象。.github/ のテンプレートは対象外（#27）。ディレクトリは直下の .md だけを見る
 const TARGET_DIRS = [
@@ -50,51 +49,27 @@ function npxAvailable() {
   return r.status === 0;
 }
 
-/** score.mjs を非同期で実行する。 */
-function score(file) {
-  return new Promise((resolvePromise) => {
-    const child = spawn(process.execPath, [SCORE, file], { cwd: ROOT });
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (d) => (stdout += d));
-    child.stderr.on("data", (d) => (stderr += d));
-    child.on("close", (code) => resolvePromise({ file, code, stdout, stderr }));
-  });
-}
-
-test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件である", async (t) => {
-  // score.mjs は npx ではなく npm ci でパッケージを入れる。先に1件だけ採点して、入れられるかを確かめる。
-  // 初回の取得もここで済むため、後の並行の採点がパッケージを入れる処理を取り合わない
-  const first = await score(TARGET_FILES[0]);
-  if (first.code === 3) {
-    skipOrFail(t, `score.mjs がパッケージを入れられないため、採点のテストを飛ばした: ${first.stderr.trim().split("\n")[0]}`);
+test("repo: リポジトリのMarkdownをscore.mjsで採点し、違反が0件である", (t) => {
+  // score.mjs に全ファイルを一度に渡し、textlint の起動を1回にまとめる。ファイルごとに起動すると、CI で1分近くかかる
+  const r = spawnSync(process.execPath, [SCORE, ...targets()], { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  if (r.status === 3) {
+    skipOrFail(t, `score.mjs が textlint か markdownlint-cli2 を実行できないため、採点のテストを飛ばした: ${r.stderr.trim().split("\n")[0]}`);
     return;
   }
-  // textlint はファイルごとに起動するため、同時に動かす数を絞ってメモリの使いすぎを防ぐ
-  const queue = targets();
-  const results = [];
-  const workers = Array.from({ length: CONCURRENCY }, async () => {
-    while (queue.length > 0) results.push(await score(queue.shift()));
-  });
-  await Promise.all(workers);
-  if (results.some((r) => r.code === 3)) {
-    skipOrFail(t, `textlint か markdownlint-cli2 を取得できないため、採点のテストを飛ばした: ${results.find((r) => r.code === 3).stderr.trim()}`);
-    return;
-  }
+  assert.ok(r.status === 0 || r.status === 1, `採点が終了コード ${r.status} で終わった: ${r.stderr}`);
   const problems = [];
   const used = new Set();
-  for (const r of results) {
-    assert.ok(r.code === 0 || r.code === 1, `${r.file} の採点が終了コード ${r.code} で終わった: ${r.stderr}`);
-    const lines = readFileSync(join(ROOT, r.file), "utf8").split(/\r?\n/);
-    const ctx = { file: r.file, lines };
-    for (const v of JSON.parse(r.stdout).violations) {
+  for (const result of JSON.parse(r.stdout)) {
+    const lines = readFileSync(join(ROOT, result.file), "utf8").split(/\r?\n/);
+    const ctx = { file: result.file, lines };
+    for (const v of result.violations) {
       const line = lines[v.line - 1] ?? "";
       const exclusion = findExclusion(v, line, ctx);
       if (exclusion) {
         used.add(exclusion.reason);
         continue;
       }
-      problems.push(`${r.file}:${v.line}:${v.column} ${v.rule_id ?? "-"} ${v.checker} 「${v.excerpt}」`);
+      problems.push(`${result.file}:${v.line}:${v.column} ${v.rule_id ?? "-"} ${v.checker} 「${v.excerpt}」`);
     }
   }
   assert.deepEqual(problems, [], `除外条件に当たらない違反がある:\n${problems.join("\n")}`);

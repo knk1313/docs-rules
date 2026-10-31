@@ -196,12 +196,30 @@ test("score: 引数の誤りと読めない入力は、終了コード2になる
     { args: [file, "--type", "--foo"], why: "値の代わりにオプションが続く--type" },
     { args: [file, "--type", "unknown"], why: "schemas/にない識別名" },
     { args: [file, "--foo"], why: "知らないオプション" },
-    { args: [file, file], why: "二つ目の文書のパス" },
+    { args: [file, join(WORK, "missing.md")], why: "二つ目の文書が存在しない" },
   ];
   for (const { args, why } of cases) {
     const r = run(args);
     assert.equal(r.code, 2, `${why}で終了コードが2にならない: ${r.code} ${r.stderr}`);
   }
+});
+
+test("score: 文書を二つ以上渡すと、文書ごとの結果を配列で返す", (t) => {
+  // 別々のディレクトリに置き、markdownlint-cli2 をディレクトリごとに起動する場合も確かめる
+  const sub = mkdtempSync(join(WORK, "multi-"));
+  const clean = join(WORK, "multi-clean.md");
+  const dirty = join(sub, "multi-dirty.md");
+  writeFileSync(clean, "# 見出し\n\n本文を書く。\n");
+  writeFileSync(dirty, "# 見出し\n\n確認することができる。\n\n### 飛ばした見出し\n");
+  const r = run([clean, dirty, clean]);
+  if (skipWithoutPackages(t, r)) return;
+  assert.equal(r.code, 1, r.stderr);
+  // 同じ文書を二度渡しても、結果は一つにする
+  assert.deepEqual(r.result.map((x) => x.file), [clean, dirty]);
+  assert.deepEqual(r.result[0].violations, []);
+  const dirtyIds = r.result[1].violations.map((v) => v.rule_id);
+  assert.ok(dirtyIds.includes("FW-001"), `textlint の違反が二つ目の文書に付いていない: ${dirtyIds}`);
+  assert.ok(dirtyIds.includes("MKD-001"),`markdownlint の違反が二つ目の文書に付いていない: ${dirtyIds}`);
 });
 
 test("score: --type=<識別名>の形も受け付ける", (t) => {

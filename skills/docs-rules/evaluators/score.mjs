@@ -2,9 +2,10 @@
 // docs-rules のルールベース採点の入口（#21）。
 //
 // 使い方（リポジトリの直下から）:
-//   node skills/docs-rules/evaluators/score.mjs <文書のパス> [--type <識別名>]
+//   node skills/docs-rules/evaluators/score.mjs <文書のパス>... [--type <識別名>]
 //
 // textlint と markdownlint-cli2 を呼び、結果を docs-rules のルールIDに直して JSON で返す。
+// 文書を二つ以上渡すと、ツールの起動を1回にまとめて採点し、文書ごとの結果を配列で返す。
 // --type に文書種別の識別名（session-log、proposal など）を渡すと、schemas/ の必須セクション表と
 // 文書の見出しも突き合わせる。evaluators/schema-checks/<識別名>.mjs があれば、その種別に固有のルールも判定する。
 // Node.js の標準モジュールだけで書き、利用者に npm install を求めない。
@@ -17,7 +18,7 @@
 
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, statSync, utimesSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, statSync, utimesSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -40,7 +41,7 @@ const EXIT_TOOL_FAILURE = 3;
 
 /** 引数を読む。誤りがあれば error に理由を入れる。 */
 function parseArgs(argv) {
-  const args = { file: null, type: null };
+  const args = { files: [], type: null };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--type" || arg.startsWith("--type=")) {
@@ -56,11 +57,8 @@ function parseArgs(argv) {
     } else if (arg.startsWith("-")) {
       args.error = `知らないオプション: ${arg}`;
       break;
-    } else if (!args.file) {
-      args.file = arg;
-    } else {
-      args.error = `文書のパスは一つだけ渡す: ${arg}`;
-      break;
+    } else if (!args.files.includes(arg)) {
+      args.files.push(arg);
     }
   }
   return args;
@@ -275,8 +273,20 @@ function lineText(lines, number) {
   return lines[number - 1] ?? "";
 }
 
-/** textlint を実行し、結果を docs-rules の形に直す。 */
-function runTextlint(file, source, lines, packagesDir, ruleIndex) {
+/** シンボリックリンクを解いた実際のパスを返す。macOS の /tmp と /private/tmp のように、同じ文書を別の名前で指すことがあるため。 */
+function realPath(path) {
+  try {
+    return realpathSync(path);
+  } catch {
+    return resolve(path);
+  }
+}
+
+/**
+ * textlint を1回だけ起動してすべての文書を採点し、結果を docs-rules の形に直して各文書の violations に足す。
+ * textlint は起動のたびに辞書などを読み込むため、文書ごとに起動すると遅い。
+ */
+function runTextlint(docs, packagesDir, ruleIndex) {
   const args = [
     "--config",
     join(EVALUATORS_DIR, "textlintrc.json"),
@@ -284,7 +294,7 @@ function runTextlint(file, source, lines, packagesDir, ruleIndex) {
     join(EVALUATORS_DIR, "custom-rules"),
     "--format",
     "json",
-    file,
+    ...docs.map((doc) => doc.file),
   ];
   const result = runBin(packagesDir, "textlint", args, EVALUATORS_DIR);
   let parsed;
@@ -293,11 +303,12 @@ function runTextlint(file, source, lines, packagesDir, ruleIndex) {
   } catch {
     throw new Error(`textlint を実行できなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
   }
-  const violations = [];
-  for (const message of parsed.flatMap((r) => r.messages)) {
-    violations.push(toViolation(message, source, lines, ruleIndex));
+  const byPath = new Map(docs.map((doc) => [realPath(doc.file), doc]));
+  for (const r of parsed) {
+    const doc = byPath.get(realPath(r.filePath));
+    if (!doc) throw new Error(`textlint の結果の文書を見分けられなかった: ${r.filePath}`);
+    for (const message of r.messages) doc.violations.push(toViolation(message, doc.source, doc.lines, ruleIndex));
   }
-  return violations;
 }
 
 /** textlint のルールIDを、「判定」欄に書く名前に直す。 */
@@ -345,39 +356,50 @@ function toViolation(message, source, lines, ruleIndex) {
   return { rule_id: ruleId, line: message.line, column, excerpt, fix, judge: "機械", checker };
 }
 
-/** markdownlint-cli2 を実行し、結果を docs-rules の形に直す。 */
-function runMarkdownlint(file, lines, packagesDir, ruleIndex) {
-  const args = [
-    "--config",
-    join(EVALUATORS_DIR, "docs-rules.markdownlint-cli2.jsonc"),
-    // 「#」や「!」で始まる名前をグロブとして読ませないため、「:」を付けて文字どおりのパスとして渡す
-    `:${basename(file)}`,
-  ];
-  const result = runBin(packagesDir, "markdownlint-cli2", args, dirname(file));
-  if (result.status !== 0 && result.status !== 1) {
-    throw new Error(`markdownlint-cli2 を実行できなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
+/**
+ * markdownlint-cli2 を実行し、結果を docs-rules の形に直して各文書の violations に足す。
+ * 文書のあるディレクトリで、ファイル名だけを渡して起動する。同じディレクトリの文書は1回の起動にまとめる。
+ */
+function runMarkdownlint(docs, packagesDir, ruleIndex) {
+  const byDir = new Map();
+  for (const doc of docs) {
+    const dir = dirname(doc.file);
+    if (!byDir.has(dir)) byDir.set(dir, new Map());
+    byDir.get(dir).set(basename(doc.file), doc);
   }
-  const violations = [];
-  for (const raw of (result.stderr || "").split("\n")) {
-    const m = raw.match(/^.+?:(\d+)(?::(\d+))? (?:error|warning) (MD\d{3})\/\S+ (.+)$/);
-    if (!m) continue;
-    const [, lineNo, column, md, description] = m;
-    const checker = `markdownlint：${md}`;
-    const ids = ruleIndex.checkers.get(checker);
-    const ruleId = ids ? ids[0] : null;
-    const rule = ruleId ? ruleIndex.rules.get(ruleId) : null;
-    const text = lineText(lines, Number(lineNo));
-    violations.push({
-      rule_id: ruleId,
-      line: Number(lineNo),
-      column: column ? Number(column) : 1,
-      excerpt: column ? text.slice(Number(column) - 1, Number(column) + 19) : text.slice(0, 20),
-      fix: rule ? rule.summary : description,
-      judge: "機械",
-      checker,
-    });
+  for (const [dir, byName] of byDir) {
+    const args = [
+      "--config",
+      join(EVALUATORS_DIR, "docs-rules.markdownlint-cli2.jsonc"),
+      // 「#」や「!」で始まる名前をグロブとして読ませないため、「:」を付けて文字どおりのパスとして渡す
+      ...[...byName.keys()].map((name) => `:${name}`),
+    ];
+    const result = runBin(packagesDir, "markdownlint-cli2", args, dir);
+    if (result.status !== 0 && result.status !== 1) {
+      throw new Error(`markdownlint-cli2 を実行できなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
+    }
+    for (const raw of (result.stderr || "").split("\n")) {
+      const m = raw.match(/^(.+?):(\d+)(?::(\d+))? (?:error|warning) (MD\d{3})\/\S+ (.+)$/);
+      if (!m) continue;
+      const [, name, lineNo, column, md, description] = m;
+      const doc = byName.get(name);
+      if (!doc) throw new Error(`markdownlint-cli2 の結果の文書を見分けられなかった: ${name}`);
+      const checker = `markdownlint：${md}`;
+      const ids = ruleIndex.checkers.get(checker);
+      const ruleId = ids ? ids[0] : null;
+      const rule = ruleId ? ruleIndex.rules.get(ruleId) : null;
+      const text = lineText(doc.lines, Number(lineNo));
+      doc.violations.push({
+        rule_id: ruleId,
+        line: Number(lineNo),
+        column: column ? Number(column) : 1,
+        excerpt: column ? text.slice(Number(column) - 1, Number(column) + 19) : text.slice(0, 20),
+        fix: rule ? rule.summary : description,
+        judge: "機械",
+        checker,
+      });
+    }
   }
-  return violations;
 }
 
 /**
@@ -482,39 +504,41 @@ async function loadSchemaCheck(type) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  if (args.help || !args.file || args.error) {
+  if (args.help || args.files.length === 0 || args.error) {
     if (args.error) process.stderr.write(`${args.error}\n`);
-    process.stderr.write("使い方: node score.mjs <文書のパス> [--type <識別名>]\n");
+    process.stderr.write("使い方: node score.mjs <文書のパス>... [--type <識別名>]\n");
     return args.help ? EXIT_OK : EXIT_USAGE;
-  }
-  const file = resolve(args.file);
-  if (!existsSync(file)) {
-    process.stderr.write(`文書が見つからない: ${args.file}\n`);
-    return EXIT_USAGE;
-  }
-  if (!statSync(file).isFile()) {
-    process.stderr.write(`文書のパスがファイルではない: ${args.file}\n`);
-    return EXIT_USAGE;
   }
   if (args.type && !existsSync(join(SCHEMAS_DIR, `${args.type}.md`))) {
     process.stderr.write(`schemas/ に ${args.type}.md がない\n`);
     return EXIT_USAGE;
   }
-  let source;
-  try {
-    source = readFileSync(file, "utf8");
-  } catch (e) {
-    process.stderr.write(`文書を読めない: ${args.file}（${e.code ?? e.message}）\n`);
-    return EXIT_USAGE;
+  const docs = [];
+  for (const arg of args.files) {
+    const file = resolve(arg);
+    if (!existsSync(file)) {
+      process.stderr.write(`文書が見つからない: ${arg}\n`);
+      return EXIT_USAGE;
+    }
+    if (!statSync(file).isFile()) {
+      process.stderr.write(`文書のパスがファイルではない: ${arg}\n`);
+      return EXIT_USAGE;
+    }
+    let source;
+    try {
+      source = readFileSync(file, "utf8");
+    } catch (e) {
+      process.stderr.write(`文書を読めない: ${arg}（${e.code ?? e.message}）\n`);
+      return EXIT_USAGE;
+    }
+    docs.push({ arg, file, source, lines: source.split(/\r?\n/), violations: [] });
   }
-  const lines = source.split(/\r?\n/);
   const ruleIndex = loadRules(args.type);
 
-  let violations = [];
   try {
     const packagesDir = ensurePackages();
-    violations = violations.concat(runTextlint(file, source, lines, packagesDir, ruleIndex));
-    violations = violations.concat(runMarkdownlint(file, lines, packagesDir, ruleIndex));
+    runTextlint(docs, packagesDir, ruleIndex);
+    runMarkdownlint(docs, packagesDir, ruleIndex);
   } catch (e) {
     process.stderr.write(`${e.message}\n`);
     return EXIT_TOOL_FAILURE;
@@ -533,27 +557,32 @@ async function main() {
     checked.push(rule.id);
     for (const part of rule.aiParts) skipped.push({ rule_id: rule.id, reason: `一部は機械で判定しない：${part}` });
   }
-  if (args.type) {
-    checked.push("SCHEMA");
-    violations = violations.concat(checkSchema(args.type, source));
-    const schemaCheck = await loadSchemaCheck(args.type);
-    if (schemaCheck) {
-      const docLines = linesOutsideCode(source);
-      violations = violations.filter((v) => !schemaCheck.exempt(v, docLines)).concat(schemaCheck.check(docLines));
-    }
-  }
+  if (args.type) checked.push("SCHEMA");
   checked.sort();
-  violations = mergeDuplicates(violations);
-  violations.sort((a, b) => (a.line ?? 0) - (b.line ?? 0));
+  const schemaCheck = args.type ? await loadSchemaCheck(args.type) : null;
 
-  const result = {
-    file: args.file,
-    checked_rules: checked,
-    skipped_rules: skipped,
-    violations,
-  };
-  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
-  return violations.length > 0 ? EXIT_VIOLATIONS : EXIT_OK;
+  const results = docs.map((doc) => {
+    let violations = doc.violations;
+    if (args.type) {
+      violations = violations.concat(checkSchema(args.type, doc.source));
+      if (schemaCheck) {
+        const docLines = linesOutsideCode(doc.source);
+        violations = violations.filter((v) => !schemaCheck.exempt(v, docLines)).concat(schemaCheck.check(docLines));
+      }
+    }
+    violations = mergeDuplicates(violations);
+    violations.sort((a, b) => (a.line ?? 0) - (b.line ?? 0));
+    return {
+      file: doc.arg,
+      checked_rules: checked,
+      skipped_rules: skipped,
+      violations,
+    };
+  });
+  // 文書が一つのときは、従来どおり結果のオブジェクトを一つ返す
+  const output = results.length === 1 ? results[0] : results;
+  process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
+  return results.some((r) => r.violations.length > 0) ? EXIT_VIOLATIONS : EXIT_OK;
 }
 
 process.exitCode = await main();
