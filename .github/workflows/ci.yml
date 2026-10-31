@@ -29,6 +29,13 @@ jobs:
           python-version: "3.x"
       - name: SKILL.mdの大きさ
         run: python3 tests/test_skill_size.py
+      # score.mjs がパッケージを入れる場所（Linux では ~/.cache/docs-rules）を、ロックファイルのハッシュで保存する。
+      # ロックファイルが同じ間は、次のステップで npm ci が動かない
+      - name: 採点で使うパッケージのキャッシュ
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/docs-rules
+          key: docs-rules-evaluators-${{ hashFiles('skills/docs-rules/evaluators/package-lock.json') }}
       # score.mjs は初回の実行で package-lock.json の版のとおりにパッケージを入れる。
       # テストは採点を並行して実行するため、入れる処理が重ならないよう、先に一度だけ入れておく。
       # score.mjs の終了コードは、違反なしが0、違反ありが1。入れられなかった3はこのステップを失敗にする
