@@ -1,6 +1,7 @@
 # 手で書く辞書。rules/ の語や文字の置き換えで判定できるルールを置く。
 # prh の項目にルールIDを書く。score.mjs はtextlintのメッセージの末尾からルールIDを読む。
-# 送り仮名（NOT-010）と外来語（NOT-011）の辞書は data/tools/build_prh.py で生成し、別のファイルに置く。
+# 外来語（NOT-011）の辞書は data/tools/build_prh.py で生成し、別のファイルに置く。
+# 送り仮名（NOT-010）は、文書の中の混在を custom-rules/not-010.js で判定する。
 version: 1
 rules:
   # NOT-004 繰り返し符号は「々」だけを使う

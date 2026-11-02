@@ -19,6 +19,7 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, statSync, utimesSync } from "node:fs";
+import { createRequire } from "node:module";
 import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -286,7 +287,7 @@ function realPath(path) {
  * textlint を1回だけ起動してすべての文書を採点し、結果を docs-rules の形に直して各文書の violations に足す。
  * textlint は起動のたびに辞書などを読み込むため、文書ごとに起動すると遅い。
  */
-function runTextlint(docs, packagesDir, ruleIndex) {
+async function runTextlint(docs, packagesDir, ruleIndex) {
   const args = [
     "--config",
     join(EVALUATORS_DIR, "textlintrc.json"),
@@ -304,11 +305,48 @@ function runTextlint(docs, packagesDir, ruleIndex) {
     throw new Error(`textlint を実行できなかった: ${(result.stderr || result.error?.message || "").trim().split("\n")[0]}`);
   }
   const byPath = new Map(docs.map((doc) => [realPath(doc.file), doc]));
+  let tokenize = null;
   for (const r of parsed) {
     const doc = byPath.get(realPath(r.filePath));
     if (!doc) throw new Error(`textlint の結果の文書を見分けられなかった: ${r.filePath}`);
-    for (const message of r.messages) doc.violations.push(toViolation(message, doc.source, doc.lines, ruleIndex));
+    for (const message of r.messages) {
+      if (message.ruleId === DOUBLED_JOSHI) {
+        // 形態素解析は、この指摘があるときだけ読み込む
+        tokenize ??= createRequire(join(packagesDir, "package.json"))("kuromojin").tokenize;
+        if (await crossesPredicate(tokenize, doc.source, message)) continue;
+      }
+      doc.violations.push(toViolation(message, doc.source, doc.lines, ruleIndex));
+    }
   }
+}
+
+const DOUBLED_JOSHI = "ja-technical-writing/no-doubled-joshi";
+const PREDICATE_POS = new Set(["動詞", "形容詞", "助動詞"]);
+
+/**
+ * no-doubled-joshi の指摘のうち、前の同じ助詞との間に述語（動詞、形容詞、助動詞）があるものを見分ける（#67）。
+ * 「表示が崩れる不具合が見つかった」の二つの「が」は、別々の述語に掛かる自然な文のため、GRM-005 の違反にしない。
+ * 前の助詞は、指摘の位置から文の頭（「。」「！」「？」か改行の後ろ）までの間で探す。続けて出る助詞は一つにまとめて比べる。
+ */
+async function crossesPredicate(tokenize, source, message) {
+  const joshi = message.message.match(/助詞 "(.+?)" がみつかりました/)?.[1];
+  const start = message.range?.[0] ?? message.index;
+  if (!joshi || start === undefined) return false;
+  let from = start;
+  while (from > 0 && !"。！？\n".includes(source[from - 1])) from -= 1;
+  const tokens = await tokenize(source.slice(from, start));
+  let predicateSeen = false;
+  for (let i = tokens.length - 1; i >= 0; i -= 1) {
+    if (tokens[i].pos === "助詞") {
+      let k = i;
+      while (k > 0 && tokens[k - 1].pos === "助詞") k -= 1;
+      if (tokens.slice(k, i + 1).map((t) => t.surface_form).join("") === joshi) return predicateSeen;
+      i = k;
+    } else if (PREDICATE_POS.has(tokens[i].pos)) {
+      predicateSeen = true;
+    }
+  }
+  return false;
 }
 
 /** textlint のルールIDを、「判定」欄に書く名前に直す。 */
@@ -537,7 +575,7 @@ async function main() {
 
   try {
     const packagesDir = ensurePackages();
-    runTextlint(docs, packagesDir, ruleIndex);
+    await runTextlint(docs, packagesDir, ruleIndex);
     runMarkdownlint(docs, packagesDir, ruleIndex);
   } catch (e) {
     process.stderr.write(`${e.message}\n`);
