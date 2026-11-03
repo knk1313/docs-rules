@@ -133,6 +133,7 @@ docs-rules/
 │       ├── SKILL.md        # 改善点の候補をIssueにする手順
 │       └── scripts/        # 改善点の候補をためる（feedback.mjs）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.mdの大きさ、rules・schemas・templatesの整合、Markdownの採点）
+│   ├── ai-eval/            # AI評価の検出率、誤検出、揺れを、手元のセッションで測る仕組みと結果
 │   └── corpus/             # 採点の検出率と誤検出を測るコーパス（ルールごとの対の文、人が書いた文書の段落）
 ├── AGENTS.md               # AIエージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）

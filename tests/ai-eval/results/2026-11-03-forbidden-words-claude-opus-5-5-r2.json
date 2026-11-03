@@ -1,0 +1,106 @@
+{
+  "model": "claude-opus-5-5",
+  "date": "2026-11-03",
+  "run": 2,
+  "rule_file": "forbidden-words",
+  "documents": {
+    "FW-003-01.fixed.md": [],
+    "FW-003-01.violation.md": [
+      "FW-003"
+    ],
+    "FW-003-02.fixed.md": [],
+    "FW-003-02.violation.md": [
+      "FW-003"
+    ],
+    "FW-003-03.fixed.md": [],
+    "FW-003-03.violation.md": [
+      "FW-003"
+    ],
+    "FW-003-04.fixed.md": [],
+    "FW-003-04.violation.md": [
+      "FW-003"
+    ],
+    "FW-003-05.fixed.md": [],
+    "FW-003-05.violation.md": [
+      "FW-003"
+    ],
+    "FW-005-01.fixed.md": [],
+    "FW-005-01.violation.md": [
+      "FW-005"
+    ],
+    "FW-005-02.fixed.md": [],
+    "FW-005-02.violation.md": [
+      "FW-005"
+    ],
+    "FW-005-03.fixed.md": [],
+    "FW-005-03.violation.md": [
+      "FW-005"
+    ],
+    "FW-005-04.fixed.md": [],
+    "FW-005-04.violation.md": [
+      "FW-005"
+    ],
+    "FW-005-05.fixed.md": [],
+    "FW-005-05.violation.md": [
+      "FW-005"
+    ],
+    "FW-006-01.fixed.md": [],
+    "FW-006-01.violation.md": [
+      "FW-006"
+    ],
+    "FW-006-02.fixed.md": [],
+    "FW-006-02.violation.md": [],
+    "FW-006-03.fixed.md": [],
+    "FW-006-03.violation.md": [
+      "FW-006"
+    ],
+    "FW-006-04.fixed.md": [],
+    "FW-006-04.violation.md": [
+      "FW-006"
+    ],
+    "FW-006-05.fixed.md": [],
+    "FW-006-05.violation.md": [
+      "FW-006"
+    ],
+    "FW-007-01.fixed.md": [],
+    "FW-007-01.violation.md": [
+      "FW-007"
+    ],
+    "FW-007-02.fixed.md": [],
+    "FW-007-02.violation.md": [
+      "FW-007"
+    ],
+    "FW-007-03.fixed.md": [],
+    "FW-007-03.violation.md": [
+      "FW-007"
+    ],
+    "FW-007-04.fixed.md": [],
+    "FW-007-04.violation.md": [
+      "FW-007"
+    ],
+    "FW-007-05.fixed.md": [],
+    "FW-007-05.violation.md": [
+      "FW-007"
+    ],
+    "FW-009-01.fixed.md": [],
+    "FW-009-01.violation.md": [
+      "FW-009"
+    ],
+    "FW-009-02.fixed.md": [],
+    "FW-009-02.violation.md": [
+      "FW-009"
+    ],
+    "FW-009-03.fixed.md": [],
+    "FW-009-03.violation.md": [
+      "FW-009"
+    ],
+    "FW-009-04.fixed.md": [],
+    "FW-009-04.violation.md": [
+      "FW-009"
+    ],
+    "FW-009-05.fixed.md": [],
+    "FW-009-05.violation.md": [
+      "FW-009"
+    ]
+  }
+}
