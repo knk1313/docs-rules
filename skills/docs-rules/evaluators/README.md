@@ -202,8 +202,11 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 
 | ルール | docs-rules | 判定すること |
 | --- | --- | --- |
-| [docs-rules/not-029](custom-rules/not-029.js) | NOT-029 | 年から書いた「2026/10/23」の形の日付。「2026年10月23日」に直す候補を返す。年のない「10/23」は分数と見分けられないため指摘しない |
-| [docs-rules/not-033](custom-rules/not-033.js) | NOT-033 | 月か日を0で埋めていない「2026-4-1」の形の日付。「2026-04-01」に直す候補を返す。英字に続く形（「v2026-1-1」）は版の番号として扱い、指摘しない |
+| [docs-rules/not-029](custom-rules/not-029.js) | NOT-029 | 年から書いた「2026/10/23」「2026.10.23」の形の日付と、月か日を0で埋めた「2026年05月07日」。「2026年10月23日」の形に直す候補を返す。年のない「10/23」は分数と見分けられないため指摘しない |
+| [docs-rules/not-033](custom-rules/not-033.js) | NOT-033 | 月か日を0で埋めていない「2026-4-1」の形の日付と、日付に続く時刻で時を0で埋めていない「2026-10-23 9:05」。0で埋めた形に直す候補を返す。英字に続く形（「v2026-1-1」）は版の番号として扱い、指摘しない |
+| [docs-rules/not-021](custom-rules/not-021.js) | NOT-021 | 「,」の後ろが3桁でない数（「1,5秒」）。小数点に「,」を使ったものとみなし、「.」に直す候補を返す。「0,5」の形はjtf-style/2.1.10が拾うため見ない |
+| [docs-rules/not-023](custom-rules/not-023.js) | NOT-023 | 全角スペースと、読点や句点の直後に全角文字が続く半角スペース（「終わったら、 結果を」）。ja-no-space-between-full-widthとjtf-style/3.1.2が拾わないため |
+| [docs-rules/mkd-011](custom-rules/mkd-011.js) | MKD-011 | 空白だけの代替テキスト（「![ ](map.png)」）。MD045は空白だけでも代替テキストがあるとみなすため |
 | [docs-rules/not-002](custom-rules/not-002.js) | NOT-002 | 全角の「．」「，」。「。」「、」に直す候補を返す。数字に挟まれたもの（「1．5」「1，000」）は小数点と桁区切りとみなし、半角の「.」「,」に直す候補を返す |
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」「〜たる者」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
 | [docs-rules/not-010](custom-rules/not-010.js) | NOT-010 | 告示の本則の形と許容の形の組（「売り上げ」「売上げ」「売上」）ごとに、文書の中で二つ以上の形が混ざったもの。最も多い形にそろえる候補を返し、同じ数なら本則の形にする。形の拾い方は、以前のprh辞書と同じにする（1字の許容の形と、後ろに漢字が続く形は数えない） |
@@ -212,7 +215,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 | [docs-rules/grm-006](custom-rules/grm-006.js) | GRM-006 | no-double-negative-jaが拾わない「〜ないとは言えない」「〜ないとも限らない」 |
 | [docs-rules/grm-016](custom-rules/grm-016.js) | GRM-016 | 一つの箇条書の中で、敬体で終わる項目とそうでない項目が混ざったときの少ない方。同じ数なら敬体の項目を指摘する |
 | [docs-rules/not-006](custom-rules/not-006.js) | NOT-006 | 常用漢字表の字種にない漢字。許容字体は表内として扱う。[allowed-terms.json](allowed-terms.json)の`NOT-006`に書いた専門用語（「脆弱性」）は指摘しない |
-| [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁で「,」のない算用数字（1万以上はNOT-013で見る）と、「千」「百」を含む漢数字の数量（「千二百人」） |
+| [docs-rules/not-012](custom-rules/not-012.js) | NOT-012 | 4桁で「,」のない算用数字（1万以上はNOT-013で見る）と、「千」「百」を含む漢数字の数量（「千二百人」「三百グラム」） |
 | [docs-rules/not-013](custom-rules/not-013.js) | NOT-013 | 1万以上で「万」「億」「兆」を交ぜない数と、「千」「百」を単位にした数（「3千人」） |
 | [docs-rules/mkd-010](custom-rules/mkd-010.js) | MKD-010 | リンクの文言の「こちら」「ここ」「リンク」など。prh辞書では本文のすべての語に当たるため、リンクの文言だけを見るルールにした |
 
