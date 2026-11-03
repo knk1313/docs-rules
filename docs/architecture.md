@@ -41,7 +41,7 @@ flowchart TD
         P3["prompts/rewrite.md で書き直す<br>1回目は採点と評価、2回目からは採点の違反だけ"]
         P4["書き直した版を score.mjs で採点し<br>compare.mjs で前回と比べる"]
         P5{"見出しを消したか"}
-        P6["その回を取り消して前の版に戻す"]
+        P6["その回を取り消して前の版に戻す<br>2回続けて取り消したら前の版で止める"]
         P7{"渡す違反が残り<br>書き直しが3回未満か"}
         P8["最後の版をAI評価する<br>出た違反は書き直さず報告に回す"]
         P1 --> P2
@@ -55,4 +55,18 @@ flowchart TD
     end
     P2 -->|なし| OUT
     P8 --> OUT["文書を出力し<br>点検の結果を別の返答で報告"]
+    OUT --> FB["改善点の候補があれば報告に書き<br>docs-rules-feedback があれば保存する"]
+```
+
+- 採点（`score.mjs`）は、textlint、markdownlint、種別ごとの判定（`evaluators/schema-checks/`）をまとめて動かし、指摘をルールIDに対応させて返す。textlintには、プリセットのルール、prh辞書、`evaluators/custom-rules/`の自前のルールを読み込む
+- 採点の検出率と誤検出は、`tests/corpus/`の対の文と人が書いた文書で測っている（#67、#75）
+
+## 3. 改善点の候補をIssueにする
+
+```mermaid
+flowchart LR
+    F1["docs-rules のセッション<br>改善点の候補を報告に書く"]
+    F1 -->|feedback.mjs add| F2["候補をためる<br>キャッシュの feedback.jsonl"]
+    F2 -->|「改善点をIssueにして」| F3["docs-rules-feedback<br>候補をまとめて Issue の下書きにする"]
+    F3 -->|重複を検索し、承認を得る| F4["gh で Issue を出し<br>出した候補を消す"]
 ```

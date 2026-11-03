@@ -133,6 +133,7 @@ docs-rules/
 │       ├── SKILL.md        # 改善点の候補をIssueにする手順
 │       └── scripts/        # 改善点の候補をためる（feedback.mjs）
 ├── tests/                  # リポジトリの構成を確かめるテスト（SKILL.mdの大きさ、rules・schemas・templatesの整合、Markdownの採点）
+│   └── corpus/             # 採点の検出率と誤検出を測るコーパス（ルールごとの対の文、人が書いた文書の段落）
 ├── AGENTS.md               # AIエージェント向けの禁止事項と規約
 ├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）
 ├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
@@ -194,7 +195,8 @@ docs-rules/
 │       ├── templates/      # 用途別の文書テンプレート
 │       ├── prompts/        # 生成・評価・修正に使用するプロンプト
 │       └── evaluators/     # コードおよびAIによる評価処理
-└── tests/                  # 期待する生成例と回帰テスト
+│   └── docs-rules-feedback/ # 改善点の候補をIssueにする手順
+└── tests/                  # 採点の回帰テストとコーパス、書き直しの回帰テスト（#78）
 ```
 
 ## 利用条件
