@@ -211,7 +211,7 @@ python3 skills/docs-rules/evaluators/data/tools/build_prh.py
 | [docs-rules/fw-008](custom-rules/fw-008.js) | FW-008 | 「〜せんとする」「〜べく」「〜べし」「〜たる者」と、名詞を修飾しない「べき」。言い換えは文によるため、直し方の候補は返さない |
 | [docs-rules/not-010](custom-rules/not-010.js) | NOT-010 | 告示の本則の形と許容の形の組（「売り上げ」「売上げ」「売上」）ごとに、文書の中で二つ以上の形が混ざったもの。最も多い形にそろえる候補を返し、同じ数なら本則の形にする。形の拾い方は、以前のprh辞書と同じにする（1字の許容の形と、後ろに漢字が続く形は数えない）。動詞の組は語幹で拾い、活用した形（「終った」）と名詞の形（「打合せ」）も数える |
 | [docs-rules/not-004](custom-rules/not-004.js) | NOT-004 | 繰り返し符号の「ゝ」「ゞ」「ヽ」「ヾ」「〃」。漢字の後ろは「々」、仮名の後ろは前の字を繰り返す形（濁点の符号は濁点を付けた形）に直す候補を返す |
-| [docs-rules/not-035](custom-rules/not-035.js) | NOT-035 | 7字以上続く漢字。かぎ括弧の中、「第32次」の後ろ、名前に付く語（「〜検討会」「〜法」など）で終わるもの、[allowed-terms.json](allowed-terms.json)の`NOT-035`に書いた語は、固有名詞とみなして指摘しない。max-kanji-continuous-lenは固有名詞を見分けられないため、切ってこのルールに置き換えた |
+| [docs-rules/not-035](custom-rules/not-035.js) | NOT-035 | 7字以上続く漢字。かぎ括弧の中、「第32次」の後ろ、名前に付く語（「〜検討会」「〜法」「〜税」など）で終わるもの、[allowed-terms.json](allowed-terms.json)の`NOT-035`に書いた語（短い語が付いた「給与所得控除額」を含む）は、固有名詞とみなして指摘しない。max-kanji-continuous-lenは固有名詞を見分けられないため、切ってこのルールに置き換えた |
 | [docs-rules/mkd-009](custom-rules/mkd-009.js) | MKD-009 | 語の途中に書いた「`__語__`」。CommonMarkでは強調にならないため、MD050が見ない |
 | [docs-rules/fw-004](custom-rules/fw-004.js) | FW-004 | ja-no-weak-phraseが拾わない「〜と思われる」「〜と考えられる」「〜だろう」「〜でしょう」で結ぶ文。問いかけの「でしょうか」と、名詞を修飾する形は指摘しない |
 | [docs-rules/grm-001](custom-rules/grm-001.js) | GRM-001 | 本文の文末を常体と敬体に分けて数え、少ない方の文末。同じ数なら、最初の文末と違う方を指摘する。見出し、箇条書、表、引用の中は見ない |

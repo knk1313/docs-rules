@@ -220,6 +220,8 @@ docs-rules/
 | 資料 | 資料の利用条件 | 本リポジトリでの扱い |
 | --- | --- | --- |
 | [デジタル庁の政策のページ](https://www.digital.go.jp/policies)（ベース・レジストリ、データ戦略の推進ほか10ページ、2026年11月3日に取得） | [公共データ利用規約](https://www.digital.go.jp/copyright-policy)（PDL1.0、CC BY 4.0互換） | 「政策」の各ページ（デジタル庁）から段落を抜き出して加工しています。文言は変えていません |
+| [令和7年版情報通信白書](https://www.soumu.go.jp/johotsusintokei/whitepaper/r07.html)（総務省、HTML版の第1章と第2章の10ページ、2026年11月3日に取得） | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja)（[二次利用について](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r07/pdf/r07riyou.pdf)） | 「令和7年版情報通信白書」（総務省）より作成。段落を抜き出して加工しています。文言は変えていません。第三者の出典を示す段落は取っていません |
+| [タックスアンサー](https://www.nta.go.jp/taxes/shiraberu/taxanswer/index2.htm)（国税庁、医療費控除ほか10ページ、2026年11月3日に取得） | [公共データ利用規約](https://www.nta.go.jp/chuijiko/copy.htm)（PDL1.0、CC BY 4.0互換） | 国税庁ホームページのタックスアンサーの各ページから段落を抜き出して加工しています。文言は変えていません |
 
 - 上の資料の作成元は、本リポジトリの作成や内容に関わっていません。本リポジトリのルールは、作成元の見解を示すものではありません
 - 今後`rules/`に取り込む資料は、[references/reference-sources.md](skills/docs-rules/references/reference-sources.md)のライセンス欄に従い、出典の表示を保ちます

@@ -39,3 +39,14 @@ const humanLines = [
   ...humanRows.map((row) => `| ${row.rule_id} | ${HUMAN_LABELS.map((l) => row[l]).join(" | ")} |`),
 ];
 process.stdout.write(`${humanLines.join("\n")}\n`);
+
+// 出典ごとの誤検出の数。文体（行政の説明、白書の分析、手続きの案内）による差を見る（#75）
+const sources = [...new Set(human.map((item) => item.source_file))].sort();
+const bySource = sources.map((file) => {
+  const items = human.filter((item) => item.source_file === file);
+  const rows = summarizeHuman(items).filter((row) => row["誤検出"] > 0);
+  const detail = rows.map((row) => `${row.rule_id} ${row["誤検出"]}件`).join("、") || "なし";
+  const total = rows.reduce((sum, row) => sum + row["誤検出"], 0);
+  return `| ${file} | ${items.length} | ${total} | ${detail} |`;
+});
+process.stdout.write(`\n出典ごとの誤検出:\n\n| 出典 | 段落 | 誤検出 | 内訳 |\n| --- | --- | --- | --- |\n${bySource.join("\n")}\n`);
