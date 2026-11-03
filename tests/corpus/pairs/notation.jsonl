@@ -113,3 +113,13 @@
 {"id":"NOT-035-03","rule_id":"NOT-035","violation":"障害発生時連絡体制を整える。","fixed":"障害が起きたときに連絡する体制を整える。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
 {"id":"NOT-035-04","rule_id":"NOT-035","violation":"職員向けに個人情報保護研修を開く。","fixed":"職員向けに、個人情報の扱い方を学ぶ研修を開く。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
 {"id":"NOT-035-05","rule_id":"NOT-035","violation":"新しい端末の初期設定手順書を配る。","fixed":"新しい端末を初めて設定するための手順書を配る。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-036-01","rule_id":"NOT-036","violation":"規則を適応する範囲を決める。","fixed":"規則を適用する範囲を決める。","basis":"textlint：ja-no-abusage","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-036-02","rule_id":"NOT-036","violation":"ログをを確かめる。","fixed":"ログを確かめる。","basis":"textlint：ja-no-successive-word","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-036-03","rule_id":"NOT-036","violation":"設定をkかえる前に記録を残す。","fixed":"設定を変える前に記録を残す。","basis":"textlint：ja-unnatural-alphabet","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-036-04","rule_id":"NOT-036","violation":"画面の「保存ボタンを押す。","fixed":"画面の「保存」ボタンを押す。","basis":"JTFスタイルガイド 3.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-036-05","rule_id":"NOT-036","violation":"参考資料（別紙を読む。","fixed":"参考資料（別紙）を読む。","basis":"textlint：no-unmatched-pair","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-037-01","rule_id":"NOT-037","violation":"設定​を変える。","fixed":"設定を変える。","basis":"textlint：no-zero-width-spaces","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-037-02","rule_id":"NOT-037","violation":"パソコンを返す。","fixed":"パソコンを返す。","basis":"textlint：no-nfd","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-037-03","rule_id":"NOT-037","violation":"会議の\u0007記録を残す。","fixed":"会議の記録を残す。","basis":"textlint：no-invalid-control-character","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-037-04","rule_id":"NOT-037","violation":"ファイルが消える。","fixed":"ファイルが消える。","basis":"textlint：no-nfd","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-037-05","rule_id":"NOT-037","violation":"資料を\u0001配る。","fixed":"資料を配る。","basis":"textlint：no-invalid-control-character","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
