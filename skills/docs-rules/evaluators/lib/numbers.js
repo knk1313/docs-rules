@@ -29,7 +29,8 @@ function isExcludedNumber(text, start, end) {
   if (/^[A-Za-z_\-./:@]/.test(after)) return true;
   // 「ISO 8601」のように、英字とスペースの後に続く数は規格や型番の番号とみなす
   if (/[A-Za-z] $/.test(before)) return true;
-  if (NO_SEPARATOR_SUFFIX.test(after)) return true;
+  // 「2025 年度」のようにスペースを挟んでも年号とみなす。スペースはNOT-022・NOT-023で指摘する
+  if (NO_SEPARATOR_SUFFIX.test(after.replace(/^[ 　]+/, ""))) return true;
   // 数量は0で始めないため、0で始まる2桁以上の数は番号とみなす
   if (/^0[0-9]/.test(text.slice(start, end))) return true;
   if (IDENTIFIER_PREFIX.test(text.slice(Math.max(0, start - 8), start))) return true;

@@ -1,20 +1,20 @@
-{"id":"FW-001-01","rule_id":"FW-001","violation":"この画面から設定を変更することができる。","fixed":"この画面から設定を変更できる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-001-02","rule_id":"FW-001","violation":"管理者は利用者のアカウントを停止することができます。","fixed":"管理者は利用者のアカウントを停止できます。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-001-03","rule_id":"FW-001","violation":"申請書は窓口でも提出することができる。","fixed":"申請書は窓口でも提出できる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-001-04","rule_id":"FW-001","violation":"締切を過ぎた申請は、変更することができない。","fixed":"締切を過ぎた申請は、変更できない。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-001-05","rule_id":"FW-001","violation":"この関数では、引数を省略することもできる。","fixed":"この関数では、引数の省略もできる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-002-01","rule_id":"FW-002","violation":"本番環境で動作確認を行った。","fixed":"本番環境で動作を確認した。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-002-02","rule_id":"FW-002","violation":"来週、利用者への聞き取り調査を実施する。","fixed":"来週、利用者に聞き取り調査する。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-002-03","rule_id":"FW-002","violation":"障害の原因について調査を行います。","fixed":"障害の原因を調査します。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-002-04","rule_id":"FW-002","violation":"全端末で設定の変更を実施した。","fixed":"全端末の設定を変更した。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-002-05","rule_id":"FW-002","violation":"月末に在庫の点検を行う。","fixed":"月末に在庫を点検する。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-004-01","rule_id":"FW-004","violation":"処理が遅いのは、索引がないためかもしれない。","fixed":"処理が遅いのは、索引がないためと推定する（未確認）。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-004-02","rule_id":"FW-004","violation":"この設定は今後も変わらないと思われる。","fixed":"この設定は、次の改定まで変わらない。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-004-03","rule_id":"FW-004","violation":"原因は通信の遅延と考えられる。","fixed":"原因は通信の遅延である。応答の遅れを、測定で確かめた。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-004-04","rule_id":"FW-004","violation":"作業は来月には終わるだろう。","fixed":"作業は来月15日に終わる予定である。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-004-05","rule_id":"FW-004","violation":"この方法なら問題ないと思います。","fixed":"この方法で問題はありません。3件の試験で確かめました。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-008-01","rule_id":"FW-008","violation":"期日に間に合わせるべく作業を急いだ。","fixed":"期日に間に合うように作業を急いだ。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-008-02","rule_id":"FW-008","violation":"関係者は全員出席すべし。","fixed":"関係者は全員出席する必要がある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-008-03","rule_id":"FW-008","violation":"新しい制度を導入せんとする動きがある。","fixed":"新しい制度を導入しようとする動きがある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-008-04","rule_id":"FW-008","violation":"障害は発生から1時間以内に報告すべきである。","fixed":"障害は発生から1時間以内に報告する必要がある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":null}
-{"id":"FW-008-05","rule_id":"FW-008","violation":"責任者たる者は記録を残す。","fixed":"責任者は記録を残す。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":null}
+{"id":"FW-001-01","rule_id":"FW-001","violation":"この画面から設定を変更することができる。","fixed":"この画面から設定を変更できる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-001-02","rule_id":"FW-001","violation":"管理者は利用者のアカウントを停止することができます。","fixed":"管理者は利用者のアカウントを停止できます。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-001-03","rule_id":"FW-001","violation":"申請書は窓口でも提出することができる。","fixed":"申請書は窓口でも提出できる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-001-04","rule_id":"FW-001","violation":"締切を過ぎた申請は、変更することができない。","fixed":"締切を過ぎた申請は、変更できない。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-001-05","rule_id":"FW-001","violation":"この関数では、引数を省略することもできる。","fixed":"この関数では、引数の省略もできる。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-002-01","rule_id":"FW-002","violation":"本番環境で動作確認を行った。","fixed":"本番環境で動作を確認した。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-002-02","rule_id":"FW-002","violation":"来週、利用者への聞き取り調査を実施する。","fixed":"来週、利用者に聞き取り調査する。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-002-03","rule_id":"FW-002","violation":"障害の原因について調査を行います。","fixed":"障害の原因を調査します。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-002-04","rule_id":"FW-002","violation":"全端末で設定の変更を実施した。","fixed":"全端末の設定を変更した。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-002-05","rule_id":"FW-002","violation":"月末に在庫の点検を行う。","fixed":"月末に在庫を点検する。","basis":"公用文作成の考え方 Ⅱ5ウ(イ)","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-004-01","rule_id":"FW-004","violation":"処理が遅いのは、索引がないためかもしれない。","fixed":"処理が遅いのは、索引がないためと推定する（未確認）。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-004-02","rule_id":"FW-004","violation":"この設定は今後も変わらないと思われる。","fixed":"この設定は、次の改定まで変わらない。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-004-03","rule_id":"FW-004","violation":"原因は通信の遅延と考えられる。","fixed":"原因は通信の遅延である。応答の遅れを、測定で確かめた。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-004-04","rule_id":"FW-004","violation":"作業は来月には終わるだろう。","fixed":"作業は来月15日に終わる予定である。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-004-05","rule_id":"FW-004","violation":"この方法なら問題ないと思います。","fixed":"この方法で問題はありません。3件の試験で確かめました。","basis":"textlint：ja-no-weak-phrase","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-008-01","rule_id":"FW-008","violation":"期日に間に合わせるべく作業を急いだ。","fixed":"期日に間に合うように作業を急いだ。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-008-02","rule_id":"FW-008","violation":"関係者は全員出席すべし。","fixed":"関係者は全員出席する必要がある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-008-03","rule_id":"FW-008","violation":"新しい制度を導入せんとする動きがある。","fixed":"新しい制度を導入しようとする動きがある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-008-04","rule_id":"FW-008","violation":"障害は発生から1時間以内に報告すべきである。","fixed":"障害は発生から1時間以内に報告する必要がある。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"FW-008-05","rule_id":"FW-008","violation":"責任者たる者は記録を残す。","fixed":"責任者は記録を残す。","basis":"公用文作成の考え方 Ⅲ1エ・オ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}

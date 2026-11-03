@@ -2,33 +2,9 @@
 # prh の項目にルールIDを書く。score.mjs はtextlintのメッセージの末尾からルールIDを読む。
 # 外来語（NOT-011）の辞書は data/tools/build_prh.py で生成し、別のファイルに置く。
 # 送り仮名（NOT-010）は、文書の中の混在を custom-rules/not-010.js で判定する。
+# 繰り返し符号（NOT-004）は、濁点の付いた符号も直すため custom-rules/not-004.js で判定する。
 version: 1
 rules:
-  # NOT-004 繰り返し符号は「々」だけを使う
-  - expected: "々"
-    pattern: "/(?<=[一-龯])〃/"
-    prh: NOT-004
-    specs:
-      - from: "各〃の担当"
-        to: "各々の担当"
-  - expected: "$1$1"
-    pattern: "/([ぁ-ゖ])ゝ/"
-    prh: NOT-004
-    specs:
-      - from: "こゝろ"
-        to: "こころ"
-  - expected: "々"
-    pattern: "/(?<=[一-龯])ゝ/"
-    prh: NOT-004
-    specs:
-      - from: "時ゝ"
-        to: "時々"
-  - expected: "$1$1"
-    pattern: "/([ァ-ヺ])ヽ/"
-    prh: NOT-004
-    specs:
-      - from: "バヽ"
-        to: "ババ"
 
   # FW-002 動作を表す名詞に「〜を実施する」「〜を行う」を付けない。
   # 名詞が動作を表すかは見分けられないため、「〜を行う」の形をすべて指摘する。活用は「する」「し」の2つの形に直す
@@ -182,3 +158,209 @@ rules:
     specs:
       - from: "足りない；消せない"
         to: "足りない。消せない"
+
+  # NOT-011 外来語の語末の長音符号を省かない。告示の用例集にない語のうち、技術文書でよく使う語を手で足す（#67）。
+  # 用例集の語は gairaigo.yml にある。「メモリ」「ディレクトリ」のように語末が「リ」の語は、省いた形が広く定着しているため入れない。
+  # 前後に片仮名が続くとき（「ユーザビリティ」「フィルタリング」）は別の語の一部として扱う
+  - expected: "サーバー"
+    pattern: "/(?<![ァ-ヺー])サーバ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "サーバ"
+        to: "サーバー"
+  - expected: "ユーザー"
+    pattern: "/(?<![ァ-ヺー])ユーザ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ユーザ"
+        to: "ユーザー"
+      - from: "ユーザビリティ"
+        to: "ユーザビリティ"
+  - expected: "フォルダー"
+    pattern: "/(?<![ァ-ヺー])フォルダ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "フォルダ"
+        to: "フォルダー"
+  - expected: "プリンター"
+    pattern: "/(?<![ァ-ヺー])プリンタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "プリンタ"
+        to: "プリンター"
+  - expected: "ブラウザー"
+    pattern: "/(?<![ァ-ヺー])ブラウザ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ブラウザ"
+        to: "ブラウザー"
+  - expected: "スキャナー"
+    pattern: "/(?<![ァ-ヺー])スキャナ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "スキャナ"
+        to: "スキャナー"
+  - expected: "ドライバー"
+    pattern: "/(?<![ァ-ヺー])ドライバ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ドライバ"
+        to: "ドライバー"
+  - expected: "パラメーター"
+    pattern: "/(?<![ァ-ヺー])パラメータ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "パラメータ"
+        to: "パラメーター"
+  - expected: "エディター"
+    pattern: "/(?<![ァ-ヺー])エディタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "エディタ"
+        to: "エディター"
+  - expected: "レイヤー"
+    pattern: "/(?<![ァ-ヺー])レイヤ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "レイヤ"
+        to: "レイヤー"
+  - expected: "マネージャー"
+    pattern: "/(?<![ァ-ヺー])マネージャ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "マネージャ"
+        to: "マネージャー"
+  - expected: "ルーター"
+    pattern: "/(?<![ァ-ヺー])ルータ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ルータ"
+        to: "ルーター"
+  - expected: "コントローラー"
+    pattern: "/(?<![ァ-ヺー])コントローラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "コントローラ"
+        to: "コントローラー"
+  - expected: "フィルター"
+    pattern: "/(?<![ァ-ヺー])フィルタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "フィルタ"
+        to: "フィルター"
+      - from: "フィルタリング"
+        to: "フィルタリング"
+  - expected: "ヘッダー"
+    pattern: "/(?<![ァ-ヺー])ヘッダ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ヘッダ"
+        to: "ヘッダー"
+  - expected: "フッター"
+    pattern: "/(?<![ァ-ヺー])フッタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "フッタ"
+        to: "フッター"
+  - expected: "バッファー"
+    pattern: "/(?<![ァ-ヺー])バッファ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "バッファ"
+        to: "バッファー"
+  - expected: "モニター"
+    pattern: "/(?<![ァ-ヺー])モニタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "モニタ"
+        to: "モニター"
+  - expected: "センサー"
+    pattern: "/(?<![ァ-ヺー])センサ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "センサ"
+        to: "センサー"
+  - expected: "アダプター"
+    pattern: "/(?<![ァ-ヺー])アダプタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "アダプタ"
+        to: "アダプター"
+  - expected: "インストーラー"
+    pattern: "/(?<![ァ-ヺー])インストーラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "インストーラ"
+        to: "インストーラー"
+  - expected: "クラスター"
+    pattern: "/(?<![ァ-ヺー])クラスタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "クラスタ"
+        to: "クラスター"
+  - expected: "パーサー"
+    pattern: "/(?<![ァ-ヺー])パーサ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "パーサ"
+        to: "パーサー"
+  - expected: "コンパイラー"
+    pattern: "/(?<![ァ-ヺー])コンパイラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "コンパイラ"
+        to: "コンパイラー"
+  - expected: "オーナー"
+    pattern: "/(?<![ァ-ヺー])オーナ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "オーナ"
+        to: "オーナー"
+  - expected: "カウンター"
+    pattern: "/(?<![ァ-ヺー])カウンタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "カウンタ"
+        to: "カウンター"
+  - expected: "ハンドラー"
+    pattern: "/(?<![ァ-ヺー])ハンドラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ハンドラ"
+        to: "ハンドラー"
+  - expected: "セレクター"
+    pattern: "/(?<![ァ-ヺー])セレクタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "セレクタ"
+        to: "セレクター"
+  - expected: "コネクター"
+    pattern: "/(?<![ァ-ヺー])コネクタ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "コネクタ"
+        to: "コネクター"
+  - expected: "プロバイダー"
+    pattern: "/(?<![ァ-ヺー])プロバイダ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "プロバイダ"
+        to: "プロバイダー"
+  - expected: "ジェネレーター"
+    pattern: "/(?<![ァ-ヺー])ジェネレータ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "ジェネレータ"
+        to: "ジェネレーター"
+  - expected: "デバッガー"
+    pattern: "/(?<![ァ-ヺー])デバッガ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "デバッガ"
+        to: "デバッガー"
+  - expected: "スケジューラー"
+    pattern: "/(?<![ァ-ヺー])スケジューラ(?![ァ-ヺー])/"
+    prh: NOT-011
+    specs:
+      - from: "スケジューラ"
+        to: "スケジューラー"
