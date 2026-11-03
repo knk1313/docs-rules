@@ -75,8 +75,11 @@ test("rules: README.mdのファイルの表と、実際のファイルが一致�
 test("rules: 各ルールの項目が「ルール・理由・出典・判定・例」の順にそろう", () => {
   for (const { file } of ruleFiles()) {
     for (const rule of readRules(file)) {
-      // 廃止したルールは、本文が「廃止（理由）」の1行になる
-      if (rule.body.length === 1 && rule.body[0].startsWith("廃止")) continue;
+      // 廃止したルールは、本文が「廃止（理由と置き換え先）」の1行になる
+      if (rule.body.length === 1 && rule.body[0].startsWith("廃止")) {
+        assert.match(rule.body[0], /^廃止（.+）$/, `${file}:${rule.number} ${rule.id} の廃止の書き方が「廃止（理由と置き換え先）」でない`);
+        continue;
+      }
       const names = rule.items.map((i) => i.name);
       assert.deepEqual(names, ITEMS, `${file}:${rule.number} ${rule.id} の項目が型と違う: ${names.join("・")}`);
     }
