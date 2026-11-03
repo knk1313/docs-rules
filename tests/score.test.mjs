@@ -229,6 +229,36 @@ test("score: --type=<識別名>の形も受け付ける", (t) => {
   assert.ok(r.result.checked_rules.includes("SCHEMA"));
 });
 
+// 出力のJSONの項目名と型は、1.0.0から互換性を守る範囲に入る（README.mdの「互換性を守る範囲」、#79）。
+// 項目を足すのはマイナーの変更でよいため、決めた項目があることと型だけを見る
+test("score: 出力のJSONが、互換性を守る項目名と型を持つ", (t) => {
+  const r = score("shape.md", "# 例\n\n設定は必須である。変更してください。\n\n確認を行う。\n", ["--type", "how-to"]);
+  if (skipWithoutPackages(t, r)) return;
+  assert.equal(r.code, 1, r.stderr);
+  const out = r.result;
+  assert.equal(typeof out.file, "string");
+  assert.ok(Array.isArray(out.checked_rules) && out.checked_rules.every((id) => typeof id === "string"));
+  assert.ok(Array.isArray(out.skipped_rules) && out.skipped_rules.length > 0);
+  for (const s of out.skipped_rules) {
+    assert.equal(typeof s.rule_id, "string");
+    assert.equal(typeof s.reason, "string");
+  }
+  assert.ok(Array.isArray(out.violations) && out.violations.length > 0);
+  const nullable = (v, type) => v === null || typeof v === type;
+  for (const v of out.violations) {
+    assert.ok(nullable(v.rule_id, "string"), `rule_id: ${v.rule_id}`);
+    assert.ok(nullable(v.line, "number"), `line: ${v.line}`);
+    assert.ok(nullable(v.column, "number"), `column: ${v.column}`);
+    assert.equal(typeof v.excerpt, "string");
+    assert.equal(typeof v.fix, "string");
+    assert.equal(v.judge, "機械");
+    assert.equal(typeof v.checker, "string");
+  }
+  // 行のある指摘と、行のない指摘（必須セクションの欠落）の両方を見る
+  assert.ok(out.violations.some((v) => typeof v.line === "number"));
+  assert.ok(out.violations.some((v) => v.line === null));
+});
+
 test("score: パッケージを入れる場所を作れないときは、終了コード3になる", () => {
   // キャッシュの場所に通常のファイルの下を指定し、場所を作れないようにする
   const blocker = join(WORK, "not-a-directory");
