@@ -34,6 +34,8 @@ INDEX_X_MIN = 500  # 索引はこれより右に置かれる（1ページ目は�
 INDEX_Y_MAX = 185  # 索引と「本表」の表題はこれより上
 FOOTER_Y_MIN = 895  # ページ下部のフッターはこれより下
 SAME_LINE = 4  # 同じ行とみなす y 座標の差
+# PDFから取り出せない許容字体（字種 → 許容字体）。「遡」「餌」などの許容字体は字種と同じ符号位置のため、ここには入れない
+ACCEPTED_FORMS_FIX = {"𠮟": "叱", "塡": "填", "剝": "剥", "頰": "頬"}
 
 # 付表（2ページ）の列。左右2組の「読み」「語」の列がある
 APPENDIX_COLUMNS = [(80, 150, 150, 300), (360, 430, 430, 600)]  # (読みの範囲, 語の範囲)
@@ -171,6 +173,11 @@ def parse_main_table(pages):
                 reading["examples"].extend(split_examples(join_words(example_words)))
             if remark_words:
                 reading["remark"] = (reading["remark"] or "") + join_words(remark_words)
+    # 「𠮟」「塡」「剝」「頰」の許容字体は、PDFの文字の層から角括弧ごと取り出せない（#75で確認）。
+    # 原本の本表で角括弧に示された字を、ここで補う
+    for entry in entries:
+        if entry["kanji"] in ACCEPTED_FORMS_FIX and entry["accepted_form"] is None:
+            entry["accepted_form"] = ACCEPTED_FORMS_FIX[entry["kanji"]]
     return entries
 
 
