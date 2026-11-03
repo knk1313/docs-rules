@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // tests/corpus/ の対の文を採点し、ルールごとの検出率と誤検出の数をMarkdownの表で出す（#67）。
+// 人が書いた段落については、記録した指摘の判断をルールごとに数えて出す。
 // 使い方（リポジトリの直下から）: node tests/corpus/report.mjs
-import { evaluate, loadPairs, scorePairs, summarize } from "../lib/corpus.mjs";
+import { HUMAN_LABELS, evaluate, loadHuman, loadPairs, scorePairs, summarize, summarizeHuman } from "../lib/corpus.mjs";
 
 const pairs = loadPairs();
 const { code, stderr, results } = scorePairs(pairs);
@@ -27,3 +28,14 @@ if (outcome.misses.length > 0) {
 if (outcome.falsePositives.length > 0) {
   process.stdout.write(`\n直した文での誤検出:\n${outcome.falsePositives.map((f) => `- ${f.id} ${f.rule_id ?? "-"}「${f.excerpt}」`).join("\n")}\n`);
 }
+
+// 人が書いた段落は、記録した findings の判断を数える。採点し直さないため、findings が古いときは corpus.test.mjs で確かめる
+const human = loadHuman();
+const humanRows = summarizeHuman(human);
+const humanLines = [
+  `\n人が書いた段落（${human.length}件）での指摘:\n`,
+  `| ルールID | ${HUMAN_LABELS.join(" | ")} |`,
+  `| --- | ${HUMAN_LABELS.map(() => "---").join(" | ")} |`,
+  ...humanRows.map((row) => `| ${row.rule_id} | ${HUMAN_LABELS.map((l) => row[l]).join(" | ")} |`),
+];
+process.stdout.write(`${humanLines.join("\n")}\n`);

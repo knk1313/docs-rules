@@ -7,6 +7,7 @@
 // - 1字の許容の形（「答」「問」）は熟語の一部に当たるため使わない
 // - 後ろに漢字が続く形（「申込書」）は、通則7の慣用の語として数えない
 // - 許容の形が、判定データにある正しい語の一部に当たる場合は使わない
+// - 動詞の組は語幹で拾い、活用した形（「終った」）と名詞の形（「打合せ」）も同じ組に数える
 // （--rulesdir で読み込むルールには textlintrc.json の設定値が渡らないため、ファイルから直接読む）
 const path = require("path");
 const data = require(path.join(__dirname, "..", "data", "okurigana.json"));
@@ -68,26 +69,66 @@ function formPattern(form, allForms) {
   return new RegExp(pattern, "g");
 }
 
+// 動詞の終止形の語尾ごとに、語幹の後ろに続く活用の字（五段活用。「っ」「い」「ん」は音便）
+const VERB_ENDINGS = {
+  う: "わいうえおっ",
+  く: "かきくけこい",
+  ぐ: "がぎぐげごい",
+  す: "さしすせそ",
+  つ: "たちつてとっ",
+  ぬ: "なにぬねのん",
+  ぶ: "ばびぶべぼん",
+  む: "まみむめもん",
+  る: "らりるれろっ",
+};
+
+/**
+ * 動詞の組（「終わる」「終る」）なら、終止形の語尾を除いた語幹を返す。動詞の組でなければ null を返す。
+ * 語幹で拾うと、活用した形（「終った」）と、一段活用の動詞の名詞の形（「打合せ」）も数えられる。
+ */
+function verbStems(standard, permitted) {
+  const last = standard[standard.length - 1];
+  if (!VERB_ENDINGS[last] || ![...permitted].every((p) => p.endsWith(last))) return null;
+  return [standard, ...permitted].map((f) => f.slice(0, -1));
+}
+
+/**
+ * 語幹を拾う正規表現を作る。2字以上の語幹で終止形が「る」のものは、一段活用もありうるため、後ろに続く平仮名を限らない。
+ * それ以外は、五段活用の字が続くときだけ拾う（「終」の後ろの「わ」は本則の語幹の続きのため、formPattern が除く）。
+ */
+function stemPattern(stem, last, allStems) {
+  const base = formPattern(stem, allStems).source;
+  const follow = last === "る" && stem.length >= 2 ? "ぁ-ゖ" : VERB_ENDINGS[last];
+  return new RegExp(`${base}(?=[${follow}])`, "g");
+}
+
 /** 判定に使う組。許容の形が一つも使えない組は、混在を判定できないため外す。 */
 function buildGroups() {
   const correct = correctWords();
   const groups = variantGroups();
   const allForms = new Set();
+  const allStems = new Set();
   for (const [standard, permitted] of groups) {
     allForms.add(standard);
     for (const p of permitted) allForms.add(p);
+    for (const s of verbStems(standard, permitted) || []) allStems.add(s);
   }
   const result = [];
   for (const [standard, permitted] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
+    const stems = verbStems(standard, permitted);
+    const last = standard[standard.length - 1];
+    const pattern = (form, i) => (stems ? stemPattern(stems[i], last, allStems) : formPattern(form, allForms));
+    const sorted = [...permitted].sort();
+    const order = [standard, ...permitted];
     const forms = [];
-    for (const p of [...permitted].sort()) {
+    for (const p of sorted) {
       if (p.length < 2) continue;
-      const regex = formPattern(p, allForms);
+      const regex = pattern(p, order.indexOf(p));
       if ([...correct].some((w) => new RegExp(regex.source).test(w))) continue;
       forms.push({ form: p, regex });
     }
     if (forms.length === 0) continue;
-    result.push({ standard, forms: [{ form: standard, regex: formPattern(standard, allForms) }, ...forms] });
+    result.push({ standard, forms: [{ form: standard, regex: pattern(standard, 0) }, ...forms] });
   }
   return result;
 }
@@ -105,7 +146,7 @@ module.exports = function (context) {
         for (const { form, regex } of group.forms) {
           for (const m of text.matchAll(regex)) {
             if (!found[g].has(form)) found[g].set(form, []);
-            found[g].get(form).push({ node, index: m.index });
+            found[g].get(form).push({ node, index: m.index, length: m[0].length });
           }
         }
       });
@@ -122,11 +163,11 @@ module.exports = function (context) {
         }
         for (const [form, hits] of used) {
           if (form === keep) continue;
-          for (const { node, index } of hits) {
+          for (const { node, index, length } of hits) {
             report(
               node,
               new RuleError(`送り仮名の付け方が文書の中で混ざっている。「${form}」を「${keep}」にそろえる`, {
-                padding: locator.range([index, index + form.length]),
+                padding: locator.range([index, index + length]),
               })
             );
           }

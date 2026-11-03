@@ -214,6 +214,12 @@ docs-rules/
 | [デジタル庁デザインシステム](https://design.digital.go.jp/dads/)（入力フィールド、ボタン、ディスクロージャー、緊急時バナー、リンクテキストのページ） | 公共データ利用規約（PDL1.0、CC BY 4.0互換） | デジタル庁の資料を基に、自分の文章で書き直して編集・加工しています。UI文言（`schemas/ui-text.md`）とMKD-010に使います |
 | [GOV.UK Service Manual](https://www.gov.uk/service-manual/design/writing-for-user-interfaces)と[GOV.UK Design System](https://design-system.service.gov.uk/components/error-message)（Writing for user interfaces、Error message） | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) | Contains public sector information licensed under the Open Government Licence v3.0. 考え方を自分の文章で日本語に書き直し、UI文言（`schemas/ui-text.md`）に使います |
 
+`tests/corpus/human/`には、誤検出を測るために、次の資料の段落を文言を変えずに置いています。段落ごとに、出典のページの名前とURLを書いています。
+
+| 資料 | 資料の利用条件 | 本リポジトリでの扱い |
+| --- | --- | --- |
+| [デジタル庁の政策のページ](https://www.digital.go.jp/policies)（ベース・レジストリ、データ戦略の推進ほか10ページ、2026年11月3日に取得） | [公共データ利用規約](https://www.digital.go.jp/copyright-policy)（PDL1.0、CC BY 4.0互換） | 「政策」の各ページ（デジタル庁）から段落を抜き出して加工しています。文言は変えていません |
+
 - 上の資料の作成元は、本リポジトリの作成や内容に関わっていません。本リポジトリのルールは、作成元の見解を示すものではありません
 - 今後`rules/`に取り込む資料は、[references/reference-sources.md](skills/docs-rules/references/reference-sources.md)のライセンス欄に従い、出典の表示を保ちます
 - CC BY-SA 4.0の資料（CommonMark Spec、Diátaxis）は、考え方の参照にとどめ、文章をリポジトリに置きません

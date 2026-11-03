@@ -2,12 +2,14 @@
 // NOT-012 横書きでは算用数字を使い、4桁以上は3桁ごとにコンマで区切る。
 // 判定するのは次の2つ。
 // - 4桁の算用数字で、3桁ごとの「,」がないもの（「1200人」）。1万以上の数は NOT-013 が「万」「億」「兆」を交ぜた形に直すため、ここでは見ない
-// - 「千」「百」を含む漢数字で数量を書いたもの（「千二百人」）。助数詞が後ろに続くものだけを見る
+// - 「千」「百」「十」を含む漢数字で数量を書いたもの（「千二百人」「二十人」）。助数詞が後ろに続くものだけを見る
 const { NUMBER_PATTERN, isExcludedNumber } = require("../lib/numbers");
 
-// 漢数字の数量。「千」か「百」を含む2字以上の漢数字の後ろに助数詞が続くものを取る。
+// 漢数字の数量。「千」「百」「十」を含む2字以上の漢数字の後ろに助数詞か単位が続くものを取る。
+// 1字の「一人」「十分」は、読みの決まった語と見分けられないため取らない。
 // 「数百人」「何千人」のような概数は NOT-014 で漢数字のままとするため除く
-const KANJI_NUMBER = /(?<![数何])[一二三四五六七八九十百千]{2,}(?=[人円件個回本台枚冊名社点日週年秒分時])/g;
+const IDIOMS = ["二十日", "二十歳", "十二分"];
+const KANJI_NUMBER = /(?<![数何])[一二三四五六七八九十百千]{2,}(?=[人円件個回本台枚冊名社点日週年秒分時行字歳]|グラム|メートル|リットル|バイト|ページ)/g;
 const KANJI_DIGITS = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
 
 /** 「千二百」のような漢数字を数に直す。直せないときは null を返す。 */
@@ -54,9 +56,11 @@ function rule(context) {
           })
         );
       }
-      if (!/[千百]/.test(text)) return;
+      if (!/[千百十]/.test(text)) return;
       for (const m of text.matchAll(KANJI_NUMBER)) {
-        if (!/[千百]/.test(m[0])) continue;
+        if (!/[千百十]/.test(m[0])) continue;
+        // 読みの決まった語（「二十日（はつか）」「二十歳（はたち）」「十二分に」）は漢字のまま書く
+        if (IDIOMS.some((w) => text.startsWith(w, m.index))) continue;
         const value = kanjiToNumber(m[0]);
         if (value === null) continue;
         const fixed = value >= 1000 ? withSeparators(value) : String(value);

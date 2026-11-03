@@ -327,6 +327,7 @@ const PREDICATE_POS = new Set(["動詞", "形容詞", "助動詞"]);
  * no-doubled-joshi の指摘のうち、前の同じ助詞との間に述語（動詞、形容詞、助動詞）があるものを見分ける（#67）。
  * 「表示が崩れる不具合が見つかった」の二つの「が」は、別々の述語に掛かる自然な文のため、GRM-005 の違反にしない。
  * 前の助詞は、指摘の位置から文の頭（「。」「！」「？」か改行の後ろ）までの間で探す。続けて出る助詞は一つにまとめて比べる。
+ * 形容動詞の語尾の「に」（「密接に関わる」）は助詞として数えない。
  */
 async function crossesPredicate(tokenize, source, message) {
   const joshi = message.message.match(/助詞 "(.+?)" がみつかりました/)?.[1];
@@ -335,18 +336,32 @@ async function crossesPredicate(tokenize, source, message) {
   let from = start;
   while (from > 0 && !"。！？\n".includes(source[from - 1])) from -= 1;
   const tokens = await tokenize(source.slice(from, start));
+  // 指摘された「に」が形容動詞の語尾なら、助詞の連続ではない
+  if (joshi === "に" && (await isAdjectivalNoun(tokenize, tokens.at(-1)))) return true;
   let predicateSeen = false;
   for (let i = tokens.length - 1; i >= 0; i -= 1) {
     if (tokens[i].pos === "助詞") {
       let k = i;
       while (k > 0 && tokens[k - 1].pos === "助詞") k -= 1;
-      if (tokens.slice(k, i + 1).map((t) => t.surface_form).join("") === joshi) return predicateSeen;
+      const matched = tokens.slice(k, i + 1).map((t) => t.surface_form).join("") === joshi;
+      if (matched && !(joshi === "に" && (await isAdjectivalNoun(tokenize, tokens[k - 1])))) return predicateSeen;
       i = k;
     } else if (PREDICATE_POS.has(tokens[i].pos)) {
       predicateSeen = true;
     }
   }
   return false;
+}
+
+/**
+ * 「に」の前の語が、形容動詞の語幹（「密接」「適切」）かを見る。
+ * 文の中では「生活に密接に」の「密接」をサ変名詞と解析することがあるため、語に「に」を付けて単独で解析し直す。
+ */
+async function isAdjectivalNoun(tokenize, token) {
+  if (!token || token.pos !== "名詞") return false;
+  if (token.pos_detail_1 === "形容動詞語幹" || token.pos_detail_2 === "形容動詞語幹") return true;
+  const alone = await tokenize(`${token.surface_form}に`);
+  return alone.length === 2 && alone[1].pos_detail_1 === "副詞化";
 }
 
 /** textlint のルールIDを、「判定」欄に書く名前に直す。 */
@@ -370,6 +385,8 @@ function toViolation(message, source, lines, ruleIndex) {
   } else {
     const ids = ruleIndex.checkers.get(checker);
     ruleId = ids ? ids[0] : null;
+    // ja-no-redundant-expressionはFW-001とFW-002の両方に当たる。「〜を行う」の辞書の指摘は、FW-002として返す
+    if (name === "ja-no-redundant-expression" && /行う"は冗長/.test(message.message) && ids?.includes("FW-002")) ruleId = "FW-002";
   }
   let excerpt;
   let fix;

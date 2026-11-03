@@ -1,0 +1,115 @@
+{"id":"NOT-006-01","rule_id":"NOT-006","violation":"古い承認の手順が、作業を進めるうえでの隘路になっている。","fixed":"古い承認の手順が、作業を進めるうえでの妨げになっている。","basis":"公用文作成の考え方 Ⅰ1、内閣告示 常用漢字表","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-006-02","rule_id":"NOT-006","violation":"仕様書と実装の間に齟齬がある。","fixed":"仕様書と実装の間に食い違いがある。","basis":"公用文作成の考え方 Ⅰ1、内閣告示 常用漢字表","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-006-03","rule_id":"NOT-006","violation":"処理が遅い原因は、ループの中で毎回ファイルを開く杜撰な実装にある。","fixed":"処理が遅い原因は、ループの中で毎回ファイルを開く雑な実装にある。","basis":"公用文作成の考え方 Ⅰ1、内閣告示 常用漢字表","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-006-04","rule_id":"NOT-006","violation":"応答時間が閾値を超えると、監視の画面に警告が出る。","fixed":"応答時間がしきい値を超えると、監視の画面に警告が出る。","basis":"公用文作成の考え方 Ⅰ1、内閣告示 常用漢字表","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-006-05","rule_id":"NOT-006","violation":"公開の前に、変更点を俯瞰して抜けがないかを確かめる。","fixed":"公開の前に、変更点の全体を見渡して抜けがないかを確かめる。","basis":"公用文作成の考え方 Ⅰ1、内閣告示 常用漢字表","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-008-01","rule_id":"NOT-008","violation":"設定は保存した。但し、再起動するまで反映されない。","fixed":"設定は保存した。ただし、再起動するまで反映されない。","basis":"公用文作成の考え方 Ⅰ1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-008-02","rule_id":"NOT-008","violation":"ログには色々な情報が出る。","fixed":"ログにはいろいろな情報が出る。","basis":"公用文作成の考え方 Ⅰ1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-008-03","rule_id":"NOT-008","violation":"この操作は管理者だけが実行出来る。","fixed":"この操作は管理者だけが実行できる。","basis":"公用文作成の考え方 Ⅰ1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-008-04","rule_id":"NOT-008","violation":"入力値が空のときは処理を止める。従って、呼び出し元で値を確かめる。","fixed":"入力値が空のときは処理を止める。したがって、呼び出し元で値を確かめる。","basis":"公用文作成の考え方 Ⅰ1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-008-05","rule_id":"NOT-008","violation":"尚、旧版の設定ファイルは読み込めない。","fixed":"なお、旧版の設定ファイルは読み込めない。","basis":"公用文作成の考え方 Ⅰ1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-010-01","rule_id":"NOT-010","violation":"申し込みは今月末までに済ませる。申込みの方法は別紙に書いた。","fixed":"申し込みは今月末までに済ませる。申し込みの方法は別紙に書いた。","basis":"公用文作成の考え方 Ⅰ2、内閣告示 送り仮名の付け方（通則6 許容）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-010-02","rule_id":"NOT-010","violation":"この端末の取扱いは管理者に限る。取り扱いの手順は別に定める。","fixed":"この端末の取扱いは管理者に限る。取扱いの手順は別に定める。","basis":"公用文作成の考え方 Ⅰ2、内閣告示 送り仮名の付け方（通則6 許容）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-010-03","rule_id":"NOT-010","violation":"赤い印は停止を表わす。緑の印は稼働を表す。","fixed":"赤い印は停止を表す。緑の印は稼働を表す。","basis":"公用文作成の考え方 Ⅰ2、内閣告示 送り仮名の付け方（通則1 許容）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-010-04","rule_id":"NOT-010","violation":"打合せの日程は来週に決める。打ち合わせは30分で終える。","fixed":"打ち合わせの日程は来週に決める。打ち合わせは30分で終える。","basis":"公用文作成の考え方 Ⅰ2、内閣告示 送り仮名の付け方（通則6 許容）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-010-05","rule_id":"NOT-010","violation":"処理が終ったら、結果の画面が開く。全体の作業は5分で終わる。","fixed":"処理が終わったら、結果の画面が開く。全体の作業は5分で終わる。","basis":"公用文作成の考え方 Ⅰ2、内閣告示 送り仮名の付け方（通則2 許容）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-011-01","rule_id":"NOT-011","violation":"パーティの会場は、3階の会議室に決めた。","fixed":"パーティーの会場は、3階の会議室に決めた。","basis":"公用文作成の考え方 Ⅰ3、内閣告示 外来語の表記（留意事項その2 3）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-011-02","rule_id":"NOT-011","violation":"ユーザが設定画面を開くと、現在の値が表示される。","fixed":"ユーザーが設定画面を開くと、現在の値が表示される。","basis":"公用文作成の考え方 Ⅰ3、内閣告示 外来語の表記（留意事項その2 3）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-011-03","rule_id":"NOT-011","violation":"カレンダの表示を週の単位に切り替える。","fixed":"カレンダーの表示を週の単位に切り替える。","basis":"公用文作成の考え方 Ⅰ3、内閣告示 外来語の表記（留意事項その2 3）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-011-04","rule_id":"NOT-011","violation":"作業用のフォルダを作り、その中に入力のファイルを置く。","fixed":"作業用のフォルダーを作り、その中に入力のファイルを置く。","basis":"公用文作成の考え方 Ⅰ3、内閣告示 外来語の表記（留意事項その2 3）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-011-05","rule_id":"NOT-011","violation":"部品の不具合は、メーカの窓口に問い合わせる。","fixed":"部品の不具合は、メーカーの窓口に問い合わせる。","basis":"公用文作成の考え方 Ⅰ3、内閣告示 外来語の表記（留意事項その2 3）","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-001-01","rule_id":"NOT-001","violation":"ﾛｸﾞｲﾝ画面で利用者名とパスワードを入れる。","fixed":"ログイン画面で利用者名とパスワードを入れる。","basis":"JTFスタイルガイド 2.1.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-001-02","rule_id":"NOT-001","violation":"設定の画面は、「ﾌｧｲﾙ」の項目から開く。","fixed":"設定の画面は、「ファイル」の項目から開く。","basis":"JTFスタイルガイド 2.1.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-001-03","rule_id":"NOT-001","violation":"明細の摘要欄に、ｶﾞｽ代と表示される。","fixed":"明細の摘要欄に、ガス代と表示される。","basis":"JTFスタイルガイド 2.1.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-001-04","rule_id":"NOT-001","violation":"ｷｬﾝｾﾙを押すと、入力した内容が消える。","fixed":"キャンセルを押すと、入力した内容が消える。","basis":"JTFスタイルガイド 2.1.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-001-05","rule_id":"NOT-001","violation":"氏名の読みは、全角のﾌﾘｶﾞﾅで入れる。","fixed":"氏名の読みは、全角のフリガナで入れる。","basis":"JTFスタイルガイド 2.1.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-012-01","rule_id":"NOT-012","violation":"今月の問い合わせは3450件あった。","fixed":"今月の問い合わせは3,450件あった。","basis":"公用文作成の考え方 Ⅰ4ア・イ、JTFスタイルガイド 2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-012-02","rule_id":"NOT-012","violation":"本体の重さは1500グラムある。","fixed":"本体の重さは1,500グラムある。","basis":"公用文作成の考え方 Ⅰ4イ、JTFスタイルガイド 2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-012-03","rule_id":"NOT-012","violation":"今月の問い合わせは三百件を超えた。","fixed":"今月の問い合わせは300件を超えた。","basis":"公用文作成の考え方 Ⅰ4ア、JTFスタイルガイド 2.2.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-012-04","rule_id":"NOT-012","violation":"1回の処理で読み込む行の数は、最大で8192行とする。","fixed":"1回の処理で読み込む行の数は、最大で8,192行とする。","basis":"公用文作成の考え方 Ⅰ4イ、JTFスタイルガイド 2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-012-05","rule_id":"NOT-012","violation":"小会議室の定員は二十人である。","fixed":"小会議室の定員は20人である。","basis":"公用文作成の考え方 Ⅰ4ア、JTFスタイルガイド 2.2.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-013-01","rule_id":"NOT-013","violation":"来年度の予算は350,000,000円を見込む。","fixed":"来年度の予算は3億5,000万円を見込む。","basis":"公用文作成の考え方 Ⅰ4ウ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-013-02","rule_id":"NOT-013","violation":"登録した利用者は12,000人を超えた。","fixed":"登録した利用者は1万2,000人を超えた。","basis":"公用文作成の考え方 Ⅰ4ウ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-013-03","rule_id":"NOT-013","violation":"試験では3千件のデータを読み込む。","fixed":"試験では3,000件のデータを読み込む。","basis":"公用文作成の考え方 Ⅰ4ウ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-013-04","rule_id":"NOT-013","violation":"年会費は1万2千円である。","fixed":"年会費は1万2,000円である。","basis":"公用文作成の考え方 Ⅰ4ウ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-013-05","rule_id":"NOT-013","violation":"このサイトには、1日に80,000件のアクセスがある。","fixed":"このサイトには、1日に8万件のアクセスがある。","basis":"公用文作成の考え方 Ⅰ4ウ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-015-01","rule_id":"NOT-015","violation":"手順３で設定を保存する。","fixed":"手順3で設定を保存する。","basis":"公用文作成の考え方 Ⅰ4エ、JTFスタイルガイド 2.1.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-015-02","rule_id":"NOT-015","violation":"ＵＲＬをコピーして、ブラウザーの入力欄に貼り付ける。","fixed":"URLをコピーして、ブラウザーの入力欄に貼り付ける。","basis":"公用文作成の考え方 Ⅰ6エ、JTFスタイルガイド 2.1.9","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-015-03","rule_id":"NOT-015","violation":"サーバーが返したエラーの番号は５０３だった。","fixed":"サーバーが返したエラーの番号は503だった。","basis":"公用文作成の考え方 Ⅰ4エ、JTFスタイルガイド 2.1.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-015-04","rule_id":"NOT-015","violation":"動作はＷｉｎｄｏｗｓとmacOSで確かめた。","fixed":"動作はWindowsとmacOSで確かめた。","basis":"公用文作成の考え方 Ⅰ6エ、JTFスタイルガイド 2.1.9","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-015-05","rule_id":"NOT-015","violation":"バックアップは1日に３回取る。","fixed":"バックアップは1日に3回取る。","basis":"公用文作成の考え方 Ⅰ4エ、JTFスタイルガイド 2.1.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-021-01","rule_id":"NOT-021","violation":"再試行までの待ち時間を1,5秒に延ばす。","fixed":"再試行までの待ち時間を1.5秒に延ばす。","basis":"JTFスタイルガイド 1.2.2・2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-021-02","rule_id":"NOT-021","violation":"アンケートの平均は3,14点だった。","fixed":"アンケートの平均は3.14点だった。","basis":"JTFスタイルガイド 1.2.2・2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-021-03","rule_id":"NOT-021","violation":"画像の表示倍率を0,75に下げる。","fixed":"画像の表示倍率を0.75に下げる。","basis":"JTFスタイルガイド 1.2.2・2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-021-04","rule_id":"NOT-021","violation":"測定の誤差は2,5%以内とする。","fixed":"測定の誤差は2.5%以内とする。","basis":"JTFスタイルガイド 1.2.2・2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-021-05","rule_id":"NOT-021","violation":"1回の処理にかかった時間は12,25ミリ秒だった。","fixed":"1回の処理にかかった時間は12.25ミリ秒だった。","basis":"JTFスタイルガイド 1.2.2・2.1.10","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-016-01","rule_id":"NOT-016","violation":"保守の契約は6ヶ月ごとに更新する。","fixed":"保守の契約は6か月ごとに更新する。","basis":"公用文作成の考え方 Ⅰ4ケ、JTFスタイルガイド 2.2.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-016-02","rule_id":"NOT-016","violation":"設定ファイルの3箇所を書き換えた。","fixed":"設定ファイルの3か所を書き換えた。","basis":"公用文作成の考え方 Ⅰ4ケ、JTFスタイルガイド 2.2.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-016-03","rule_id":"NOT-016","violation":"同じエラーが数ヶ所で出た。","fixed":"同じエラーが数か所で出た。","basis":"公用文作成の考え方 Ⅰ4ケ、JTFスタイルガイド 2.2.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-016-04","rule_id":"NOT-016","violation":"校正で2ケ所の誤字を直した。","fixed":"校正で2か所の誤字を直した。","basis":"公用文作成の考え方 Ⅰ4ケ、JTFスタイルガイド 2.2.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-016-05","rule_id":"NOT-016","violation":"何ヵ月も前のログは、まとめて消す。","fixed":"何か月も前のログは、まとめて消す。","basis":"公用文作成の考え方 Ⅰ4ケ、JTFスタイルガイド 2.2.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-022-01","rule_id":"NOT-022","violation":"不具合は GitHub の Issue に書く。","fixed":"不具合はGitHubのIssueに書く。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-022-02","rule_id":"NOT-022","violation":"接続に失敗したときの再試行は 3 回までとする。","fixed":"接続に失敗したときの再試行は3回までとする。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-022-03","rule_id":"NOT-022","violation":"表示の言語は config.json で変える。","fixed":"表示の言語はconfig.jsonで変える。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-022-04","rule_id":"NOT-022","violation":"このツールは Node.js 20 以上で動く。","fixed":"このツールはNode.js 20以上で動く。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-022-05","rule_id":"NOT-022","violation":"集計のスクリプトは Python で書いた。","fixed":"集計のスクリプトはPythonで書いた。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-023-01","rule_id":"NOT-023","violation":"設定を 保存してから 再起動する。","fixed":"設定を保存してから再起動する。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-023-02","rule_id":"NOT-023","violation":"まず サーバー 側の設定を変える。","fixed":"まずサーバー側の設定を変える。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-023-03","rule_id":"NOT-023","violation":"この 機能は まだ試験中である。","fixed":"この機能はまだ試験中である。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-023-04","rule_id":"NOT-023","violation":"負荷試験の結果は　良好だった。","fixed":"負荷試験の結果は良好だった。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-023-05","rule_id":"NOT-023","violation":"確認が終わったら、 結果を記録する。","fixed":"確認が終わったら、結果を記録する。","basis":"JTFスタイルガイド 2.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-024-01","rule_id":"NOT-024","violation":"用語の意味は付録（ 用語集 ）を見る。","fixed":"用語の意味は付録（用語集）を見る。","basis":"JTFスタイルガイド 2.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-024-02","rule_id":"NOT-024","violation":"報告書は期限 （10月末） までに出す。","fixed":"報告書は期限（10月末）までに出す。","basis":"JTFスタイルガイド 2.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-024-03","rule_id":"NOT-024","violation":"申請者（本人） が書類に署名する。","fixed":"申請者（本人）が書類に署名する。","basis":"JTFスタイルガイド 2.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-024-04","rule_id":"NOT-024","violation":"入力が終わったら 「保存」 を押す。","fixed":"入力が終わったら「保存」を押す。","basis":"JTFスタイルガイド 2.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-024-05","rule_id":"NOT-024","violation":"詳しい手順は 『運用の手引き』 に書いてある。","fixed":"詳しい手順は『運用の手引き』に書いてある。","basis":"JTFスタイルガイド 2.3.3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-002-01","rule_id":"NOT-002","violation":"設定を保存した．再起動は要らない．","fixed":"設定を保存した。再起動は要らない。","basis":"公用文作成の考え方 Ⅰ5(1)ア、JTFスタイルガイド 1.2.1・1.2.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-002-02","rule_id":"NOT-002","violation":"名前，住所，電話番号の順に入れる。","fixed":"名前、住所、電話番号の順に入れる。","basis":"公用文作成の考え方 Ⅰ5(1)ア、JTFスタイルガイド 1.2.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-002-03","rule_id":"NOT-002","violation":"処理が終わった.結果を画面で確かめる.","fixed":"処理が終わった。結果を画面で確かめる。","basis":"公用文作成の考え方 Ⅰ5(1)ア、JTFスタイルガイド 1.2.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-002-04","rule_id":"NOT-002","violation":"入力値を確かめ,誤りがあれば前の画面に戻す。","fixed":"入力値を確かめ、誤りがあれば前の画面に戻す。","basis":"公用文作成の考え方 Ⅰ5(1)ア、JTFスタイルガイド 1.2.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-002-05","rule_id":"NOT-002","violation":"今回の対象は1，2，4の手順である。","fixed":"今回の対象は1、2、4の手順である。","basis":"公用文作成の考え方 Ⅰ5(1)ア、JTFスタイルガイド 1.2.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-003-01","rule_id":"NOT-003","violation":"新しい版の公開が、予定どおり完了しました！","fixed":"新しい版の公開が、予定どおり完了しました。","basis":"公用文作成の考え方 Ⅰ5(2)ア","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-003-02","rule_id":"NOT-003","violation":"この設定のままで問題ないか？","fixed":"この設定のままで問題ないか。","basis":"公用文作成の考え方 Ⅰ5(2)ア","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-003-03","rule_id":"NOT-003","violation":"ファイルを変えたら、必ず保存する!","fixed":"ファイルを変えたら、必ず保存する。","basis":"公用文作成の考え方 Ⅰ5(2)ア","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-003-04","rule_id":"NOT-003","violation":"夜間の処理はなぜ止まったのか?","fixed":"夜間の処理はなぜ止まったのか。","basis":"公用文作成の考え方 Ⅰ5(2)ア","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-003-05","rule_id":"NOT-003","violation":"今回の改修で、検索の速さが前の版の2倍になった！","fixed":"今回の改修で、検索の速さが前の版の2倍になった。","basis":"公用文作成の考え方 Ⅰ5(2)ア","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-004-01","rule_id":"NOT-004","violation":"利用する人ゝの意見を集める。","fixed":"利用する人々の意見を集める。","basis":"公用文作成の考え方 Ⅰ6イ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-004-02","rule_id":"NOT-004","violation":"作った設定ファイルは、こゝに置く。","fixed":"作った設定ファイルは、ここに置く。","basis":"公用文作成の考え方 Ⅰ6イ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-004-03","rule_id":"NOT-004","violation":"各〃の画面で、入力値の形を確かめる。","fixed":"各々の画面で、入力値の形を確かめる。","basis":"公用文作成の考え方 Ⅰ6イ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-004-04","rule_id":"NOT-004","violation":"障害の連絡を受けたら、たゞちに担当者へ知らせる。","fixed":"障害の連絡を受けたら、ただちに担当者へ知らせる。","basis":"公用文作成の考え方 Ⅰ6イ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-004-05","rule_id":"NOT-004","violation":"日〃の作業は、終業の前に記録する。","fixed":"日々の作業は、終業の前に記録する。","basis":"公用文作成の考え方 Ⅰ6イ","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-025-01","rule_id":"NOT-025","violation":"用語の意味は付録(用語集)を見る。","fixed":"用語の意味は付録（用語集）を見る。","basis":"JTFスタイルガイド 3.3.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-025-02","rule_id":"NOT-025","violation":"1回に送れる添付ファイルは1~3件である。","fixed":"1回に送れる添付ファイルは1〜3件である。","basis":"JTFスタイルガイド 3.2.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-025-03","rule_id":"NOT-025","violation":"倍率は10～20の範囲で指定する。","fixed":"倍率は10〜20の範囲で指定する。","basis":"JTFスタイルガイド 3.2.5","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-025-04","rule_id":"NOT-025","violation":"入力･出力の形式を先に決める。","fixed":"入力・出力の形式を先に決める。","basis":"JTFスタイルガイド 3.2.4","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-025-05","rule_id":"NOT-025","violation":"申請の画面では、[必須]の付いた項目を埋める。","fixed":"申請の画面では、［必須］の付いた項目を埋める。","basis":"JTFスタイルガイド 3.3.2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-026-01","rule_id":"NOT-026","violation":"結論: 移行は来月にする。","fixed":"結論として、移行は来月にする。","basis":"JTFスタイルガイド 3.2.7","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-026-02","rule_id":"NOT-026","violation":"この画面を使える人は、次のとおりである：管理者と監査担当者。","fixed":"この画面を使える人は、管理者と監査担当者である。","basis":"JTFスタイルガイド 3.2.7","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-026-03","rule_id":"NOT-026","violation":"注意:保存する前に、入力値を確かめる。","fixed":"保存する前に、入力値を確かめる。","basis":"JTFスタイルガイド 3.2.7","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-026-04","rule_id":"NOT-026","violation":"作業は次の三つに分かれる: 開く、直す、閉じる。","fixed":"作業は、開く、直す、閉じるの三つに分かれる。","basis":"JTFスタイルガイド 3.2.7","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-026-05","rule_id":"NOT-026","violation":"- 提出の期限: 10月31日","fixed":"- 提出の期限：10月31日","basis":"JTFスタイルガイド 3.2.7","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-027-01","rule_id":"NOT-027","violation":"設定は保存した; 再起動はまだしていない。","fixed":"設定は保存した。再起動はまだしていない。","basis":"JTFスタイルガイド 3.2.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-027-02","rule_id":"NOT-027","violation":"入力の欄は二つある；名前と住所である。","fixed":"入力の欄は、名前と住所の二つである。","basis":"JTFスタイルガイド 3.2.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-027-03","rule_id":"NOT-027","violation":"対象は東京；大阪；福岡の拠点である。","fixed":"対象は東京、大阪、福岡の拠点である。","basis":"JTFスタイルガイド 3.2.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-027-04","rule_id":"NOT-027","violation":"原因は分かった;対策はまだ決めていない。","fixed":"原因は分かった。対策はまだ決めていない。","basis":"JTFスタイルガイド 3.2.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-027-05","rule_id":"NOT-027","violation":"保存先の容量が足りない；古いログも消せない。","fixed":"保存先の容量が足りない。古いログも消せない。","basis":"JTFスタイルガイド 3.2.8","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-028-01","rule_id":"NOT-028","violation":"入力-検証-保存の順に処理する。","fixed":"入力、検証、保存の順に処理する。","basis":"JTFスタイルガイド 3.2.6","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-028-02","rule_id":"NOT-028","violation":"東京-大阪の間の通信が遅い。","fixed":"東京と大阪の間の通信が遅い。","basis":"JTFスタイルガイド 3.2.6","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-028-03","rule_id":"NOT-028","violation":"日報は月-金の毎朝に配信する。","fixed":"日報は月曜から金曜までの毎朝に配信する。","basis":"JTFスタイルガイド 3.2.6","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-028-04","rule_id":"NOT-028","violation":"読み込み-書き出しの速さを測る。","fixed":"読み込みと書き出しの速さを測る。","basis":"JTFスタイルガイド 3.2.6","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-028-05","rule_id":"NOT-028","violation":"管理者-利用者の役割を分ける。","fixed":"管理者と利用者の役割を分ける。","basis":"JTFスタイルガイド 3.2.6","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-029-01","rule_id":"NOT-029","violation":"次の版は2027/1/15に出す。","fixed":"次の版は2027年1月15日に出す。","basis":"公用文作成の考え方 Ⅰ4ア、Google開発者ドキュメントスタイルガイド Dates and times","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-029-02","rule_id":"NOT-029","violation":"2026/04/01から、新しい料金で請求する。","fixed":"2026年4月1日から、新しい料金で請求する。","basis":"公用文作成の考え方 Ⅰ4ア、Google開発者ドキュメントスタイルガイド Dates and times","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-029-03","rule_id":"NOT-029","violation":"旧システムからは2026/03/01に移った。","fixed":"旧システムからは2026年3月1日に移った。","basis":"公用文作成の考え方 Ⅰ4ア、Google開発者ドキュメントスタイルガイド Dates and times","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-029-04","rule_id":"NOT-029","violation":"次の定例会は2026年05月07日に開く。","fixed":"次の定例会は2026年5月7日に開く。","basis":"やさしい日本語ガイドライン 第2章 ステップ2","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-029-05","rule_id":"NOT-029","violation":"応募は2026.10.23に締め切った。","fixed":"応募は2026年10月23日に締め切った。","basis":"やさしい日本語ガイドライン 第2章 ステップ2、Google開発者ドキュメントスタイルガイド Dates and times","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-033-01","rule_id":"NOT-033","violation":"バックアップはbackup-2026-3-5.tar.gzに書き出される。","fixed":"バックアップはbackup-2026-03-05.tar.gzに書き出される。","basis":"GIF DS-441 1.1・8.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-033-02","rule_id":"NOT-033","violation":"| 日付 | 件数 |\n| --- | --- |\n| 2026-4-1 | 12 |\n| 2026-4-2 | 9 |","fixed":"| 日付 | 件数 |\n| --- | --- |\n| 2026-04-01 | 12 |\n| 2026-04-02 | 9 |","basis":"GIF DS-441 1.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-033-03","rule_id":"NOT-033","violation":"ログには、障害の時刻が2026-10-23T9:05+09:00と記録されていた。","fixed":"ログには、障害の時刻が2026-10-23T09:05+09:00と記録されていた。","basis":"GIF DS-441 2・3","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-033-04","rule_id":"NOT-033","violation":"設定ファイルでは、開始日に2026-10-3と書く。","fixed":"設定ファイルでは、開始日に2026-10-03と書く。","basis":"GIF DS-441 1.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-033-05","rule_id":"NOT-033","violation":"設定ファイルでは、起動の日時に2026-1-9T08:00+09:00と書く。","fixed":"設定ファイルでは、起動の日時に2026-01-09T08:00+09:00と書く。","basis":"GIF DS-441 3・8.1","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-035-01","rule_id":"NOT-035","violation":"来月から利用者登録受付方法を見直す。","fixed":"来月から、利用者の登録を受け付ける方法を見直す。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-035-02","rule_id":"NOT-035","violation":"週次で在庫数量確認作業を行う。","fixed":"毎週、在庫の数量を確かめる。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-035-03","rule_id":"NOT-035","violation":"障害発生時連絡体制を整える。","fixed":"障害が起きたときに連絡する体制を整える。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-035-04","rule_id":"NOT-035","violation":"職員向けに個人情報保護研修を開く。","fixed":"職員向けに、個人情報の扱い方を学ぶ研修を開く。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
+{"id":"NOT-035-05","rule_id":"NOT-035","violation":"新しい端末の初期設定手順書を配る。","fixed":"新しい端末を初めて設定するための手順書を配る。","basis":"textlint：max-kanji-continuous-len","author":"claude-opus-5-5","reviewed_by":"claude-opus-5-5"}
