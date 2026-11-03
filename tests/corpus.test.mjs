@@ -63,6 +63,8 @@ test("corpus: 違反した文で期待したルールIDが出て、直した文�
   }
   assert.ok(code === 0 || code === 1, `採点が終了コード ${code} で終わった: ${stderr}`);
   const { misses, falsePositives } = evaluate(pairs, results);
+  const unmapped = [...results].flatMap(([id, r]) => [...r.violation, ...r.fixed].filter((v) => v.rule_id === null).map((v) => `${id} ${v.checker}「${v.excerpt}」`));
+  assert.deepEqual(unmapped, [], `どのルールにも対応しない判定の指摘が出た。ルールに足すか切る（#74）:\n${unmapped.join("\n")}`);
   const known = loadKnown();
 
   const knownMisses = new Set(known.misses.map(key));
@@ -108,6 +110,9 @@ test("corpus: 人が書いた段落の採点結果が、記録した指摘と一
     return;
   }
   assert.ok(code === 0 || code === 1, `採点が終了コード ${code} で終わった: ${stderr}`);
+  // どのルールにも対応しない判定は、ルールに足すか切る（#74）。rule_id のない指摘が出たら、その判定の扱いを決める
+  const unmapped = [...results].flatMap(([id, vs]) => vs.filter((v) => v.rule_id === null).map((v) => `${id} ${v.checker}「${v.excerpt}」`));
+  assert.deepEqual(unmapped, [], `どのルールにも対応しない判定の指摘が出た:\n${unmapped.join("\n")}`);
   const { unrecorded, stale } = compareHuman(items, results);
   const fmt = (x) => `${x.id} ${x.key ?? `${x.checker}\t${x.column}\t${x.excerpt}`}`;
   assert.deepEqual(unrecorded.map(fmt), [], `findings にない指摘が出た。判断して findings に足す:\n${unrecorded.map(fmt).join("\n")}`);
