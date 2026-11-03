@@ -5,11 +5,13 @@
 | ファイル | 内容 |
 | --- | --- |
 | [evaluate.md](evaluate.md) | 書いた文書をAIで評価する手順と、評価結果の形式 |
+| [ai-rules.md](ai-rules.md) | `rules/`から、AI評価の対象になるルールだけを抜き出したもの。`tools/build-ai-rules.mjs`で生成し、手で直さない |
 | [rewrite.md](rewrite.md) | 採点と評価の違反を渡し、文書の該当箇所だけを書き直す手順 |
 
 - 書き直しの指示は、評価と同じプロンプトに含めない。評価は書いた文書を読むだけにし、直すのは`rewrite.md`の手順で行う
 - 書き直しを何回繰り返し、どこで止めるかは`SKILL.md`の「4. 点検してから出す」に書く
 - このディレクトリの文章も[rules/](../rules/README.md)のルールに従う
+- `rules/`のルールを直したら、`node skills/docs-rules/prompts/tools/build-ai-rules.mjs`で`ai-rules.md`を作り直す。古いままだと`tests/rules.test.mjs`が失敗する
 
 ## 評価する観点
 
@@ -17,7 +19,7 @@ AI評価で見る観点と、その正本、`rule_id`の書き方は次のとお
 
 | 観点 | 正本 | `rule_id` |
 | --- | --- | --- |
-| `判定：AI`のルール | `rules/`の各ファイル（[rules/README.md](../rules/README.md)の「ファイルの分け方」の表） | ルールID（例：`FW-003`、`CMP-002`） |
+| `判定：AI`のルール | `rules/`の各ファイル（[rules/README.md](../rules/README.md)の「ファイルの分け方」の表）。評価では、抜き出した[ai-rules.md](ai-rules.md)を読む | ルールID（例：`FW-003`、`CMP-002`） |
 | `判定：機械`のルールのうち、注記に「AI評価で扱う」とある部分 | 同上 | ルールID（例：`GRM-002`） |
 | 文書種別ごとの必須セクションの中身と粒度の目安 | `schemas/<識別名>.md`の「セクションごとの書き方」 | `<識別名>#<見出し名>`（例：`proposal#背景と課題`） |
 | 文書種別ごとの文書全体の制約 | `schemas/<識別名>.md`の「文書全体の制約」 | `<識別名>#文書全体の制約`（例：`journal-paper#文書全体の制約`）。IDの付いたルールはルールID（例：`UI-003`） |

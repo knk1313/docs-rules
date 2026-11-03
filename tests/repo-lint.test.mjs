@@ -35,7 +35,8 @@ function targets() {
   for (const dir of TARGET_DIRS) {
     for (const f of readdirSync(join(ROOT, dir)).filter((f) => f.endsWith(".md")).sort()) files.push(`${dir}/${f}`);
   }
-  return files;
+  // prompts/ai-rules.md は rules/ から抜き出して生成したもので、rules/ と同じ文を採点することになるため外す
+  return files.filter((f) => f !== "skills/docs-rules/prompts/ai-rules.md");
 }
 
 /** 手元では飛ばし、CI（環境変数 CI がある）では失敗にする。CI で採点のテストが黙って飛ぶと、採点が壊れても気づけないため。 */
