@@ -370,6 +370,8 @@ function toViolation(message, source, lines, ruleIndex) {
   } else {
     const ids = ruleIndex.checkers.get(checker);
     ruleId = ids ? ids[0] : null;
+    // ja-no-redundant-expressionはFW-001とFW-002の両方に当たる。「〜を行う」の辞書の指摘は、FW-002として返す
+    if (name === "ja-no-redundant-expression" && /行う"は冗長/.test(message.message) && ids?.includes("FW-002")) ruleId = "FW-002";
   }
   let excerpt;
   let fix;
