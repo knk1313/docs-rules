@@ -2,6 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { linesOutsideCode, section, tableRows, splitOutsideParens, linkTarget } from "./lib/markdown.mjs";
@@ -142,6 +143,7 @@ test("rules: 出典の資料名が、README.mdの略称の表にある", () => {
 // 機械判定のルールのうち、AI評価に回す部分を示す注記の言い回し（rules/README.md の「機械で判定できない部分をAI評価に回す」）
 const AI_PHRASE = "AI評価で扱う";
 const EVALUATE = join(ROOT, "skills/docs-rules/prompts/evaluate.md");
+const AI_RULES = join(ROOT, "skills/docs-rules/prompts/ai-rules.md");
 
 test("rules: 注記でAI評価に触れるときは「AI評価で扱う」の言い回しを使う", () => {
   for (const { file } of ruleFiles()) {
@@ -173,17 +175,24 @@ test("rules: 判定：機械のルールで機械が判定しない部分は、�
 
 test("rules: 「AI評価で扱う」の注記があるルールと、判定：AIのルールが、評価の手順の対象に入る", () => {
   const evaluate = readFileSync(EVALUATE, "utf8");
-  // evaluate.md は rules/README.md の表にあるファイルをすべて読み、判定：AI と注記の言い回しで対象を決める
-  assert.ok(evaluate.includes("ファイルの分け方"), "prompts/evaluate.md が rules/README.md の「ファイルの分け方」の表を読む手順になっていない");
+  // evaluate.md は、rules/ から抜き出した ai-rules.md を読み、判定：AI と注記の言い回しで対象を決める
+  assert.ok(evaluate.includes("ai-rules.md"), "prompts/evaluate.md が ai-rules.md を読む手順になっていない");
   assert.ok(evaluate.includes("`判定：AI`"), "prompts/evaluate.md が判定：AIのルールを対象にしていない");
   assert.ok(evaluate.includes(AI_PHRASE), `prompts/evaluate.md が注記の「${AI_PHRASE}」を対象にしていない`);
+  const aiRules = readFileSync(AI_RULES, "utf8");
   const delegated = [];
   for (const { file } of ruleFiles()) {
     for (const rule of readRules(file)) {
       const judge = rule.items.find((i) => i.name === "判定")?.value ?? "";
-      if (judge.startsWith("機械") && rule.notes.some((n) => n.includes(AI_PHRASE))) delegated.push(rule.id);
+      const toAi = judge === "AI" || (judge.startsWith("機械") && rule.notes.some((n) => n.includes(AI_PHRASE)));
+      if (judge.startsWith("機械") && toAi) delegated.push(rule.id);
+      // AI評価の対象のルールは、ai-rules.md に載っている
+      if (toAi) assert.ok(aiRules.includes(`### ${rule.id} `), `${file} の ${rule.id} が prompts/ai-rules.md にない`);
     }
   }
+  // ai-rules.md は rules/ から生成する。ルールを直して作り直していないと失敗する
+  const r = spawnSync(process.execPath, [join(ROOT, "skills/docs-rules/prompts/tools/build-ai-rules.mjs"), "--check"], { encoding: "utf8" });
+  assert.equal(r.status, 0, r.stderr);
   // GRM-001（文末の混在）とGRM-002（論点の数）は、機械で判定できない部分をAI評価に回している
   for (const id of ["GRM-001", "GRM-002"]) {
     assert.ok(delegated.includes(id), `${id} の注記に「${AI_PHRASE}」がない`);
