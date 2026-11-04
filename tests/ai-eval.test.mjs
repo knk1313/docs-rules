@@ -4,8 +4,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { ROOT } from "./lib/corpus.mjs";
-import { docName, judge, loadAiPairs, loadResults, summarizeAi } from "./lib/ai-eval.mjs";
+import { ROOT, loadHuman } from "./lib/corpus.mjs";
+import { docName, judge, loadAiPairs, loadHumanResults, loadResults, summarizeAi } from "./lib/ai-eval.mjs";
 
 const RULES_DIR = join(ROOT, "skills/docs-rules/rules");
 const FIELDS = ["id", "rule_id", "violation", "fixed", "basis", "author", "reviewed_by"];
@@ -50,4 +50,16 @@ test("ai-eval: 結果のファイルが、モデルと回を持ち、対の文�
   }
   // 集計が例外なく動くこと
   summarizeAi(judge(loadAiPairs(), loadResults()));
+});
+
+test("ai-eval: 人が書いた文書の結果が、モデルと回を持ち、コーパスの段落だけを含む", () => {
+  const ids = new Set(loadHuman().map((item) => item.id));
+  for (const result of loadHumanResults()) {
+    assert.equal(typeof result.model, "string", `${result.result_file} に model がない`);
+    assert.ok(Number.isInteger(result.run) && result.run >= 1, `${result.result_file} の run が1以上の整数でない`);
+    for (const [id, findings] of Object.entries(result.documents)) {
+      assert.ok(ids.has(id), `${result.result_file} の ${id} は、tests/corpus/human/ の段落にない`);
+      for (const f of findings) assert.ok(typeof f.rule_id === "string" && typeof f.excerpt === "string", `${result.result_file} の ${id} の指摘の形が違う`);
+    }
+  }
 });
