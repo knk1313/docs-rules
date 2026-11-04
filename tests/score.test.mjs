@@ -74,6 +74,33 @@ test("score: 電話番号や郵便番号を、数量として直す候補にし�
   assert.deepEqual(numbers, []);
 });
 
+test("score: 入力の書式の例として書いた数を、NOT-012とNOT-013で指摘しない（#89）", (t) => {
+  const text = "# 入力\n\n申請額を1200000のように入力する。例：1,200,000\n\n金額は「1200000」と書く。予算は1200000円である。\n";
+  const r = score("format-example.md", text);
+  if (skipWithoutPackages(t, r)) return;
+  const numbers = r.result.violations.filter((v) => v.rule_id === "NOT-012" || v.rule_id === "NOT-013").map((v) => [v.line, v.excerpt]);
+  // 例ではない「予算は1200000円」だけが残る
+  assert.deepEqual(numbers, [[5, "1200000"]]);
+});
+
+test("score: 書式の例として示したメールアドレスを、MKD-010で指摘しない（#90）", (t) => {
+  const text = [
+    "# 文言",
+    "",
+    "| 要素 | 文言 |",
+    "| --- | --- |",
+    "| エラー | メールアドレスを「name@example.jp」のように入力してください |",
+    "",
+    "問い合わせは、support@example.com と taro@foo.co.jp に送ってください。",
+    "",
+  ].join("\n");
+  const r = score("email-example.md", text);
+  if (skipWithoutPackages(t, r)) return;
+  const links = r.result.violations.filter((v) => v.rule_id === "MKD-010").map((v) => v.excerpt.split(" ")[0]);
+  // 例示用のドメインでも、かぎ括弧の中でもない「taro@foo.co.jp」だけが残る
+  assert.deepEqual(links, ["taro@foo.co.jp"]);
+});
+
 test("score: 複数の判定手段が同じ箇所を指摘したときは、1件にまとめる", (t) => {
   // 文末の「．」は、ja-no-mixed-period と docs-rules/not-002 の両方が指摘する
   const r = score("duplicate.md", "# 設定の手順\n\n設定を変更する．\n");

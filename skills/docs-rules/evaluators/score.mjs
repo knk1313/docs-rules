@@ -444,6 +444,7 @@ function runMarkdownlint(docs, packagesDir, ruleIndex) {
       const ruleId = ids ? ids[0] : null;
       const rule = ruleId ? ruleIndex.rules.get(ruleId) : null;
       const text = lineText(doc.lines, Number(lineNo));
+      if (md === "MD034" && column && isExampleEmail(text, Number(column) - 1)) continue;
       doc.violations.push({
         rule_id: ruleId,
         line: Number(lineNo),
@@ -455,6 +456,22 @@ function runMarkdownlint(docs, packagesDir, ruleIndex) {
       });
     }
   }
+}
+
+// 例示用に予約されたドメイン（RFC 2606、RFC 6761と、JPRSの予約）
+const EXAMPLE_DOMAIN = /(?:^|\.)(?:example\.(?:com|net|org|jp)|[^.]+\.example)$/i;
+
+/**
+ * MD034（URLの直書き）の指摘のうち、書式の例として示したメールアドレスを見分ける（#90）。
+ * かぎ括弧の中にあるものと、例示用のドメインのものは、リンクにする文字列ではないため MKD-010 の違反にしない。
+ * 文言表（ui-text）の「文言」の列は画面に出す文字列をそのまま書くため、記法で囲めない。
+ */
+function isExampleEmail(text, index) {
+  const m = text.slice(index).match(/^[^\s「」『』<>()（）]+@([^\s「」『』<>()（）]+?)(?=[\s「」『』<>()（）]|$)/);
+  if (!m) return false;
+  const before = text.slice(0, index);
+  const inQuote = before.lastIndexOf("「") > before.lastIndexOf("」");
+  return inQuote || EXAMPLE_DOMAIN.test(m[1]);
 }
 
 /**
