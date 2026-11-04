@@ -96,6 +96,8 @@
 - 判定：機械（markdownlint：MD034、MD042、MD059、textlint：docs-rules/mkd-010）
 - 例：「手順は`[こちら](https://example.com/guide)`」→「手順は`[設定ガイド](https://example.com/guide)`」
 
+> markdownlint：MD034は、URLとメールアドレスの直書きを指摘する。入力の書式の例として示したメールアドレス（`「name@example.jp」`のようにかぎ括弧で囲んだもの、`example.com`のような例示用のドメインのもの）は、リンクにする文字列ではないため、`evaluators/score.mjs`が指摘から外す（#90）。
+>
 > markdownlint：MD059が判定するのは、空の文言と英語の決まり文句（here、link、more）だけである。「こちら」「ここ」「リンク」のような日本語の語は、textlint：docs-rules/mkd-010で判定する（#21）。prh辞書は本文のすべての語に当たり、リンクの文言だけに絞れないため、リンクの文言だけを見る自前のルールにした。
 
 ### MKD-011 画像には代替テキストを付ける

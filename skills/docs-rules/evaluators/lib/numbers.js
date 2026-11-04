@@ -34,7 +34,23 @@ function isExcludedNumber(text, start, end) {
   // 数量は0で始めないため、0で始まる2桁以上の数は番号とみなす
   if (/^0[0-9]/.test(text.slice(start, end))) return true;
   if (IDENTIFIER_PREFIX.test(text.slice(Math.max(0, start - 8), start))) return true;
+  if (isFormatExample(text, start, end)) return true;
   return false;
+}
+
+// 書式の例であることを示す語。数の直後の「のように」「の形」「と入力」と、数の直前の「例：」「例えば」（#89）
+const EXAMPLE_AFTER = /^(?:のように|の形|と入力|などと入力)/;
+const EXAMPLE_BEFORE = /(?:例[：:]|例えば[、]?)\s*$/;
+
+/**
+ * 入力の書式の例として書いた数かを判定する（「申請額を1200000のように入力する」「例：1,200,000」）。
+ * 画面に入れる書式のまま書く必要があるため、NOT-012・NOT-013 の対象にしない。
+ * かぎ括弧の中だけに数があるとき（「1200000」）も、例として示した文字列とみなす。
+ */
+function isFormatExample(text, start, end) {
+  if (EXAMPLE_AFTER.test(text.slice(end))) return true;
+  if (EXAMPLE_BEFORE.test(text.slice(Math.max(0, start - 6), start))) return true;
+  return text[start - 1] === "「" && text[end] === "」";
 }
 
 module.exports = { NUMBER_PATTERN, isExcludedNumber };
