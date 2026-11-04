@@ -1,0 +1,639 @@
+{
+  "model": "claude-opus-5-5",
+  "date": "2026-11-04",
+  "run": 1,
+  "rule_file": "rest",
+  "documents": {
+    "ACC-001-01.fixed.md": [],
+    "ACC-001-01.violation.md": [
+      "ACC-001"
+    ],
+    "ACC-001-02.fixed.md": [],
+    "ACC-001-02.violation.md": [
+      "ACC-001"
+    ],
+    "ACC-001-03.fixed.md": [],
+    "ACC-001-03.violation.md": [
+      "ACC-001"
+    ],
+    "ACC-002-01.fixed.md": [],
+    "ACC-002-01.violation.md": [
+      "ACC-002"
+    ],
+    "ACC-002-02.fixed.md": [],
+    "ACC-002-02.violation.md": [
+      "ACC-002"
+    ],
+    "ACC-002-03.fixed.md": [],
+    "ACC-002-03.violation.md": [
+      "ACC-002"
+    ],
+    "ACC-003-01.fixed.md": [],
+    "ACC-003-01.violation.md": [
+      "ACC-003"
+    ],
+    "ACC-003-02.fixed.md": [],
+    "ACC-003-02.violation.md": [
+      "ACC-003"
+    ],
+    "ACC-003-03.fixed.md": [],
+    "ACC-003-03.violation.md": [
+      "ACC-003"
+    ],
+    "ACC-004-01.fixed.md": [],
+    "ACC-004-01.violation.md": [
+      "ACC-004"
+    ],
+    "ACC-004-02.fixed.md": [],
+    "ACC-004-02.violation.md": [
+      "ACC-004"
+    ],
+    "ACC-004-03.fixed.md": [],
+    "ACC-004-03.violation.md": [
+      "ACC-004"
+    ],
+    "CMP-001-01.fixed.md": [],
+    "CMP-001-01.violation.md": [
+      "CMP-001"
+    ],
+    "CMP-001-02.fixed.md": [],
+    "CMP-001-02.violation.md": [
+      "CMP-001"
+    ],
+    "CMP-001-03.fixed.md": [],
+    "CMP-001-03.violation.md": [
+      "CMP-001"
+    ],
+    "CMP-002-01.fixed.md": [],
+    "CMP-002-01.violation.md": [
+      "CMP-002"
+    ],
+    "CMP-002-02.fixed.md": [],
+    "CMP-002-02.violation.md": [
+      "CMP-002"
+    ],
+    "CMP-002-03.fixed.md": [],
+    "CMP-002-03.violation.md": [
+      "CMP-002"
+    ],
+    "CMP-003-01.fixed.md": [],
+    "CMP-003-01.violation.md": [
+      "CMP-003"
+    ],
+    "CMP-003-02.fixed.md": [],
+    "CMP-003-02.violation.md": [
+      "CMP-003"
+    ],
+    "CMP-003-03.fixed.md": [],
+    "CMP-003-03.violation.md": [
+      "CMP-003"
+    ],
+    "CMP-004-01.fixed.md": [],
+    "CMP-004-01.violation.md": [
+      "CMP-004"
+    ],
+    "CMP-004-02.fixed.md": [],
+    "CMP-004-02.violation.md": [
+      "CMP-004"
+    ],
+    "CMP-004-03.fixed.md": [],
+    "CMP-004-03.violation.md": [
+      "CMP-004"
+    ],
+    "CMP-005-01.fixed.md": [],
+    "CMP-005-01.violation.md": [
+      "CMP-005"
+    ],
+    "CMP-005-02.fixed.md": [],
+    "CMP-005-02.violation.md": [
+      "CMP-005"
+    ],
+    "CMP-005-03.fixed.md": [],
+    "CMP-005-03.violation.md": [
+      "CMP-005"
+    ],
+    "CMP-006-01.fixed.md": [],
+    "CMP-006-01.violation.md": [
+      "CMP-006"
+    ],
+    "CMP-006-02.fixed.md": [],
+    "CMP-006-02.violation.md": [
+      "CMP-006"
+    ],
+    "CMP-006-03.fixed.md": [],
+    "CMP-006-03.violation.md": [
+      "CMP-006"
+    ],
+    "CMP-007-01.fixed.md": [],
+    "CMP-007-01.violation.md": [
+      "CMP-007"
+    ],
+    "CMP-007-02.fixed.md": [],
+    "CMP-007-02.violation.md": [
+      "CMP-007"
+    ],
+    "CMP-007-03.fixed.md": [],
+    "CMP-007-03.violation.md": [
+      "CMP-007"
+    ],
+    "CMP-008-01.fixed.md": [],
+    "CMP-008-01.violation.md": [
+      "CMP-008"
+    ],
+    "CMP-008-02.fixed.md": [],
+    "CMP-008-02.violation.md": [
+      "CMP-008"
+    ],
+    "CMP-008-03.fixed.md": [],
+    "CMP-008-03.violation.md": [
+      "CMP-008"
+    ],
+    "CMP-009-01.fixed.md": [],
+    "CMP-009-01.violation.md": [
+      "CMP-009"
+    ],
+    "CMP-009-02.fixed.md": [],
+    "CMP-009-02.violation.md": [
+      "CMP-009",
+      "NOT-006"
+    ],
+    "CMP-009-03.fixed.md": [],
+    "CMP-009-03.violation.md": [
+      "CMP-009"
+    ],
+    "GRM-001-01.fixed.md": [],
+    "GRM-001-01.violation.md": [
+      "GRM-001"
+    ],
+    "GRM-001-02.fixed.md": [],
+    "GRM-001-02.violation.md": [
+      "GRM-001"
+    ],
+    "GRM-001-03.fixed.md": [],
+    "GRM-001-03.violation.md": [
+      "GRM-001"
+    ],
+    "GRM-002-01.fixed.md": [],
+    "GRM-002-01.violation.md": [
+      "GRM-002"
+    ],
+    "GRM-002-02.fixed.md": [],
+    "GRM-002-02.violation.md": [
+      "GRM-002"
+    ],
+    "GRM-002-03.fixed.md": [],
+    "GRM-002-03.violation.md": [
+      "GRM-002"
+    ],
+    "GRM-003-01.fixed.md": [],
+    "GRM-003-01.violation.md": [
+      "GRM-003"
+    ],
+    "GRM-003-02.fixed.md": [],
+    "GRM-003-02.violation.md": [
+      "GRM-003"
+    ],
+    "GRM-003-03.fixed.md": [],
+    "GRM-003-03.violation.md": [
+      "GRM-003"
+    ],
+    "GRM-005-01.fixed.md": [],
+    "GRM-005-01.violation.md": [
+      "GRM-005"
+    ],
+    "GRM-005-02.fixed.md": [],
+    "GRM-005-02.violation.md": [
+      "GRM-005"
+    ],
+    "GRM-005-03.fixed.md": [],
+    "GRM-005-03.violation.md": [
+      "GRM-005"
+    ],
+    "GRM-007-01.fixed.md": [],
+    "GRM-007-01.violation.md": [
+      "GRM-007"
+    ],
+    "GRM-007-02.fixed.md": [],
+    "GRM-007-02.violation.md": [
+      "GRM-007"
+    ],
+    "GRM-007-03.fixed.md": [],
+    "GRM-007-03.violation.md": [
+      "GRM-007"
+    ],
+    "GRM-008-01.fixed.md": [],
+    "GRM-008-01.violation.md": [
+      "GRM-008"
+    ],
+    "GRM-008-02.fixed.md": [],
+    "GRM-008-02.violation.md": [
+      "GRM-008"
+    ],
+    "GRM-008-03.fixed.md": [],
+    "GRM-008-03.violation.md": [
+      "GRM-008"
+    ],
+    "GRM-009-01.fixed.md": [],
+    "GRM-009-01.violation.md": [
+      "GRM-009"
+    ],
+    "GRM-009-02.fixed.md": [],
+    "GRM-009-02.violation.md": [
+      "GRM-009"
+    ],
+    "GRM-009-03.fixed.md": [],
+    "GRM-009-03.violation.md": [
+      "GRM-009"
+    ],
+    "GRM-010-01.fixed.md": [],
+    "GRM-010-01.violation.md": [
+      "GRM-010"
+    ],
+    "GRM-010-02.fixed.md": [],
+    "GRM-010-02.violation.md": [
+      "GRM-010"
+    ],
+    "GRM-010-03.fixed.md": [],
+    "GRM-010-03.violation.md": [
+      "GRM-010"
+    ],
+    "GRM-011-01.fixed.md": [],
+    "GRM-011-01.violation.md": [
+      "GRM-011"
+    ],
+    "GRM-011-02.fixed.md": [],
+    "GRM-011-02.violation.md": [
+      "GRM-011"
+    ],
+    "GRM-011-03.fixed.md": [],
+    "GRM-011-03.violation.md": [
+      "GRM-011"
+    ],
+    "GRM-012-01.fixed.md": [],
+    "GRM-012-01.violation.md": [
+      "GRM-012"
+    ],
+    "GRM-012-02.fixed.md": [],
+    "GRM-012-02.violation.md": [
+      "GRM-012"
+    ],
+    "GRM-012-03.fixed.md": [],
+    "GRM-012-03.violation.md": [
+      "GRM-012"
+    ],
+    "GRM-013-01.fixed.md": [],
+    "GRM-013-01.violation.md": [
+      "GRM-013"
+    ],
+    "GRM-013-02.fixed.md": [],
+    "GRM-013-02.violation.md": [
+      "GRM-013"
+    ],
+    "GRM-013-03.fixed.md": [],
+    "GRM-013-03.violation.md": [
+      "GRM-013"
+    ],
+    "GRM-014-01.fixed.md": [],
+    "GRM-014-01.violation.md": [
+      "GRM-014"
+    ],
+    "GRM-014-02.fixed.md": [],
+    "GRM-014-02.violation.md": [
+      "GRM-014"
+    ],
+    "GRM-014-03.fixed.md": [],
+    "GRM-014-03.violation.md": [
+      "GRM-014"
+    ],
+    "GRM-015-01.fixed.md": [],
+    "GRM-015-01.violation.md": [
+      "GRM-015"
+    ],
+    "GRM-015-02.fixed.md": [],
+    "GRM-015-02.violation.md": [
+      "GRM-015"
+    ],
+    "GRM-015-03.fixed.md": [],
+    "GRM-015-03.violation.md": [
+      "GRM-015"
+    ],
+    "GRM-016-01.fixed.md": [],
+    "GRM-016-01.violation.md": [
+      "GRM-016"
+    ],
+    "GRM-016-02.fixed.md": [],
+    "GRM-016-02.violation.md": [
+      "GRM-016"
+    ],
+    "GRM-016-03.fixed.md": [],
+    "GRM-016-03.violation.md": [
+      "GRM-016"
+    ],
+    "GRM-017-01.fixed.md": [],
+    "GRM-017-01.violation.md": [
+      "GRM-017"
+    ],
+    "GRM-017-02.fixed.md": [],
+    "GRM-017-02.violation.md": [
+      "GRM-017"
+    ],
+    "GRM-017-03.fixed.md": [],
+    "GRM-017-03.violation.md": [
+      "GRM-017"
+    ],
+    "MKD-005-01.fixed.md": [],
+    "MKD-005-01.violation.md": [
+      "MKD-005"
+    ],
+    "MKD-005-02.fixed.md": [],
+    "MKD-005-02.violation.md": [
+      "MKD-005"
+    ],
+    "MKD-005-03.fixed.md": [],
+    "MKD-005-03.violation.md": [
+      "MKD-005"
+    ],
+    "MKD-005-04.fixed.md": [],
+    "MKD-005-04.violation.md": [
+      "MKD-005"
+    ],
+    "NOT-005-01.fixed.md": [],
+    "NOT-005-01.violation.md": [
+      "NOT-005"
+    ],
+    "NOT-005-02.fixed.md": [],
+    "NOT-005-02.violation.md": [
+      "NOT-005"
+    ],
+    "NOT-005-03.fixed.md": [],
+    "NOT-005-03.violation.md": [
+      "NOT-005"
+    ],
+    "NOT-006-01.fixed.md": [],
+    "NOT-006-01.violation.md": [
+      "NOT-006"
+    ],
+    "NOT-006-02.fixed.md": [],
+    "NOT-006-02.violation.md": [
+      "NOT-006"
+    ],
+    "NOT-006-03.fixed.md": [],
+    "NOT-006-03.violation.md": [
+      "NOT-006"
+    ],
+    "NOT-007-01.fixed.md": [],
+    "NOT-007-01.violation.md": [
+      "NOT-007"
+    ],
+    "NOT-007-02.fixed.md": [],
+    "NOT-007-02.violation.md": [
+      "NOT-007"
+    ],
+    "NOT-007-03.fixed.md": [],
+    "NOT-007-03.violation.md": [
+      "NOT-007"
+    ],
+    "NOT-008-01.fixed.md": [],
+    "NOT-008-01.violation.md": [
+      "NOT-008"
+    ],
+    "NOT-008-02.fixed.md": [],
+    "NOT-008-02.violation.md": [
+      "NOT-008"
+    ],
+    "NOT-008-03.fixed.md": [],
+    "NOT-008-03.violation.md": [
+      "NOT-008"
+    ],
+    "NOT-009-01.fixed.md": [],
+    "NOT-009-01.violation.md": [
+      "NOT-009"
+    ],
+    "NOT-009-02.fixed.md": [],
+    "NOT-009-02.violation.md": [
+      "NOT-009"
+    ],
+    "NOT-009-03.fixed.md": [],
+    "NOT-009-03.violation.md": [
+      "NOT-009"
+    ],
+    "NOT-010-01.fixed.md": [],
+    "NOT-010-01.violation.md": [
+      "NOT-010"
+    ],
+    "NOT-010-02.fixed.md": [],
+    "NOT-010-02.violation.md": [
+      "NOT-010"
+    ],
+    "NOT-010-03.fixed.md": [],
+    "NOT-010-03.violation.md": [
+      "NOT-010"
+    ],
+    "NOT-011-01.fixed.md": [],
+    "NOT-011-01.violation.md": [
+      "NOT-011"
+    ],
+    "NOT-011-02.fixed.md": [],
+    "NOT-011-02.violation.md": [
+      "NOT-011"
+    ],
+    "NOT-011-03.fixed.md": [],
+    "NOT-011-03.violation.md": [
+      "NOT-011"
+    ],
+    "NOT-012-01.fixed.md": [],
+    "NOT-012-01.violation.md": [
+      "NOT-012"
+    ],
+    "NOT-012-02.fixed.md": [],
+    "NOT-012-02.violation.md": [
+      "NOT-012"
+    ],
+    "NOT-012-03.fixed.md": [],
+    "NOT-012-03.violation.md": [
+      "NOT-012"
+    ],
+    "NOT-014-01.fixed.md": [],
+    "NOT-014-01.violation.md": [
+      "NOT-014"
+    ],
+    "NOT-014-02.fixed.md": [],
+    "NOT-014-02.violation.md": [
+      "NOT-014"
+    ],
+    "NOT-014-03.fixed.md": [],
+    "NOT-014-03.violation.md": [
+      "NOT-014"
+    ],
+    "NOT-017-01.fixed.md": [],
+    "NOT-017-01.violation.md": [
+      "NOT-017"
+    ],
+    "NOT-017-02.fixed.md": [],
+    "NOT-017-02.violation.md": [
+      "NOT-017"
+    ],
+    "NOT-017-03.fixed.md": [],
+    "NOT-017-03.violation.md": [
+      "NOT-017"
+    ],
+    "NOT-018-01.fixed.md": [],
+    "NOT-018-01.violation.md": [
+      "NOT-018"
+    ],
+    "NOT-018-02.fixed.md": [],
+    "NOT-018-02.violation.md": [
+      "NOT-018"
+    ],
+    "NOT-018-03.fixed.md": [],
+    "NOT-018-03.violation.md": [
+      "NOT-018"
+    ],
+    "NOT-019-01.fixed.md": [],
+    "NOT-019-01.violation.md": [
+      "NOT-019"
+    ],
+    "NOT-019-02.fixed.md": [],
+    "NOT-019-02.violation.md": [
+      "NOT-019"
+    ],
+    "NOT-019-03.fixed.md": [],
+    "NOT-019-03.violation.md": [
+      "NOT-019"
+    ],
+    "NOT-020-01.fixed.md": [],
+    "NOT-020-01.violation.md": [
+      "NOT-020"
+    ],
+    "NOT-020-02.fixed.md": [],
+    "NOT-020-02.violation.md": [
+      "NOT-020"
+    ],
+    "NOT-020-03.fixed.md": [],
+    "NOT-020-03.violation.md": [
+      "NOT-020"
+    ],
+    "NOT-023-01.fixed.md": [],
+    "NOT-023-01.violation.md": [
+      "NOT-023"
+    ],
+    "NOT-023-02.fixed.md": [],
+    "NOT-023-02.violation.md": [
+      "NOT-023"
+    ],
+    "NOT-023-03.fixed.md": [],
+    "NOT-023-03.violation.md": [
+      "NOT-023"
+    ],
+    "NOT-026-01.fixed.md": [],
+    "NOT-026-01.violation.md": [
+      "NOT-026"
+    ],
+    "NOT-026-02.fixed.md": [],
+    "NOT-026-02.violation.md": [
+      "NOT-026"
+    ],
+    "NOT-026-03.fixed.md": [],
+    "NOT-026-03.violation.md": [
+      "NOT-026"
+    ],
+    "NOT-026-04.fixed.md": [],
+    "NOT-026-04.violation.md": [
+      "NOT-026"
+    ],
+    "NOT-029-01.fixed.md": [],
+    "NOT-029-01.violation.md": [
+      "NOT-029"
+    ],
+    "NOT-029-02.fixed.md": [],
+    "NOT-029-02.violation.md": [
+      "NOT-029"
+    ],
+    "NOT-029-03.fixed.md": [],
+    "NOT-029-03.violation.md": [
+      "NOT-029"
+    ],
+    "NOT-030-01.fixed.md": [],
+    "NOT-030-01.violation.md": [
+      "NOT-030"
+    ],
+    "NOT-030-02.fixed.md": [],
+    "NOT-030-02.violation.md": [
+      "NOT-030"
+    ],
+    "NOT-030-03.fixed.md": [],
+    "NOT-030-03.violation.md": [
+      "NOT-030"
+    ],
+    "NOT-031-01.fixed.md": [],
+    "NOT-031-01.violation.md": [
+      "NOT-031"
+    ],
+    "NOT-031-02.fixed.md": [],
+    "NOT-031-02.violation.md": [
+      "NOT-031"
+    ],
+    "NOT-031-03.fixed.md": [],
+    "NOT-031-03.violation.md": [
+      "NOT-031"
+    ],
+    "NOT-032-01.fixed.md": [],
+    "NOT-032-01.violation.md": [
+      "NOT-032"
+    ],
+    "NOT-032-02.fixed.md": [],
+    "NOT-032-02.violation.md": [
+      "NOT-032"
+    ],
+    "NOT-032-03.fixed.md": [],
+    "NOT-032-03.violation.md": [
+      "NOT-032"
+    ],
+    "NOT-033-01.fixed.md": [],
+    "NOT-033-01.violation.md": [
+      "NOT-033"
+    ],
+    "NOT-033-02.fixed.md": [],
+    "NOT-033-02.violation.md": [
+      "NOT-033"
+    ],
+    "NOT-033-03.fixed.md": [],
+    "NOT-033-03.violation.md": [
+      "NOT-033"
+    ],
+    "NOT-034-01.fixed.md": [],
+    "NOT-034-01.violation.md": [
+      "NOT-034"
+    ],
+    "NOT-034-02.fixed.md": [],
+    "NOT-034-02.violation.md": [
+      "NOT-034"
+    ],
+    "NOT-034-03.fixed.md": [],
+    "NOT-034-03.violation.md": [
+      "NOT-034"
+    ],
+    "NOT-035-01.fixed.md": [],
+    "NOT-035-01.violation.md": [],
+    "NOT-035-02.fixed.md": [],
+    "NOT-035-02.violation.md": [
+      "NOT-035"
+    ],
+    "NOT-035-03.fixed.md": [],
+    "NOT-035-03.violation.md": [
+      "NOT-035"
+    ],
+    "NOT-036-01.fixed.md": [],
+    "NOT-036-01.violation.md": [
+      "NOT-036"
+    ],
+    "NOT-036-02.fixed.md": [],
+    "NOT-036-02.violation.md": [
+      "NOT-036"
+    ],
+    "NOT-036-03.fixed.md": [],
+    "NOT-036-03.violation.md": [
+      "NOT-036"
+    ]
+  }
+}

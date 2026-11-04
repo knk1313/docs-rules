@@ -51,6 +51,40 @@ export function prepare(dir, ruleFile) {
   return names;
 }
 
+export const HUMAN_RESULTS_DIR = join(AI_EVAL_DIR, "human-results");
+
+/**
+ * 人が書いた文書（tests/corpus/human/）の段落を、評価する文書として dir に書き出す。
+ * 出典ごとに、先頭から間を空けて perSource 件ずつ取る。書き出した文書の名前（<段落のid>.md）の一覧を返す。
+ */
+export function prepareHuman(dir, perSource, loadHuman) {
+  mkdirSync(dir, { recursive: true });
+  const bySource = new Map();
+  for (const item of loadHuman()) {
+    if (!bySource.has(item.source_file)) bySource.set(item.source_file, []);
+    bySource.get(item.source_file).push(item);
+  }
+  const names = [];
+  for (const items of bySource.values()) {
+    const step = Math.max(1, Math.floor(items.length / perSource));
+    for (let i = 0; i < items.length && names.filter((n) => n.startsWith(items[0].id.split("-")[0])).length < perSource; i += step) {
+      const name = `${items[i].id}.md`;
+      writeFileSync(join(dir, name), `# 例\n\n${items[i].text}\n`);
+      names.push(name);
+    }
+  }
+  return names;
+}
+
+/** human-results/*.json を読む。人が書いた文書をAIで評価した結果で、正解のラベルは持たない。 */
+export function loadHumanResults() {
+  if (!existsSync(HUMAN_RESULTS_DIR)) return [];
+  return readdirSync(HUMAN_RESULTS_DIR)
+    .filter((f) => f.endsWith(".json"))
+    .sort()
+    .map((file) => ({ ...JSON.parse(readFileSync(join(HUMAN_RESULTS_DIR, file), "utf8")), result_file: file }));
+}
+
 /** results/*.json を読む。各ファイルは1回の評価の結果である。 */
 export function loadResults() {
   if (!existsSync(RESULTS_DIR)) return [];
