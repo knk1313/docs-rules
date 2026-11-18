@@ -1,0 +1,29 @@
+name: PR Closed GIF
+
+on:
+  pull_request_target:
+    types: [closed]
+
+# 既定ではすべての権限を外し、ジョブごとに必要なものだけを付ける
+permissions: {}
+
+jobs:
+  comment-gif:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      # PR へのコメントの作成にだけ使う。リポジトリの内容は取得しない
+      pull-requests: write
+    steps:
+      # pull_request_target は外部の人のPRでも書き込み権限付きで動く。PRのコードは取得しない（checkout を足さない）。
+      # アクションはタグの付け替えで中身が変わらないよう、コミットのSHAで固定する
+      - name: Create comment
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Thank you for your contribution! 🎉\n\n![Spinning cat](https://media.giphy.com/media/1OrIIOIcRTDaNidc5p/200w.gif)'
+            })

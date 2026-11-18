@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # 採点で使うパッケージ（textlint、markdownlint-cli2、各プリセット）。
+  # 版を上げるときは、evaluators/README.md の表と rules/ の「判定」欄を見直す。
+  # markdownlint-cli2の版はdocs-rules.markdownlint-cli2.jsoncのコメントとevaluators/README.mdにも書いてある
+  - package-ecosystem: npm
+    directory: /skills/docs-rules/evaluators
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # CIのプラグインの検証で使うClaude Code。版を上げるときは、検証の警告の内容を見直す。
+  # .github/ の下に置くと、Dependabotが版上げの変更を作れずに失敗したため、ci/ に置く
+  - package-ecosystem: npm
+    directory: /ci/plugin-validate
+    schedule:
+      interval: weekly
+
+  # GitHub Actions のワークフローで使うアクション
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

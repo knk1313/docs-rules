@@ -1,0 +1,9 @@
+{
+  "name": "docs-rules",
+  "description": "日本語の文書を、表記・文体・Markdown記法のルールに沿って書き、機械の検査で確かめるためのスキル",
+  "author": {
+    "name": "Yuta Kondo"
+  },
+  "repository": "https://github.com/knk1313/docs-rules",
+  "license": "MIT"
+}
