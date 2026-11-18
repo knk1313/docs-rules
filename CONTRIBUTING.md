@@ -122,6 +122,6 @@ PRを作成する前に、以下を確認する。
   - `feat`、`fix`、`refactor`、`perf`、`chore`、`docs`、`test`
 - 一つのPRに複数種類の変更を混ぜない（粒度を適切に保つ）
 - 関連するIssueがあれば`Closes #123`のように参照を含める
-- `.github/pull_request_template.md`の全項目を埋める。「人が書く要約」は人が自分の言葉で書く。空欄の項目があるPRと、人が確認した形跡のないPRは、レビューせずに閉じる
+- `.github/pull_request_template.md`の全項目を埋める。空欄の項目があるPRは、レビューせずに閉じる。該当しない項目は「なし」と書く
 - AIエージェントがPRを出すときは、[AGENTS.md](./AGENTS.md)の「外部からの貢献」の条件を満たす
 - 上の「ルールを直したときの確認」を済ませる
