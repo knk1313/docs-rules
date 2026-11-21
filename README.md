@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/knk1313/docs-rules/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/knk1313/docs-rules/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/knk1313/docs-rules)](https://github.com/knk1313/docs-rules/releases)
-[![License: MIT](https://img.shields.io/github/license/knk1313/docs-rules)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/knk1313/docs-rules)](https://github.com/knk1313/docs-rules/stargazers)
 
 日本語の文書を、表記・文体・Markdown記法のルールに沿って書き、機械の検査で確かめるためのClaude Codeスキルです。
@@ -107,13 +106,9 @@ docs-rules/
 │   └── docs-rules-feedback/
 │       ├── SKILL.md        # 改善点の候補をIssueにする手順
 │       └── scripts/        # 改善点の候補をためる（feedback.mjs）
-├── AGENTS.md               # AIエージェント向けの禁止事項と規約
+├── AGENTS.md               # AIエージェント向けの禁止事項と規約、開発の手順
 ├── CLAUDE.md               # Claude Code用の入口（AGENTS.mdを読み込む）
-├── CODE_OF_CONDUCT.md      # 行動規範（Contributor Covenant 2.0 を基にしたもの）
-├── CONTRIBUTING.md         # IssueとPRの出し方
-├── LICENSE
-├── README.md
-└── SECURITY.md             # 脆弱性の報告先と対応の方針
+└── README.md
 ```
 
 ## バージョン管理
@@ -127,13 +122,11 @@ docs-rules/
 | Z（パッチ） | 誤字や説明の修正、誤検出や見逃しの直し |
 
 - `1.0.0`までは`0.Y.Z`で、マイナーの変更にもルールIDの削除や意味の変更を含めることがあります
-- 変更点は[Releases](https://github.com/knk1313/docs-rules/releases)に書きます。リリースの手順は[CONTRIBUTING.md](CONTRIBUTING.md)の「リリース」を参照してください
+- 変更点は[Releases](https://github.com/knk1313/docs-rules/releases)に書きます。リリースの手順は[AGENTS.md](AGENTS.md)の「リリース」を参照してください
 
 ## 利用条件
 
-本リポジトリはMITライセンスで公開しています。全文は[LICENSE](LICENSE)を参照してください。
-
-ただし、`skills/docs-rules/rules/`の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
+`skills/docs-rules/rules/`の一部は、次の資料を基に編集・加工したものです。各ルールの「出典」欄に、資料名と該当箇所を書いています。
 
 | 資料 | 資料の利用条件 | 本リポジトリでの扱い |
 | --- | --- | --- |

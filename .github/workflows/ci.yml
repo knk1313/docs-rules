@@ -27,6 +27,6 @@ jobs:
       - name: 検証で使うClaude Codeを入れる
         run: npm ci --no-audit --no-fund
         working-directory: ci/plugin-validate
-      # 警告はエラーにしない（CONTRIBUTING.mdの「プラグイン配布の検証」）。版を上げるときは警告の内容を見直す
+      # 警告はエラーにしない（AGENTS.mdの「プラグイン配布の検証」）。版を上げるときは警告の内容を見直す
       - name: プラグインのマニフェストの検証
         run: ci/plugin-validate/node_modules/.bin/claude plugin validate .
